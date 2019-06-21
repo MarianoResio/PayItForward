@@ -1,0 +1,71 @@
+﻿@using PayItForward.Models
+
+@{
+    ViewBag.Title = "VerPublicaciones";
+}
+
+<h2>VerPublicaciones</h2>
+
+<head>
+    <script>
+
+        function Eliminar(id) {
+            var retVal = confirm("Se eliminará la publicación seleccionada");
+            if (retVal == true) {
+                $.ajax({
+                    url: '@Url.Action("BMPublicacion", "BMPublicaciones")',
+                    type: "post",
+                    dataType: "html",
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify({ Accion: "Eliminar", Id: id }), //add parameter
+                    success: function (data) {
+                        //success
+                        location.reload();
+                    },
+                    error: function () {
+                        alert("Ha ocurrido un error");
+                    }
+                });
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <a href="@Url.Action("Index", "Crear_Publicacion")" style="color:white">Crear una nueva publicación</a>
+    <table align="center" bordercolor="Black" width="350px">
+        <tr style="background-color:#222222">
+            <td><center><h2><b>Tituló</b></h2></center></td>
+            <td><center><h2><b>Descripción</b></h2></center></td>
+            <td><center><h2><b>Valor</b></h2></center></td>
+            <td><center><h2><b>Aprobada</b></h2></center></td>
+        </tr>
+        @foreach (Publicacion X in ViewBag.Lista)
+        {
+
+            <tr>
+                <td>
+                    <h3><b>@X.Titulo</b></h3>
+                </td>
+                <td>
+                    <h3><b>@X.Descripcion</b></h3>
+                </td>
+                <td>
+                    <h3><b>@X.Valor</b></h3>
+                </td>
+                <td>
+                    <h3><b>@X.Aprobada</b></h3>
+                </td>
+                <td>
+                    <h3> @Html.ActionLink("Editar", "BMPublicacion", "BMPublicaciones", new { Accion = "Modificar", Id = X.IdPublicacion }, null)</h3>
+                </td>
+                <td>
+                    <h3> <a onclick="Eliminar(@X.IdPublicacion);">Eliminar</a></h3>
+                </td>
+                <td>
+                    <h3> @Html.ActionLink("Ver", "BMPublicacion", "BMPublicaciones", new { Accion = "Ver", Id = X.IdPublicacion }, null)</h3>
+                </td>
+            </tr>
+        }
+    </table>
+</body>

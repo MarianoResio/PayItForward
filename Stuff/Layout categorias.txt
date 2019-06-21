@@ -1,0 +1,1 @@
+= @RenderPage("Views/Shared/Layout_crear_publicacion.cshtml")

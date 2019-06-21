@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "VistaPrevia";
+}
+
+<h2>VistaPrevia</h2>
+
+Titulo: @ViewBag.Publicacion.Titulo <br />
+IdCategoria: @ViewBag.Publicacion.IdCategoria <br />
+IdUsuario: @ViewBag.Publicacion.IdUsuario <br />
+Aprobada: @ViewBag.Publicacion.Aprobada <br />
+Valor: @ViewBag.Publicacion.Valor <br />
+Desc: @ViewBag.Publicacion.Descripcion <br />
+Likes: @ViewBag.Publicacion.Likes <br />
+Ubicacion: @ViewBag.Publicacion.Ubicacion <br />
+
+<a href="@Url.Action("VerPublicaciones", "BMPublicaciones")">Ver Publicaciones</a>

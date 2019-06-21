@@ -1,31 +1,143 @@
-﻿@{
+﻿@using PayItForward.Models
+
+@{
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+        .mySlides {
+            display: none;
+        }
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        .w3-left, .w3-right, .w3-badge {
+            cursor: pointer;
+        }
+
+        .w3-badge {
+            height: 13px;
+            width: 13px;
+            padding: 0;
+        }
+
+        .textWithBlurredBg img {
+            width: 75%;
+            max-width: 1000px;
+            border-radius: 4px;
+            transition: .3s;
+        }
+
+        .textWithBlurredBg:hover img {
+            filter: blur(2px) brightness(60%);
+        }
+
+        .contenedorImagenes {
+            margin-top: 25px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contenedorTexto {
+            position: absolute;
+            z-index: 1;
+            color: #fff;
+            text-align: center;
+            width: 100%;
+            opacity: 0;
+            transition: .3s;
+        }
+
+        .textWithBlurredBg :hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Slider -->
+    <div class="w3-content w3-display-container" style="display:block;max-width:100%;padding-top:50px">
+        @foreach (Banners X in ViewBag.Banners)
+        {
+            <img class="mySlides img-fluid" src="~/Content/SliderHome/@X.Imagen" style="width:100%;height:200px">
+            <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:100%">
+                @*<span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(@ViewBag.Contador)"></span>*@
+            </div>
+            ViewBag.Contador = ViewBag.Contador + 1;
+        }
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+
+    <script>
+        var slideIndex = 1;
+        showDivs(slideIndex);
+
+        @*function currentDiv(n) {
+            showDivs(slideIndex = n);
+        }*@
+
+        function showDivs(n) {
+            var i;
+            var x = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("demo");
+            if (n > x.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = x.length }
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" w3-white", "");
+            }
+            x[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " w3-white";
+        }
+        var myIndex = 0;
+        carousel();
+
+        function carousel() {
+            var i;
+            var x = document.getElementsByClassName("mySlides");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            myIndex++;
+            if (myIndex > x.length) { myIndex = 1 }
+            x[myIndex - 1].style.display = "block";
+            setTimeout(carousel, 10000); // Change image every 10 seconds
+            if (slideIndex == 1) { currentDiv(2) }
+            else { currentDiv(1) }
+        }
+    </script>
+
+    <!-- Banners -->
+    <div style="position:relative;text-align:center">
+        <div class="contenedorImagenes">
+            <a href="#" class="textWithBlurredBg">
+                <img class="img-fluid" src="~/Content/BannersHome/infoUtil.png">
+                <div class="contenedorTexto">
+                    <h2>Informacion</h2>
+                    <h3>Hace click aca para informarte</h3>
+                </div>
+            </a>
+        </div>
+        <div class="contenedorImagenes">
+            <a href="@Url.Action("Index","Crear_Publicacion")" class="textWithBlurredBg">
+                <img class="img-fluid" src="~/Content/BannersHome/CrearPublicacion.png">
+                <div class="contenedorTexto">
+                    <h2>Crear publicacion</h2>
+                    <h3>Hacé click acá para contribuir</h3>
+                </div>
+            </a>
+        </div>
+        <div class="contenedorImagenes">
+            <a href="#" class="textWithBlurredBg">
+                <img class="img-fluid" src="~/Content/BannersHome/VerPublicaciones.png">
+                <div class="contenedorTexto">
+                    <h2>Ver publicaciones</h2>
+                    <h3>Hacé click acá para ver las publicaciones de otros usuarios</h3>
+                </div>
+            </a>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+</body>

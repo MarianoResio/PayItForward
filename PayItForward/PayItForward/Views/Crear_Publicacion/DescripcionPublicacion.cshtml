@@ -1,0 +1,16 @@
+﻿@using PayItForward.Models
+@model Publicacion
+@{
+    ViewBag.Title = "DescripcionPublicacion";
+}
+
+<h2>DescripcionPublicacion</h2>
+
+<!--MOSTRAR RECORRIDO DE CATEGORIAS-->
+<form method="post" action="@Url.Action("MostrarPublicacion", "Crear_Publicacion")">
+    Valor @Html.TextBoxFor(x => x.Valor) <br />
+    Titulo @Html.TextBoxFor(x => x.Titulo) <br />
+    Descripcion @Html.TextBoxFor(x => x.Descripcion) <br />
+    Ubicacion @Html.TextBoxFor(x => x.Ubicacion) <br />
+    <Button type="submit"> Aceptar</Button>
+</form>

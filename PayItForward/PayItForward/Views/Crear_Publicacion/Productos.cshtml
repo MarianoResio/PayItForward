@@ -1,0 +1,43 @@
+﻿@using PayItForward.Models;
+
+@{
+    ViewBag.Title = "Productos";
+}
+
+<head>
+    <!--HACER jquery para Final();-->
+    <script>
+        function Final(cat) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("FinalProductos", "Crear_Publicaciones")',
+                contentType: "application/json; charset=utf-8",
+                data: { a: cat },
+                dataType: "json",
+                success: function() { alert('Success'); },
+                error: errorFunc
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <!--DIV CENTRADO-->
+    <div>
+        <!--LISTA: subcategoria 1-->
+        <form action="@Url.Action("DescripcionPublicacion", "Crear_Publicacion")">
+            <div>
+                <select name="IdCategoria">
+                    @foreach (Categorias X in ViewBag.CategoriasHijas_SubCat1)
+                    {
+                        <option value="@X.IdCategoria" onclick="Final(@X.IdCategoria);">
+                            @X.Nombre
+                        </option>
+                    }
+                </select>
+            </div>
+
+            <input type="submit" value="fin" />
+        </form>
+    </div>
+</body>

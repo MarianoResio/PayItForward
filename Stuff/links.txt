@@ -1,0 +1,8 @@
+menu: https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_templates_architect&stacked=h
+profile: https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_templates_social&stacked=h
+iconos: https://iconos8.es
+botones:
+	https://codepen.io/Emanuel_G/pen/YVJOZo
+	https://codepen.io/Gingernaut/pen/qOgMLy
+	https://codepen.io/perry_nt/pen/eVboze
+	https://codepen.io/giana/pen/BZaGyP
