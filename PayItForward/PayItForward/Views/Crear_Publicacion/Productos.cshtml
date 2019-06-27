@@ -9,14 +9,19 @@
     <script>
         function Final(cat) {
             $.ajax({
-                type: "POST",
-                url: '@Url.Action("FinalProductos", "Crear_Publicaciones")',
-                contentType: "application/json; charset=utf-8",
-                data: { a: cat },
-                dataType: "json",
-                success: function() { alert('Success'); },
-                error: errorFunc
-            });
+                    url: '@Url.Action("TraerHijas", "Crear_Publicacion")',
+                    type: "post",
+                    dataType: "html",
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify({ Id: cat }), //add parameter
+                    success: function (data) {
+                        //success
+                        //var objeto = JSON.parse(resultado);
+                    },
+                    error: function () {
+                        alert("Ha ocurrido un error");
+                    }
+                });
         }
     </script>
 </head>
@@ -28,7 +33,7 @@
         <form action="@Url.Action("DescripcionPublicacion", "Crear_Publicacion")">
             <div>
                 <select name="IdCategoria">
-                    @foreach (Categorias X in ViewBag.CategoriasHijas_SubCat1)
+                    @foreach (Categorias X in ViewBag.CategoriasHijas)
                     {
                         <option value="@X.IdCategoria" onclick="Final(@X.IdCategoria);">
                             @X.Nombre

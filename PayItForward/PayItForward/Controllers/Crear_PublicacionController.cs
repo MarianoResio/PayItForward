@@ -26,9 +26,9 @@ namespace PayItForward.Controllers
             int CategoriaPadre = 1;
             List<Categorias> ListaHijas = new List<Categorias>();
             ListaHijas = miConexion.TraerCategoriasHijas(CategoriaPadre);
-            ViewBag.CategoriasHijas_SubCat1 = ListaHijas;
+            ViewBag.CategoriasHijas = ListaHijas;
 
-            return View();
+            return View("CategoriasHijas");
         }
 
         public ActionResult Servicios()
@@ -36,9 +36,18 @@ namespace PayItForward.Controllers
             int CategoriaPadre = 2;
             List<Categorias> ListaHijas = new List<Categorias>();
             ListaHijas = miConexion.TraerCategoriasHijas(CategoriaPadre);
-            ViewBag.CategoriasHijas_SubCat1 = ListaHijas;
+            ViewBag.CategoriasHijas = ListaHijas;
 
-            return View();
+            return View("CategoriasHijas");
+        }
+
+        //HACER JSON LA LISTA CON LAS CATEGORIAS HIJAS Y EN LA VIEW PRODUCTOS QUE SE MUESTRE DESDE AJAX
+        public List<Categorias> TraerHijas(int idPadre)
+        {
+            List<Categorias> ListaHijas = new List<Categorias>();
+            ListaHijas = miConexion.TraerCategoriasHijas(idPadre);
+
+            return ListaHijas;
         }
 
         public ActionResult DescripcionPublicacion(int IdCategoria)
