@@ -13,10 +13,10 @@ namespace PayItForward.Models
         public SqlConnection Conectar()
         {
             //ORT
-            //string SC = "Server=.;Database=PayItForward;Trusted_Connection=True;";
+            string SC = "Server=.;Database=PayItForward;Trusted_Connection=True;";
 
             //Marian
-            string SC = "Server=LAPTOP-BT997U35\\SQLEXPRESS;Database=PayItForward;Trusted_Connection=True;";
+            //string SC = "Server=LAPTOP-BT997U35\\SQLEXPRESS;Database=PayItForward;Trusted_Connection=True;";
             SqlConnection Conexion = new SqlConnection(SC);
             Conexion.Open();
             return Conexion;
@@ -214,7 +214,7 @@ namespace PayItForward.Models
             return X;
         }
 
-        public void EliminarPublicacion (int IdPublicacion)
+        public void EliminarPublicacion(int IdPublicacion)
         {
             SqlConnection Conexion = Conectar();
             SqlCommand Comando = Conexion.CreateCommand();
@@ -224,5 +224,66 @@ namespace PayItForward.Models
             Comando.Parameters.AddWithValue("@pId", IdPublicacion);
             Comando.ExecuteNonQuery();
         }
+
+        public Categorias TraerCategoriaPorID(int ID)
+        {
+            Categorias X = new Categorias();
+
+            SqlConnection Conexion = Conectar();
+            SqlCommand Comando = Conexion.CreateCommand();
+
+            Comando.CommandText = "sp_TraerCategoriaPorID";
+            Comando.CommandType = System.Data.CommandType.StoredProcedure;
+            Comando.Parameters.AddWithValue("@pID", ID);
+            SqlDataReader DataReader = Comando.ExecuteReader();
+
+            if (DataReader.Read())
+            {
+                X.IdCategoria = ID;
+                X.IdCategoriaPadre = Convert.ToInt32(DataReader["IdCategoriaPadre"]);
+                X.Imagen = DataReader["Imagen"].ToString();
+                X.Nombre = DataReader["Nombre"].ToString();
+            }
+
+            return X;
+        }
+
+        public List<Categorias> TraerCategoriaPadreDesdeCategoriaHija(int IDHija, int IdUsuario)
+          {
+              List<Categorias> X = new List<Categorias>();
+
+            Categorias cat = TraerCategoriaPorID(IDHija);
+            while (cat.IdCategoriaPadre != -1)
+            {
+                X.Add(cat);
+                cat = TraerCategoriaPorID(cat.IdCategoriaPadre);
+            }
+            X.Add(cat);
+            return X;
+          }
+
+       /* public Categorias TraerCategoriaPadreDesdeCategoriaHija(int IDHija, int IdUsuario)
+        {
+            SqlConnection Conexion = Conectar();
+            SqlCommand Comando = Conexion.CreateCommand();
+
+
+            Categorias c = new Categorias();
+            Comando.CommandText = "sp_TraerCategoriaPadreDesdeCategoriaHija";
+            Comando.CommandType = System.Data.CommandType.StoredProcedure;
+            Comando.Parameters.AddWithValue("@pIdHija", IDHija);
+            Comando.Parameters.AddWithValue("@pID", IdUsuario);
+            SqlDataReader DataReader = Comando.ExecuteReader();
+
+            if (DataReader.Read())
+            {
+                c.IdCategoria = Convert.ToInt32(DataReader["IdCategoria"]);
+                c.IdCategoriaPadre = Convert.ToInt32(DataReader["IdCategoriaPadre"]);
+                c.Imagen = DataReader["Imagen"].ToString();
+                c.Nombre = DataReader["Nombre"].ToString();
+            }
+
+            return c;
+        }*/
     }
 }

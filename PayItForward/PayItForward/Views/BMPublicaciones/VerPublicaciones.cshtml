@@ -4,11 +4,16 @@
     ViewBag.Title = "VerPublicaciones";
 }
 
-<h2>VerPublicaciones</h2>
-
 <head>
-    <script>
+    <link rel="stylesheet" type="text/css" href="~/Content/Tables_style/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Tables_style/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Tables_style/vendor/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Tables_style/vendor/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Tables_style/vendor/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Tables_style/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Tables_style/css/main.css">
 
+    <script>
         function Eliminar(id) {
             var retVal = confirm("Se eliminará la publicación seleccionada");
             if (retVal == true) {
@@ -29,43 +34,91 @@
             }
         }
     </script>
+
+    <style>
+        a {
+            cursor: pointer;
+            text-decoration: none;
+            color: black;
+        }
+    </style>
 </head>
 
 <body>
-    <a href="@Url.Action("Index", "Crear_Publicacion")" style="color:white">Crear una nueva publicación</a>
-    <table align="center" bordercolor="Black" width="350px">
-        <tr style="background-color:#222222">
-            <td><center><h2><b>Tituló</b></h2></center></td>
-            <td><center><h2><b>Descripción</b></h2></center></td>
-            <td><center><h2><b>Valor</b></h2></center></td>
-            <td><center><h2><b>Aprobada</b></h2></center></td>
-        </tr>
-        @foreach (Publicacion X in ViewBag.Lista)
-        {
+    <div class="limiter">
+        <div class="wrap-table100">
+            <div class="table100 ver2 m-b-110">
+                <div class="table100-head">
+                    <table>
+                        <thead>
+                            <tr class="row100 head">
+                                <th class="cell100 column1" style="color:#0090ff">Título</th>
+                                <th class="cell100 column2" style="color:#0090ff">Categoría</th>
+                                <th class="cell100 column3" style="color:#0090ff">Aprobado</th>
+                                <th class="cell100 column4" style="color:#0090ff">Modificar</th>
+                                <th class="cell100 column5" style="color:#0090ff">Eliminar</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
 
-            <tr>
-                <td>
-                    <h3><b>@X.Titulo</b></h3>
-                </td>
-                <td>
-                    <h3><b>@X.Descripcion</b></h3>
-                </td>
-                <td>
-                    <h3><b>@X.Valor</b></h3>
-                </td>
-                <td>
-                    <h3><b>@X.Aprobada</b></h3>
-                </td>
-                <td>
-                    <h3> @Html.ActionLink("Editar", "BMPublicacion", "BMPublicaciones", new { Accion = "Modificar", Id = X.IdPublicacion }, null)</h3>
-                </td>
-                <td>
-                    <h3> <a onclick="Eliminar(@X.IdPublicacion);">Eliminar</a></h3>
-                </td>
-                <td>
-                    <h3> @Html.ActionLink("Ver", "BMPublicacion", "BMPublicaciones", new { Accion = "Ver", Id = X.IdPublicacion }, null)</h3>
-                </td>
-            </tr>
-        }
-    </table>
+                <div class="table100-body js-pscroll">
+                    <table>
+                        <tbody>
+                            @foreach (Publicacion X in ViewBag.Lista)
+                            {
+                                <tr class="row100 body">
+                                    <td class="cell100 column1" style="color:black"><a href="@Url.Action("BMPublicacion", "BMPublicaciones",new { Accion = "Ver", Id = X.IdPublicacion })"> <img src="~/Content/Tables_style/icons/ver.png" style="height:20px" /></a>   @X.Titulo</td>
+                                    <td class="cell100 column2" style="color:black">
+                                        @{
+                                            Conexion MiCon = new Conexion();
+                                            List<Categorias> Lista = MiCon.TraerCategoriaPadreDesdeCategoriaHija(X.IdCategoria, 0);
+                                            for (int i = Lista.Count - 1; i >= 0; i--)
+                                            {
+                                                if (i == 0)
+                                                {
+                                                    @Html.Label(Lista[i].Nombre)
+                                                }
+                                                else
+                                                {
+                                                    @Html.Label(Lista[i].Nombre + ">")
+                                               }
+                                           }
+                                       }
+                                                </td>
+                                    @if (X.Aprobada == true)
+                                    {
+                                        <td class="cell100 column3" style="color:lawngreen">Sí</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="cell100 column3" style="color:red">No</td>
+                                    }
+
+                                    <td class="cell100 column4"><a href="@Url.Action("BMPublicacion", "BMPublicaciones", new { Accion = "Modificar", Id = X.IdPublicacion })"><img src="~/Content/Tables_style/icons/editar.png" style="height:20px" /></a></td>
+                                    <td class="cell100 column5"><a onclick="Eliminar(@X.IdPublicacion);"><img src="~/Content/Tables_style/icons/eliminar.png" style="height:20px" /></a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Content/Tables_style/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script src="~/Content/Tables_style/vendor/bootstrap/js/popper.js"></script>
+    <script src="~/Content/Tables_style/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Content/Tables_style/vendor/select2/select2.min.js"></script>
+    <script src="~/Content/Tables_style/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script>
+        $('.js-pscroll').each(function () {
+            var ps = new PerfectScrollbar(this);
+
+            $(window).on('resize', function () {
+                ps.update();
+            })
+        });
+    </script>
+    <script src="~/Content/Tables_style/js/main.js"></script>
 </body>
