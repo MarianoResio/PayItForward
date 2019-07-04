@@ -40,14 +40,13 @@ namespace PayItForward.Controllers
 
             return View("CategoriasHijas");
         }
-
-        //HACER JSON LA LISTA CON LAS CATEGORIAS HIJAS Y EN LA VIEW PRODUCTOS QUE SE MUESTRE DESDE AJAX
-        public List<Categorias> TraerHijas(int idPadre)
+        //JsonResult?
+        public JsonResult TraerHijas(int idPadre)
         {
             List<Categorias> ListaHijas = new List<Categorias>();
             ListaHijas = miConexion.TraerCategoriasHijas(idPadre);
 
-            return ListaHijas;
+            return this.Json(ListaHijas);
         }
 
         public ActionResult DescripcionPublicacion(int IdCategoria)
