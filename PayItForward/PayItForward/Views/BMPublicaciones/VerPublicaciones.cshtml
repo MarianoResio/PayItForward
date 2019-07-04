@@ -75,7 +75,7 @@
                                             List<Categorias> Lista = MiCon.TraerCategoriaPadreDesdeCategoriaHija(X.IdCategoria, 0);
                                             for (int i = Lista.Count - 1; i >= 0; i--)
                                             {
-                                                if (i == 0)
+                                                if (i == 0  )
                                                 {
                                                     @Html.Label(Lista[i].Nombre)
                                                 }
