@@ -1,1 +1,1 @@
-categorias hijas view linea 19 hacer html --> seleccionarCategorias.html
+editar publicacion
