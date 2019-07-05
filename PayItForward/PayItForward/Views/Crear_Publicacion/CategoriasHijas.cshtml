@@ -5,44 +5,65 @@
 }
 
 <head>
-    <!--HACER jquery para Final();-->
     <script>
-        function Final(cat) {
+        function Final(cat, nom) {
             $.ajax({
-                    url: '@Url.Action("TraerHijas", "Crear_Publicacion")',
-                    type: "post",
-                    dataType: "html",
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify({ Id: cat }),
-                    success: function (data) {
-                        var listaHijas = @Html.Raw(Json.Encode(Model));
-                        $("#categorias").append("<div>...");
-                    },
-                    error: function () {
-                        alert("Ha ocurrido un error");
+                url: '@Url.Action("TraerHijas", "Crear_Publicacion")',
+                type: "post",
+                dataType: "html",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({ idPadre: cat }),
+                success: function (cates) {
+                    var thtml = '';
+                    var obj = JSON.parse(cates);
+                    for (var i = 0; i < obj.length; i++) {
+                        var cate = obj[i];
+                        thtml += "<li value='" + cate.IdCategoria + "' onclick = 'Final(" + cate.IdCategoria + ",\"" + cate.Nombre + "\");' >" + cate.Nombre+"</li>";
                     }
-                });
+                    $("#categorias").html(thtml)
+                    $("#seguimiento").append(" > ".nom);
+                },
+                error: function () {
+                    alert("Ha ocurrido un error");
+                }
+            });
         }
     </script>
+    <style>
+        li {
+            padding: 10px 5px 10px;
+        }
+
+            li :hover {
+                background-color: lightslategray;
+                cursor: pointer;
+            }
+
+        hr {
+            margin: 0px;
+            padding: 0px;
+        }
+    </style>
 </head>
 
-<body>
-    <!--DIV CENTRADO-->
-    <div id="categorias">
-        <!--LISTA: subcategoria 1-->
-        <form action="@Url.Action("DescripcionPublicacion", "Crear_Publicacion")">
-            <div>
-                <select name="IdCategoria">
-                    @foreach (Categorias X in ViewBag.CategoriasHijas)
-                    {
-                        <option value="@X.IdCategoria" onclick="Final(@X.IdCategoria);">
-                            @X.Nombre
-                        </option>
-                    }
-                </select>
-            </div>
-
-            <input type="submit" value="fin" />
-        </form>
+<body style="margin-top: -30px">
+    <div style="background-color: white">
+        <div style="margin-left: 10px; margin-top: 5px; padding-bottom: 10px">
+            <p style="font-size: 20px; margin-bottom: 5px">Elegi la categoria</p>
+            <p style="font-size: 15px; margin-bottom: 0px; margin-top: 0px">Navega las categorias en el listado y elige una</p>
+            <br />
+            <p id="seguimiento" style="font-size: 15px; margin-bottom: 0px; margin-top: 0px"></p>
+        </div>
+    </div>
+    <hr style="margin: 0px">
+    <div style="background-color: white">
+        <ul style="list-style:none; padding: 20px 10px 20px; margin: 0; padding-top: 10px; padding-bottom: 10px" id="categorias">
+            @foreach (Categorias X in ViewBag.CategoriasHijas)
+            {
+                <li value="@X.IdCategoria" onclick="Final(@X.IdCategoria, '@X.Nombre');">
+                    @X.Nombre
+                </li>
+            }
+        </ul>
     </div>
 </body>

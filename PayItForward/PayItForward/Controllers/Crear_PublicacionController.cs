@@ -40,13 +40,12 @@ namespace PayItForward.Controllers
 
             return View("CategoriasHijas");
         }
-        //JsonResult?
+
         public JsonResult TraerHijas(int idPadre)
         {
-            List<Categorias> ListaHijas = new List<Categorias>();
-            ListaHijas = miConexion.TraerCategoriasHijas(idPadre);
-
-            return this.Json(ListaHijas);
+            List<Categorias> cates = miConexion.TraerCategoriasHijas(idPadre);
+            var jsonData = Json(cates, JsonRequestBehavior.AllowGet);
+            return jsonData;
         }
 
         public ActionResult DescripcionPublicacion(int IdCategoria)
@@ -55,6 +54,7 @@ namespace PayItForward.Controllers
 
             return View();
         }
+
         [HttpPost]
         public ActionResult MostrarPublicacion(Publicacion Publi)
         {
