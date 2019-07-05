@@ -13,10 +13,10 @@
                     type: "post",
                     dataType: "html",
                     contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify({ Id: cat }), //add parameter
+                    data: JSON.stringify({ Id: cat }),
                     success: function (data) {
-                        //success
-                        //var objeto = JSON.parse(resultado);
+                        var listaHijas = @Html.Raw(Json.Encode(Model));
+                        $("#categorias").append("<div>...");
                     },
                     error: function () {
                         alert("Ha ocurrido un error");
@@ -28,7 +28,7 @@
 
 <body>
     <!--DIV CENTRADO-->
-    <div>
+    <div id="categorias">
         <!--LISTA: subcategoria 1-->
         <form action="@Url.Action("DescripcionPublicacion", "Crear_Publicacion")">
             <div>

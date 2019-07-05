@@ -1,2 +1,1 @@
-Crear_PublicacionController linea 44
-append ajax
+categorias hijas view linea 19 hacer html --> seleccionarCategorias.html
