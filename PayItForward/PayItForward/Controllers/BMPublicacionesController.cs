@@ -33,19 +33,16 @@ namespace PayItForward.Controllers
             {
                 Publicacion X = miConexion.TraerPublicacionPorId(Id);
                 ViewBag.Accion = Accion;
-                /*
-                Categorias categoria = miConexion.TraerCategoriaPorID(Id);
-                ViewBag.publicacion.titulo = X.Titulo;
-                ViewBag.publicacion.categoria = categoria;
-                ViewBag.publicacion.idUsuario = X.IdUsuario; //cambiar por el nombre del usuario
-                ViewBag.publicacion.aprobada = X.Aprobada;
-                ViewBag.publicacion.valor = X.Valor;
-                ViewBag.publicacion.descripcion = X.Descripcion;
-                ViewBag.publicacion.likes = X.Likes;
-                ViewBag.publicacion.ubicacion = X.Ubicacion;*/
 
-                return View();
+                return View(X);
             }
+            return RedirectToAction("VerPublicaciones");
+        }
+
+        public ActionResult editarPublicacion(Publicacion x)
+        {
+            miConexion.ModificarPublicacion(x);
+
             return RedirectToAction("VerPublicaciones");
         }
     }

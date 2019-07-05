@@ -248,6 +248,24 @@ namespace PayItForward.Models
             return X;
         }
 
+        public void ModificarPublicacion (Publicacion X)
+        {
+            SqlConnection Conexion = Conectar();
+            SqlCommand Comando = Conexion.CreateCommand();
+
+            Comando.CommandText = "sp_ModificarPublicacion";
+            Comando.CommandType = System.Data.CommandType.StoredProcedure;
+            Comando.Parameters.AddWithValue("@pIdPublicacion", X.IdPublicacion);
+            Comando.Parameters.AddWithValue("@pIdCategoria", X.IdCategoria);
+            Comando.Parameters.AddWithValue("@pAprobada", X.Aprobada);
+            Comando.Parameters.AddWithValue("@pValor", X.Valor);
+            Comando.Parameters.AddWithValue("@pTitulo", X.Titulo);
+            Comando.Parameters.AddWithValue("@pDescripcion", X.Descripcion);
+            Comando.Parameters.AddWithValue("@pUbicacion", X.Titulo);
+
+            Comando.ExecuteNonQuery();
+        }
+
         public List<Categorias> TraerCategoriaPadreDesdeCategoriaHija(int IDHija, int IdUsuario)
           {
               List<Categorias> X = new List<Categorias>();
