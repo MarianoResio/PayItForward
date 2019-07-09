@@ -22,9 +22,8 @@
                     type: "post",
                     dataType: "html",
                     contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify({ Accion: "Eliminar", Id: id }), //add parameter
+                    data: JSON.stringify({ Accion: "Eliminar", Id: id }),
                     success: function (data) {
-                        //success
                         location.reload();
                     },
                     error: function () {

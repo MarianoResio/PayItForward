@@ -58,15 +58,13 @@ namespace PayItForward.Controllers
 
             return View();
         }
-
-        //REHACER
+        
         [HttpPost]
-        public ActionResult MostrarPublicacion(Publicacion Publi)
+        public ActionResult MostrarPublicacion(Publicacion Publi, int IdCategoria)
         {
-            Publi.IdCategoria = Convert.ToInt32(Session["IdCategoria"]);
+            Publi.IdCategoria = Convert.ToInt32(IdCategoria);
             int UltimaPublicacion = miConexion.CrearPublicacion(Publi);
             ViewBag.Publicacion = Publi;
-            //miConexion.AltaImagenPorPublicacion(UltimaPublicacion, Publi.Imagen);
 
             return View();
         }

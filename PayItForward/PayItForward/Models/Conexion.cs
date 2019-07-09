@@ -22,11 +22,6 @@ namespace PayItForward.Models
             return Conexion;
         }
 
-        public void Desconectar(SqlConnection Con)
-        {
-            Con.Close();
-        }
-
         private int TraerUltimaPublicacion()
         {
             int Id_Traido = -1;
@@ -41,6 +36,8 @@ namespace PayItForward.Models
             {
                 Id_Traido = Convert.ToInt32(DataReader["UltimaPublicacion"]);
             }
+
+            Conexion.Close();
 
             return Id_Traido;
         }
@@ -63,6 +60,8 @@ namespace PayItForward.Models
 
             Comando.ExecuteNonQuery();
 
+            Conexion.Close();
+
             return TraerUltimaPublicacion();
         }
 
@@ -77,6 +76,8 @@ namespace PayItForward.Models
             Comando.Parameters.AddWithValue("@pId", IdPublicacion);
 
             Comando.ExecuteNonQuery();
+
+            Conexion.Close();
         }
 
         public List<Categorias> TraerCategoriasPadres()
@@ -100,6 +101,8 @@ namespace PayItForward.Models
                 Categorias X = new Categorias(IdCategoria_Traido, IdCategoriaPadre_Traido, Nombre_Traido, Imagen_Traida);
                 Lista.Add(X);
             }
+
+            Conexion.Close();
 
             return Lista;
         }
@@ -126,6 +129,8 @@ namespace PayItForward.Models
                 Lista.Add(X);
             }
 
+            Conexion.Close();
+
             return Lista;
         }
 
@@ -151,6 +156,8 @@ namespace PayItForward.Models
                 Categorias X = new Categorias(IdCategoria_Traida, IdCategoriaPadre_Traida, Nombre_Traido, Imagen_Traida);
                 Lista.Add(X);
             }
+
+            Conexion.Close();
 
             return Lista;
         }
@@ -183,6 +190,8 @@ namespace PayItForward.Models
                 Lista.Add(X);
             }
 
+            Conexion.Close();
+
             return Lista;
         }
 
@@ -211,6 +220,8 @@ namespace PayItForward.Models
                 X.Ubicacion = DataReader["Ubicacion"].ToString();
             }
 
+            Conexion.Close();
+
             return X;
         }
 
@@ -222,7 +233,10 @@ namespace PayItForward.Models
             Comando.CommandText = "sp_EliminarPublicacion";
             Comando.CommandType = System.Data.CommandType.StoredProcedure;
             Comando.Parameters.AddWithValue("@pId", IdPublicacion);
+
             Comando.ExecuteNonQuery();
+
+            Conexion.Close();
         }
 
         public Categorias TraerCategoriaPorID(int ID)
@@ -245,6 +259,8 @@ namespace PayItForward.Models
                 X.Nombre = DataReader["Nombre"].ToString();
             }
 
+            Conexion.Close();
+
             return X;
         }
 
@@ -264,11 +280,13 @@ namespace PayItForward.Models
             Comando.Parameters.AddWithValue("@pUbicacion", X.Titulo);
 
             Comando.ExecuteNonQuery();
+
+            Conexion.Close();
         }
 
         public List<Categorias> TraerCategoriaPadreDesdeCategoriaHija(int IDHija, int IdUsuario)
           {
-              List<Categorias> X = new List<Categorias>();
+            List<Categorias> X = new List<Categorias>();
 
             Categorias cat = TraerCategoriaPorID(IDHija);
             while (cat.IdCategoriaPadre != -1)
@@ -277,31 +295,8 @@ namespace PayItForward.Models
                 cat = TraerCategoriaPorID(cat.IdCategoriaPadre);
             }
             X.Add(cat);
+
             return X;
           }
-
-       /* public Categorias TraerCategoriaPadreDesdeCategoriaHija(int IDHija, int IdUsuario)
-        {
-            SqlConnection Conexion = Conectar();
-            SqlCommand Comando = Conexion.CreateCommand();
-
-
-            Categorias c = new Categorias();
-            Comando.CommandText = "sp_TraerCategoriaPadreDesdeCategoriaHija";
-            Comando.CommandType = System.Data.CommandType.StoredProcedure;
-            Comando.Parameters.AddWithValue("@pIdHija", IDHija);
-            Comando.Parameters.AddWithValue("@pID", IdUsuario);
-            SqlDataReader DataReader = Comando.ExecuteReader();
-
-            if (DataReader.Read())
-            {
-                c.IdCategoria = Convert.ToInt32(DataReader["IdCategoria"]);
-                c.IdCategoriaPadre = Convert.ToInt32(DataReader["IdCategoriaPadre"]);
-                c.Imagen = DataReader["Imagen"].ToString();
-                c.Nombre = DataReader["Nombre"].ToString();
-            }
-
-            return c;
-        }*/
     }
 }

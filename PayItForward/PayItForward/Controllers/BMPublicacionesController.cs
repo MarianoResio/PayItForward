@@ -15,12 +15,9 @@ namespace PayItForward.Controllers
         public ActionResult VerPublicaciones()
         {
             List<Publicacion> ListaPublicaciones = new List<Publicacion>();
-            //traigo las publicaciones de un usuario
-            ListaPublicaciones = miConexion.TraerPublicacionesPorUsuario(Convert.ToInt32(Session["IdUsuario"]));
-
-            //las pongo en un ViewBag
+            //traigo las publicaciones del usuario actual y las pongo en un ViewBag
+            ListaPublicaciones = miConexion.TraerPublicacionesPorUsuario(0); //0=Session["UserNow"]
             ViewBag.Lista = ListaPublicaciones;
-            Categorias hijas = new Categorias();
 
             return View();
         }

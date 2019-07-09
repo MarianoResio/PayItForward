@@ -13,5 +13,8 @@
     Titulo @Html.TextBoxFor(x => x.Titulo) <br />
     Descripcion @Html.TextBoxFor(x => x.Descripcion) <br />
     Ubicacion @Html.TextBoxFor(x => x.Ubicacion) <br />
+
+    <input type="hidden" value="@ViewBag.CategoriaActual" name="IdCategoria" />
+
     <Button type="submit">Continuar</Button>
 </form>
