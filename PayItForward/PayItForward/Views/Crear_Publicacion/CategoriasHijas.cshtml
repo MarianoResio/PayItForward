@@ -6,7 +6,7 @@
 
 <head>
     <script>
-        function Final(cat, nom) {
+        function Hijas(cat, nom) {
             $.ajax({
                 url: '@Url.Action("TraerHijas", "Crear_Publicacion")',
                 type: "post",
@@ -18,13 +18,7 @@
                     var obj = JSON.parse(cates);
                     if (obj.length == 0) {
                         //si trae vacio el JSON con las categorias hijas, mando al usuario a proxima view (DescripcionPublicacion) con la categoria seleccionada
-                        $.ajax({
-                            url: '@Url.Action("DescripcionPublicacion", "Crear_Publicacion")',
-                            type: "post",
-                            dataType: "html",
-                            contentType: 'application/json; charset=utf-8',
-                            data: JSON.stringify({ idPadre: cat }),
-                        })
+                        Final(cat);
                     } else {
                         for (var i = 0; i < obj.length; i++) {
                             var cate = obj[i];
@@ -39,6 +33,17 @@
                 }
             });
         }
+        function Final(cat) {
+            $.ajax({
+                url: '@Url.Action("DescripcionPublicacion", "Crear_Publicacion")',
+                type: "post",
+                dataType: "html",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({ IdCategoria: cat }),
+                success: function () { },
+                error: function () { }
+            });
+        }
     </script>
     <style>
         li {
@@ -48,7 +53,6 @@
 
             li :hover {
                 background-color: lightslategray;
-                
             }
 
         hr {
@@ -72,7 +76,7 @@
         <ul style="list-style:none; padding: 20px 10px 20px; margin: 0; padding-top: 10px; padding-bottom: 10px" id="categorias">
             @foreach (Categorias X in ViewBag.CategoriasHijas)
             {
-                <li value="@X.IdCategoria" onclick="Final(@X.IdCategoria, '@X.Nombre');">
+                <li value="@X.IdCategoria" onclick="Hijas(@X.IdCategoria, '@X.Nombre');">
                     @X.Nombre
                 </li>
             }
