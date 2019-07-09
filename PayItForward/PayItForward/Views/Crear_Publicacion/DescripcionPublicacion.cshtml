@@ -5,6 +5,7 @@
 }
 
 <h2>DescripcionPublicacion</h2>
+<p>La categoria actual es @ViewBag.CategoriaActual</p>
 
 <!--MOSTRAR RECORRIDO DE CATEGORIAS-->
 <form method="post" action="@Url.Action("MostrarPublicacion", "Crear_Publicacion")">
@@ -12,5 +13,5 @@
     Titulo @Html.TextBoxFor(x => x.Titulo) <br />
     Descripcion @Html.TextBoxFor(x => x.Descripcion) <br />
     Ubicacion @Html.TextBoxFor(x => x.Ubicacion) <br />
-    <Button type="submit"> Aceptar</Button>
+    <Button type="submit">Continuar</Button>
 </form>

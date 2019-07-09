@@ -50,12 +50,11 @@ namespace PayItForward.Controllers
             var jsonData = Json(cates, JsonRequestBehavior.AllowGet);
             return jsonData;
         }
-
-        //REHACER
-        [HttpPost]
+        
         public ActionResult DescripcionPublicacion(int IdCategoria)
         {
-            Session["IdCategoria"] = IdCategoria;
+            //pongo en un ViewBag la categoria final seleccionada por el usuario
+            ViewBag.CategoriaActual = IdCategoria;
 
             return View();
         }
