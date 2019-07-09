@@ -14,6 +14,7 @@ namespace PayItForward.Controllers
 
         public ActionResult Index()
         {
+            //traigo las categorias padre y las meto en un ViewBag
             List<Categorias> ListaCategoriasPadre = new List<Categorias>();
             ListaCategoriasPadre = miConexion.TraerCategoriasPadres();
             ViewBag.Lista = ListaCategoriasPadre;
@@ -23,9 +24,9 @@ namespace PayItForward.Controllers
 
         public ActionResult Productos()
         {
-            int CategoriaPadre = 1;
+            //busco las categorias hijas de la categoria padre Productos (Id=1) y las meto en un ViewBag
             List<Categorias> ListaHijas = new List<Categorias>();
-            ListaHijas = miConexion.TraerCategoriasHijas(CategoriaPadre);
+            ListaHijas = miConexion.TraerCategoriasHijas(1);
             ViewBag.CategoriasHijas = ListaHijas;
 
             return View("CategoriasHijas");
@@ -33,9 +34,9 @@ namespace PayItForward.Controllers
 
         public ActionResult Servicios()
         {
-            int CategoriaPadre = 2;
+            //busco las categorias hijas de la categoria padre Servicios (Id=2) y las meto en un ViewBag
             List<Categorias> ListaHijas = new List<Categorias>();
-            ListaHijas = miConexion.TraerCategoriasHijas(CategoriaPadre);
+            ListaHijas = miConexion.TraerCategoriasHijas(2);
             ViewBag.CategoriasHijas = ListaHijas;
 
             return View("CategoriasHijas");
@@ -43,11 +44,15 @@ namespace PayItForward.Controllers
 
         public JsonResult TraerHijas(int idPadre)
         {
+            //funcion llamada por ajax
+            //devuelvo un array con objetos (categorias) en forma de JSON con las categorias hijas de la categoria padre seleccionada por el usuario
             List<Categorias> cates = miConexion.TraerCategoriasHijas(idPadre);
             var jsonData = Json(cates, JsonRequestBehavior.AllowGet);
             return jsonData;
         }
 
+        //REHACER
+        [HttpPost]
         public ActionResult DescripcionPublicacion(int IdCategoria)
         {
             Session["IdCategoria"] = IdCategoria;
@@ -55,6 +60,7 @@ namespace PayItForward.Controllers
             return View();
         }
 
+        //REHACER
         [HttpPost]
         public ActionResult MostrarPublicacion(Publicacion Publi)
         {

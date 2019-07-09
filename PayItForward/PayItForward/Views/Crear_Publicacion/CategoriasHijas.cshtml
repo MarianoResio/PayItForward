@@ -16,12 +16,23 @@
                 success: function (cates) {
                     var thtml = '';
                     var obj = JSON.parse(cates);
-                    for (var i = 0; i < obj.length; i++) {
-                        var cate = obj[i];
-                        thtml += "<li value='" + cate.IdCategoria + "' onclick = 'Final(" + cate.IdCategoria + ",\"" + cate.Nombre + "\");' >" + cate.Nombre+"</li>";
+                    if (obj.length == 0) {
+                        //si trae vacio el JSON con las categorias hijas, mando al usuario a proxima view (DescripcionPublicacion) con la categoria seleccionada
+                        $.ajax({
+                            url: '@Url.Action("DescripcionPublicacion", "Crear_Publicacion")',
+                            type: "post",
+                            dataType: "html",
+                            contentType: 'application/json; charset=utf-8',
+                            data: JSON.stringify({ idPadre: cat }),
+                        })
+                    } else {
+                        for (var i = 0; i < obj.length; i++) {
+                            var cate = obj[i];
+                            thtml += "<li value='" + cate.IdCategoria + "' onclick = 'Final(" + cate.IdCategoria + ",\"" + cate.Nombre + "\");' >" + cate.Nombre + "</li>";
+                        }
+                        $("#categorias").html(thtml)
+                        $("#seguimiento").append(" > " + nom);
                     }
-                    $("#categorias").html(thtml)
-                    $("#seguimiento").append(" > ".nom);
                 },
                 error: function () {
                     alert("Ha ocurrido un error");
@@ -32,11 +43,12 @@
     <style>
         li {
             padding: 10px 5px 10px;
+            cursor: pointer;
         }
 
             li :hover {
                 background-color: lightslategray;
-                cursor: pointer;
+                
             }
 
         hr {
