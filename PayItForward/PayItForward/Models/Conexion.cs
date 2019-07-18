@@ -230,7 +230,7 @@ namespace PayItForward.Models
             SqlConnection Conexion = Conectar();
             SqlCommand Comando = Conexion.CreateCommand();
 
-            Comando.CommandText = "sp_EliminarPublicacion";
+            Comando.CommandText = "sp_BajaPublicacion";
             Comando.CommandType = System.Data.CommandType.StoredProcedure;
             Comando.Parameters.AddWithValue("@pId", IdPublicacion);
 
@@ -272,12 +272,10 @@ namespace PayItForward.Models
             Comando.CommandText = "sp_ModificarPublicacion";
             Comando.CommandType = System.Data.CommandType.StoredProcedure;
             Comando.Parameters.AddWithValue("@pIdPublicacion", X.IdPublicacion);
-            Comando.Parameters.AddWithValue("@pIdCategoria", X.IdCategoria);
-            Comando.Parameters.AddWithValue("@pAprobada", X.Aprobada);
             Comando.Parameters.AddWithValue("@pValor", X.Valor);
             Comando.Parameters.AddWithValue("@pTitulo", X.Titulo);
             Comando.Parameters.AddWithValue("@pDescripcion", X.Descripcion);
-            Comando.Parameters.AddWithValue("@pUbicacion", X.Titulo);
+            Comando.Parameters.AddWithValue("@pUbicacion", X.Ubicacion);
 
             Comando.ExecuteNonQuery();
 
