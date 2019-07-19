@@ -5,56 +5,7 @@
 }
 
 
-<head>
-    @*
-        <script src="~/Content/Tables_style/vendor/jquery/jquery-3.2.1.min.js"></script>
-        <script>
-            function Validar() {
-                var valor = $('#Valor').val();
-                var titulo = $('#Titulo').val();
-                var descripcion = $('#Descripcion').val();
-                var ubicacion = $('#Ubicacion').val();
-
-                var bool = true;
-
-                if (valor == '') {
-                    $('#error_valor').html("*");
-                    bool = false;
-                } else {
-                    $('#error_valor').html("");
-                    bool = true;
-                }
-
-                if (titulo == '') {
-                    $('#error_titulo').html("*");
-                    bool = false;
-                } else {
-                    $('#error_titulo').html("");
-                    bool = true;
-                }
-
-                if (descripcion == '') {
-                    $('#error_descripcion').html("*");
-                    bool = false;
-                } else {
-                    $('#error_descripcion').html("");
-                    bool = true;
-                }
-
-                if (ubicacion == '') {
-                    $('#error_ubicacion').html("*");
-                    bool = false;
-                } else {
-                    $('#error_ubicacion').html("");
-                    bool = true;
-                }
-
-                if (bool == true) {
-                    $('#formulario').submit;
-                }
-            }
-        </script>
-    *@
+<head>   
     <style>
         .validation {
             color: red;
