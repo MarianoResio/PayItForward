@@ -50,7 +50,7 @@ namespace PayItForward.Controllers
             var jsonData = Json(cates, JsonRequestBehavior.AllowGet);
             return jsonData;
         }
-        
+
         public ActionResult DescripcionPublicacion(int IdCategoria)
         {
             //pongo en un ViewBag la categoria final seleccionada por el usuario
@@ -58,15 +58,22 @@ namespace PayItForward.Controllers
 
             return View();
         }
-        
+
         [HttpPost]
         public ActionResult MostrarPublicacion(Publicacion Publi, int IdCategoria)
         {
             Publi.IdCategoria = Convert.ToInt32(IdCategoria);
-            int UltimaPublicacion = miConexion.CrearPublicacion(Publi);
-            ViewBag.Publicacion = Publi;
-
-            return View();
+            if (!ModelState.IsValid)
+            {
+                ViewBag.CategoriaActual = IdCategoria;
+                return View("DescripcionPublicacion", Publi);
+            }
+            else
+            {
+                int UltimaPublicacion = miConexion.CrearPublicacion(Publi);
+                ViewBag.Publicacion = Publi;
+                return View();
+            }
         }
     }
 }

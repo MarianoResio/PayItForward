@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 namespace PayItForward.Models
 {
@@ -17,14 +18,23 @@ namespace PayItForward.Models
         private int _Likes;
         private string _Ubicacion;
 
+        [Required(ErrorMessage = "*")]
         public int IdPublicacion { get => _IdPublicacion; set => _IdPublicacion = value; }
+        [Required(ErrorMessage = "*")]
         public int IdCategoria { get => _IdCategoria; set => _IdCategoria = value; }
+        [Required(ErrorMessage = "*")]
         public int IdUsuario { get => _IdUsuario; set => _IdUsuario = value; }
+        [Required(ErrorMessage = "*")]
         public bool Aprobada { get => _Aprobada; set => _Aprobada = value; }
+        [Required(ErrorMessage = "*"), Range(1, int.MaxValue)]
         public int Valor { get => _Valor; set => _Valor = value; }
+        [Required(ErrorMessage = "*")]
         public string Titulo { get => _Titulo; set => _Titulo = value; }
+        [Required(ErrorMessage = "*")]
         public string Descripcion { get => _Descripcion; set => _Descripcion = value; }
+        [Required(ErrorMessage = "*")]
         public int Likes { get => _Likes; set => _Likes = value; }
+        [Required(ErrorMessage = "*")]
         public string Ubicacion { get => _Ubicacion; set => _Ubicacion = value; }
 
         public Publicacion(int idPublicacion, int idCategoria, int idUsuario, bool aprobada, int valor, string titulo, string descripcion, int likes, string ubicacion)
