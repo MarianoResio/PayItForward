@@ -42,10 +42,18 @@ namespace PayItForward.Controllers
 
         public ActionResult editarPublicacion(Publicacion x)
         {
-            //modifico la publicacion seleccionada en la View "VerPublicaciones" con los datos de la View "BMPublicaciones" (Modificar)
-            miConexion.ModificarPublicacion(x);
-
-            return RedirectToAction("VerPublicaciones");
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Accion = "Modificar";
+                return View("BMPublicacion", x);
+            }
+            else
+            {
+                //modifico la publicacion seleccionada en la View "VerPublicaciones" con los datos de la View "BMPublicaciones" (Modificar)
+                miConexion.ModificarPublicacion(x);
+                return RedirectToAction("VerPublicaciones");
+            }
+           
         }
     }
 }

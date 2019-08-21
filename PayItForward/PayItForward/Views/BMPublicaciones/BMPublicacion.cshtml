@@ -5,35 +5,45 @@
     ViewBag.Title = "BMPulicacion";
 }
 
-<h2>BMPublicacion</h2>
-@if (ViewBag.Accion == "Modificar")
-{
-    <form action="@Url.Action("editarPublicacion", "BMPublicaciones")">
-        @Html.HiddenFor(x => x.IdPublicacion)
-        <p>Titulo:</p> @Html.TextBoxFor(x => x.Titulo) <br />
+<head>
+    <style>
+        .validation {
+            color: red;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h2>BMPublicacion</h2>
+    @if (ViewBag.Accion == "Modificar")
+    {
+        <form action="@Url.Action("editarPublicacion", "BMPublicaciones")">
+            @Html.HiddenFor(x => x.IdPublicacion)
+            <p>Titulo:@Html.ValidationMessageFor(x => x.Titulo, null, new { @class = "validation" })</p> @Html.TextBoxFor(x => x.Titulo) <br />
+            <p>Categoria:</p> @Html.TextBoxFor(x => x.IdCategoria, new { disabled = "true" }) <br />
+            <p>IdUsuario:</p> @Html.TextBoxFor(x => x.IdUsuario, new { disabled = "true" }) <br />
+            <p>Aprobada:</p> @Html.TextBoxFor(x => x.Aprobada, new { disabled = "true" }) <br />
+            <p>Valor:@Html.ValidationMessageFor(x => x.Valor, null, new { @class = "validation" })</p>@Html.TextBoxFor(x => x.Valor, new { Type = "number" }) <br />
+            <p>Desc: @Html.ValidationMessageFor(x => x.Descripcion, null, new { @class = "validation" })</p> @Html.TextBoxFor(x => x.Descripcion) <br />
+            <p>Likes:</p> @Html.TextBoxFor(x => x.Likes, new { disabled = "true" }) <br />
+            <p>Ubicacion: @Html.ValidationMessageFor(x => x.Ubicacion, null, new { @class = "validation" })</p> @Html.TextBoxFor(x => x.Ubicacion) <br />
+
+            <input type="submit" value="Aceptar" />
+        </form>
+    }
+    else if (ViewBag.Accion == "Ver")
+    {
+        <p>Titulo:</p> @Html.TextBoxFor(x => x.Titulo, new { disabled = "true" }) <br />
         <p>Categoria:</p> @Html.TextBoxFor(x => x.IdCategoria, new { disabled = "true" }) <br />
         <p>IdUsuario:</p> @Html.TextBoxFor(x => x.IdUsuario, new { disabled = "true" }) <br />
         <p>Aprobada:</p> @Html.TextBoxFor(x => x.Aprobada, new { disabled = "true" }) <br />
-        <p>Valor:</p> @Html.TextBoxFor(x => x.Valor) <br />
-        <p>Desc:</p> @Html.TextBoxFor(x => x.Descripcion) <br />
+        <p>Valor:</p> @Html.TextBoxFor(x => x.Valor, new { disabled = "true" }) <br />
+        <p>Desc:</p> @Html.TextBoxFor(x => x.Descripcion, new { disabled = "true" }) <br />
         <p>Likes:</p> @Html.TextBoxFor(x => x.Likes, new { disabled = "true" }) <br />
-        <p>Ubicacion:</p> @Html.TextBoxFor(x => x.Ubicacion) <br />
+        <p>Ubicacion:</p> @Html.TextBoxFor(x => x.Ubicacion, new { disabled = "true" }) <br />
 
-        <input type="submit" value="Aceptar" />
-    </form>
-}
-else if (ViewBag.Accion == "Ver")
-{
-    <p>Titulo:</p> @Html.TextBoxFor(x => x.Titulo, new { disabled = "true" }) <br />
-    <p>Categoria:</p> @Html.TextBoxFor(x => x.IdCategoria, new { disabled = "true" }) <br />
-    <p>IdUsuario:</p> @Html.TextBoxFor(x => x.IdUsuario, new { disabled = "true" }) <br />
-    <p>Aprobada:</p> @Html.TextBoxFor(x => x.Aprobada, new { disabled = "true" }) <br />
-    <p>Valor:</p> @Html.TextBoxFor(x => x.Valor, new { disabled = "true" }) <br />
-    <p>Desc:</p> @Html.TextBoxFor(x => x.Descripcion, new { disabled = "true" }) <br />
-    <p>Likes:</p> @Html.TextBoxFor(x => x.Likes, new { disabled = "true" }) <br />
-    <p>Ubicacion:</p> @Html.TextBoxFor(x => x.Ubicacion, new { disabled = "true" }) <br />
-
-    <form action="@Url.Action("VerPublicaciones", "BMPublicaciones")">
-        <input type="submit" value="Volver" />
-    </form>
-}
+        <form action="@Url.Action("VerPublicaciones", "BMPublicaciones")">
+            <input type="submit" value="Volver" />
+        </form>
+    }
+</body>

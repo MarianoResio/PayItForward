@@ -4,17 +4,28 @@
     ViewBag.Title = "DescripcionPublicacion";
 }
 
-<h2>DescripcionPublicacion</h2>
-<p>La categoria actual es @ViewBag.CategoriaActual</p>
 
-<!--MOSTRAR RECORRIDO DE CATEGORIAS-->
-<form method="post" action="@Url.Action("MostrarPublicacion", "Crear_Publicacion")">
-    Valor @Html.TextBoxFor(x => x.Valor) <br />
-    Titulo @Html.TextBoxFor(x => x.Titulo) <br />
-    Descripcion @Html.TextBoxFor(x => x.Descripcion) <br />
-    Ubicacion @Html.TextBoxFor(x => x.Ubicacion) <br />
+<head>   
+    <style>
+        .validation {
+            color: red;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h2>DescripcionPublicacion</h2>
+    <p>La categoria actual es @ViewBag.CategoriaActual</p>
 
-    <input type="hidden" value="@ViewBag.CategoriaActual" name="IdCategoria" />
+    <!--MOSTRAR RECORRIDO DE CATEGORIAS-->
+    <form method="post" action="@Url.Action("MostrarPublicacion", "Crear_Publicacion")" id="formulario">
+        <p>Valor @Html.ValidationMessageFor(x=>x.Valor, null, new { @class = "validation" })</p> @Html.TextBoxFor(x => x.Valor, new { Type = "number" }) <br />
+        <p>Titulo @Html.ValidationMessageFor(x=>x.Titulo, null, new { @class = "validation" })</p> @Html.TextBoxFor(x => x.Titulo) <br />
+        <p>Descripcion @Html.ValidationMessageFor(x=>x.Descripcion, null, new { @class = "validation" })</p> @Html.TextBoxFor(x => x.Descripcion) <br />
+        <p>Ubicacion @Html.ValidationMessageFor(x=>x.Ubicacion, null, new { @class = "validation" })</p> @Html.TextBoxFor(x => x.Ubicacion) <br />
 
-    <Button type="submit">Continuar</Button>
-</form>
+        <input type="hidden" value="@ViewBag.CategoriaActual" name="IdCategoria" />
+
+        <input type="submit" value="Continuar" />
+    </form>
+</body>

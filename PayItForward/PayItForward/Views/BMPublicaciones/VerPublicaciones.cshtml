@@ -44,7 +44,7 @@
 </head>
 
 <body>
-    <div class="limiter">
+    <div class="limiter" style="margin-top:200px">
         <div class="wrap-table100">
             <div class="table100 ver2 m-b-110">
                 <div class="table100-head">
@@ -67,14 +67,14 @@
                             @foreach (Publicacion X in ViewBag.Lista)
                             {
                                 <tr class="row100 body">
-                                    <td class="cell100 column1" style="color:black"><a href="@Url.Action("BMPublicacion", "BMPublicaciones",new { Accion = "Ver", Id = X.IdPublicacion })"> <img src="~/Content/Tables_style/icons/ver.png" style="height:20px" /></a>   @X.Titulo</td>
-                                    <td class="cell100 column2" style="color:black">
+                                    <td class="cell100 column1" style="color:black"><a href="@Url.Action("BMPublicacion", "BMPublicaciones",new { Accion = "Ver", Id = X.IdPublicacion })"> <img src="~/Content/Tables_style/icons/ver.png" style="height:20px" /></a>@X.Titulo</td>
+                                    <td class="cell100 column2" style="color:black;font-size:12px">
                                         @{
                                             Conexion MiCon = new Conexion();
                                             List<Categorias> Lista = MiCon.TraerCategoriaPadreDesdeCategoriaHija(X.IdCategoria, 0);
                                             for (int i = Lista.Count - 1; i >= 0; i--)
                                             {
-                                                if (i == 0  )
+                                                if (i == 0)
                                                 {
                                                     @Html.Label(Lista[i].Nombre)
                                                 }
@@ -82,9 +82,9 @@
                                                 {
                                                     @Html.Label(Lista[i].Nombre + ">")
                                                 }
-                                           }
-                                       }
-                                                </td>
+                                            }
+                                        }
+                                    </td>
                                     @if (X.Aprobada == true)
                                     {
                                         <td class="cell100 column3" style="color:lawngreen">Sí</td>
