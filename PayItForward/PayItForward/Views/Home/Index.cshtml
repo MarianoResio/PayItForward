@@ -8,10 +8,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <style>
-        .mySlides {
-            display: none;
-        }
+    <style type="text/css" style="display: none !important;">
+
 
         .w3-left, .w3-right, .w3-badge {
             cursor: pointer;
@@ -39,105 +37,107 @@
             display: block;
             margin-left: auto;
             margin-right: auto;
+            width: 75%;
         }
 
         .contenedorTexto {
             position: absolute;
-            z-index: 1;
+            z-index: 10;
             color: #fff;
             text-align: center;
             width: 100%;
             opacity: 0;
             transition: .3s;
+            top: 50%;
+            -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
         }
 
         .textWithBlurredBg :hover {
             opacity: 1;
         }
+
+        .mySlides {
+            display: none;
+        }
     </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#slideshow > div:gt(0)").hide();
+            setInterval(function () {
+                $('#SlideshowImages > div:first').fadeOut(1000).next().fadeIn(1000).end().appendTo('#SlideshowImages');
+            }, 3000);
+        });
+    </script>
 </head>
 <body>
-    <!-- Slider -->
-    <div class="w3-content w3-display-container" style="display:block;max-width:100%;padding-top:50px">
-        @foreach (Banners X in ViewBag.Banners)
-        {
-            <img class="mySlides img-fluid" src="~/Content/SliderHome/@X.Imagen" style="width:100%;height:200px">
-            <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:100%">
-                @*<span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(@ViewBag.Contador)"></span>*@
+    <div>
+        <!-- Slider -->
+        <div class="w3-content w3-section">
+            @foreach (Banners X in ViewBag.Banners)
+            {
+                <img src="~/Content/SliderHome/@X.Imagen" class="mySlides" style="width:940px">
+            }
+
+            <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+            <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
+        </div>
+
+        <script>
+            var myIndex = 0;
+            carousel();
+
+            function carousel() {
+                var i;
+                var x = document.getElementsByClassName("mySlides");
+                for (i = 0; i < x.length; i++) {
+                    x[i].style.display = "none";
+                }
+                myIndex++;
+                if (myIndex > x.length) { myIndex = 1 }
+                x[myIndex - 1].style.display = "block";
+                setTimeout(carousel, 5000); // Change image every 5 seconds
+            }
+        </script>
+
+        <!-- Banners -->
+        <div style="text-align:center;width:100%">
+            <div class="contenedorImagenes">
+                <a href="#" class="textWithBlurredBg">
+                    <div style="position:relative">
+                        <div style="position:absolute">
+                            <img class="img-fluid" src="~/Content/BannersHome/infoUtil.png" style="width:100%">
+                        </div>
+                        <div class="contenedorTexto">
+                            <h2>Informacion</h2>
+                            <h3>Hace click aca para informarte</h3>
+                        </div>
+                    </div>
+                </a>
             </div>
-            ViewBag.Contador = ViewBag.Contador + 1;
-        }
-    </div>
-
-    <script>
-        var slideIndex = 1;
-        showDivs(slideIndex);
-
-        @*function currentDiv(n) {
-            showDivs(slideIndex = n);
-        }*@
-
-        function showDivs(n) {
-            var i;
-            var x = document.getElementsByClassName("mySlides");
-            var dots = document.getElementsByClassName("demo");
-            if (n > x.length) { slideIndex = 1 }
-            if (n < 1) { slideIndex = x.length }
-            for (i = 0; i < x.length; i++) {
-                x[i].style.display = "none";
-            }
-            for (i = 0; i < dots.length; i++) {
-                dots[i].className = dots[i].className.replace(" w3-white", "");
-            }
-            x[slideIndex - 1].style.display = "block";
-            dots[slideIndex - 1].className += " w3-white";
-        }
-        var myIndex = 0;
-        carousel();
-
-        function carousel() {
-            var i;
-            var x = document.getElementsByClassName("mySlides");
-            for (i = 0; i < x.length; i++) {
-                x[i].style.display = "none";
-            }
-            myIndex++;
-            if (myIndex > x.length) { myIndex = 1 }
-            x[myIndex - 1].style.display = "block";
-            setTimeout(carousel, 10000); // Change image every 10 seconds
-            if (slideIndex == 1) { currentDiv(2) }
-            else { currentDiv(1) }
-        }
-    </script>
-
-    <!-- Banners -->
-    <div style="position:relative;text-align:center">
-        <div class="contenedorImagenes">
-            <a href="#" class="textWithBlurredBg">
-                <img class="img-fluid" src="~/Content/BannersHome/infoUtil.png">
-                <div class="contenedorTexto">
-                    <h2>Informacion</h2>
-                    <h3>Hace click aca para informarte</h3>
+            @*
+                <div class="contenedorImagenes">
+                    <a href="@Url.Action("Index","Crear_Publicacion")" class="textWithBlurredBg">
+                        <img class="img-fluid" src="~/Content/BannersHome/CrearPublicacion.png">
+                        <div class="contenedorTexto">
+                            <h2>Crear publicacion</h2>
+                            <h3>Hacé click acá para contribuir</h3>
+                        </div>
+                    </a>
                 </div>
-            </a>
-        </div>
-        <div class="contenedorImagenes">
-            <a href="@Url.Action("Index","Crear_Publicacion")" class="textWithBlurredBg">
-                <img class="img-fluid" src="~/Content/BannersHome/CrearPublicacion.png">
-                <div class="contenedorTexto">
-                    <h2>Crear publicacion</h2>
-                    <h3>Hacé click acá para contribuir</h3>
+
+                <div style="position:absolute">
+                    <div class="contenedorImagenes">
+                        <a href="#" class="textWithBlurredBg">
+                            <img class="img-fluid" src="~/Content/BannersHome/VerPublicaciones.png">
+                            <div class="contenedorTexto">
+                                <h2>Ver publicaciones</h2>
+                                <h3>Hacé click acá para ver las publicaciones de otros usuarios</h3>
+                            </div>
+                        </a>
+                    </div>
                 </div>
-            </a>
-        </div>
-        <div class="contenedorImagenes">
-            <a href="#" class="textWithBlurredBg">
-                <img class="img-fluid" src="~/Content/BannersHome/VerPublicaciones.png">
-                <div class="contenedorTexto">
-                    <h2>Ver publicaciones</h2>
-                    <h3>Hacé click acá para ver las publicaciones de otros usuarios</h3>
-                </div>
-            </a>
+            *@
         </div>
     </div>
 </body>
