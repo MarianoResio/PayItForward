@@ -362,7 +362,7 @@
     <Content Include="Views\Crear_Publicacion\Index.cshtml" />
     <Content Include="Views\Crear_Publicacion\MostrarPublicacion.cshtml" />
     <Content Include="Views\Crear_Publicacion\CategoriasHijas.cshtml" />
-    <Content Include="Views\Shared\Layout_crear_publicacion.cshtml" />
+    <Content Include="Styles\ProgressBar.scss" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

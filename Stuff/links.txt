@@ -8,3 +8,4 @@ botones:
 	https://codepen.io/giana/pen/BZaGyP
 listas: https://colorlib.com/wp/css3-table-templates/
 box shadow generator: https://www.cssmatic.com/box-shadow
+https://fribly.com/2015/01/01/scalable-responsive-progress-bar/

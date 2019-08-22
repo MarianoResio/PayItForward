@@ -6,56 +6,78 @@
 
 <head>
     <style>
-        .Categorias {
-            background-color: white;
+        .Categorias_Productos {
             border: 2px solid lightgrey;
-            height: 250px;
-            width: 150px;
-            border-radius: 4px;
-            margin-top: 50px;
-            margin-bottom: 50px;
-            margin-right: 10px;
+            width: 190px;
+            padding-top: 50px;
+            padding-bottom: 50px;
+            padding-left: 62px;
+            padding-right: 62px;
         }
+
+        .Categorias_Servicios {
+            border: 2px solid lightgrey;
+            width: 190px;
+            padding-top: 50.5px;
+            padding-bottom: 50px;
+            padding-left: 50px;
+            padding-right: 50px;
+        }
+
         .Productos :hover {
-            border: 2px solid #21bd4b;
+            border: 2px solid green;
         }
+
         .Servicios :hover {
-            border: 2px solid #bd2121;
+            border: 2px solid red;
         }
+
         form {
-            width: fit-content;
             margin-left: auto;
             margin-right: auto;
             display: inline-block;
         }
+
         .contenedor-categorias {
-            width: fit-content;
             margin-left: auto;
             margin-right: auto;
             display: inline-block;
-            margin-left: 37%;
         }
     </style>
+
 </head>
 
 <body>
     <div style="background-color:white">
-        <!--LAYOUT: elegi una categoria > descripcion(imagenes, nombre, etc.) > precio y cantidad > confirmar-->
-        <div>
-
+        <!--LAYOUT-->
+        <div style="background-color:white">
+            <ol class="progress">
+                <li class="is-active" data-step="1">
+                    Seleccion de categoria
+                </li>
+                <li data-step="2">
+                    Editar publicacion
+                </li>
+            </ol>
         </div>
+
+        <hr />
+        <div style="background-color: white">
+            <div style="margin-left: 10px; margin-top: 5px; padding-bottom: 10px">
+                <p style="font-size: 20px; margin-bottom: 5px">Categorias generales</p>
+                <p style="font-size: 15px; margin-bottom: 0px; margin-top: 0px">Selecciona una de las categorias principales</p>
+            </div>
+        </div>
+
         <!--DIV CENTRADO: contiene las dos categorias padre-->
         <div class="contenedor-categorias">
             @foreach (Categorias X in ViewBag.Lista)
             {
-                <form action="@Url.Action(X.Nombre, "Crear_Publicacion")">
-                    <button type="submit" class="@X.Nombre Categorias">
-                        <span>@X.Nombre</span> <br />
-                        <img src="~/Content/ImagenesCategoria/@X.Imagen" />
-                    </button>
+                <form action="@Url.Action(X.Nombre, "Crear_Publicacion")" class="@X.Nombre">
+                    <input type="image" id="image" class="Categorias_@X.Nombre"
+                           src="~/Content/ImagenesCategoria/@X.Imagen">
                 </form>
             }
         </div>
     </div>
-    
 </body>

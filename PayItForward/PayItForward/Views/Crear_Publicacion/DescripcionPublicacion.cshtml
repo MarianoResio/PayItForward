@@ -5,27 +5,87 @@
 }
 
 
-<head>   
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
     <style>
         .validation {
             color: red;
-            font-size: 15px;
+            font-size: 18px;
+        }
+
+        .inputDetalles {
+            margin-right: 0px;
+            margin-left: 25px;
+            margin-bottom: -20px;
+            width: 100%;
+        }
+
+        .labelDetalles {
+            margin-left: 25px;
+        }
+
+        label {
+            font-weight: normal !important;
+        }
+
+        input[type=submit] {
+            margin-left: 25px;
+            margin-bottom: 25px;
+            background-color: white;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 40px;
+            padding-right: 40px;
+            border-radius: 5px;
+            border-color: grey;
         }
     </style>
 </head>
 <body>
-    <h2>DescripcionPublicacion</h2>
-    <p>La categoria actual es @ViewBag.CategoriaActual</p>
+    <div style="background-color:white">
+        <b>Seleccion de categoria</b> > Editar publicacion
+        <ol class="progress">
+            <li class="is-active" data-step="1">
+                Seleccion de categoria
+            </li>
+            <li data-step="2">
+                Editar publicacion
+            </li>
+        </ol>
+    </div>
+    <hr />
+    <div style="background-color:white">
+        <p>La categoria actual es @ViewBag.CategoriaActual</p> <!--CAMBIAR POR EL RECORRIDO DE LAS CATEGORIAS-->
 
-    <!--MOSTRAR RECORRIDO DE CATEGORIAS-->
-    <form method="post" action="@Url.Action("MostrarPublicacion", "Crear_Publicacion")" id="formulario">
-        <p>Valor @Html.ValidationMessageFor(x=>x.Valor, null, new { @class = "validation" })</p> @Html.TextBoxFor(x => x.Valor, new { Type = "number" }) <br />
-        <p>Titulo @Html.ValidationMessageFor(x=>x.Titulo, null, new { @class = "validation" })</p> @Html.TextBoxFor(x => x.Titulo) <br />
-        <p>Descripcion @Html.ValidationMessageFor(x=>x.Descripcion, null, new { @class = "validation" })</p> @Html.TextBoxFor(x => x.Descripcion) <br />
-        <p>Ubicacion @Html.ValidationMessageFor(x=>x.Ubicacion, null, new { @class = "validation" })</p> @Html.TextBoxFor(x => x.Ubicacion) <br />
+        <hr />
 
-        <input type="hidden" value="@ViewBag.CategoriaActual" name="IdCategoria" />
+        <div style="background-color: white">
+            <div style="margin-left: 10px; margin-top: 5px; padding-bottom: 10px">
+                <p style="font-size: 20px; margin-bottom: 5px">Publicacion</p>
+                <p style="font-size: 15px; margin-bottom: 0px; margin-top: 0px">Describi los detalles de tu producto/servicio</p>
+                <br />
+            </div>
+        </div>
 
-        <input type="submit" value="Continuar" />
-    </form>
+        <form method="post" action="@Url.Action("MostrarPublicacion", "Crear_Publicacion")" id="formulario">
+            @Html.TextBoxFor(x => x.Valor, new { Type = "number", Class = "w3-input inputDetalles" }) <br />
+            <label class="labelDetalles">Valor @Html.ValidationMessageFor(x => x.Valor, null, new { @class = "validation" })</label>
+
+            @Html.TextBoxFor(x => x.Titulo, new { Class = "w3-input inputDetalles" }) <br />
+            <label class="labelDetalles">Titulo @Html.ValidationMessageFor(x => x.Titulo, null, new { @class = "validation" })</label>
+
+            @Html.TextBoxFor(x => x.Descripcion, new { Class = "w3-input inputDetalles" }) <br />
+            <label class="labelDetalles">Descripcion @Html.ValidationMessageFor(x => x.Descripcion, null, new { @class = "validation" })</label>
+
+            @Html.TextBoxFor(x => x.Ubicacion, new { Class = "w3-input inputDetalles" }) <br />
+            <label class="labelDetalles">Ubicacion @Html.ValidationMessageFor(x => x.Ubicacion, null, new { @class = "validation" })</label>
+
+            <input type="hidden" value="@ViewBag.CategoriaActual" name="IdCategoria" />
+
+            <br /><br /><br />
+            <input type="submit" value="Continuar" />
+        </form>
+    </div>
 </body>
