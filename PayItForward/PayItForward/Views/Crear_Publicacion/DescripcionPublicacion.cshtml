@@ -43,12 +43,12 @@
         }
     </style>
     <script>
-        function readURL(input) {
+        function readURL1(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
 
                 reader.onload = function (e) {
-                    $('#showimage1').attr('src', e.target.result);
+                    $('#showimg1').attr('src', e.target.result);
                 }
 
                 reader.readAsDataURL(input.files[0]);
@@ -56,6 +56,38 @@
         }
 
         $("#file1").change(function () {
+            readURL(this);
+        });
+
+        function readURL2(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#showimg2').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#file2").change(function () {
+            readURL(this);
+        });
+
+        function readURL3(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#showimg3').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#file3").change(function () {
             readURL(this);
         });
     </script>
@@ -89,13 +121,13 @@
         <form method="post" action="@Url.Action("MostrarPublicacion", "Crear_Publicacion")" id="formulario">
             <div style="display:inline-block">
                 <img id="showimg1" src="#" alt="your image" />
-                @Html.TextBoxFor(x => x.img1, new { type = "file", Name = "file1", id = "file1" })
+                @Html.TextBoxFor(x => x.Imagen1, new { type = "file", Name = "file1", id = "file1", Style = "float:left" })
 
                 <img id="showimg2" src="#" alt="your image" />
-                @Html.TextBoxFor(x => x.img2, new { type = "file", Name = "file2", id = "file2", Style = "display:none" })
+                @Html.TextBoxFor(x => x.Imagen2, new { type = "file", Name = "file2", id = "file2", Style = "display:none;float:left" })
 
                 <img id="showimg3" src="#" alt="your image" />
-                @Html.TextBoxFor(x => x.img3, new { type = "file", Name = "file3", id = "file3", Style = "display:none" })
+                @Html.TextBoxFor(x => x.Imagen3, new { type = "file", Name = "file3", id = "file3", Style = "display:none;float:left" })
             </div>
             <label for="file">Imagenes</label>
 
