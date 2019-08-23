@@ -8,7 +8,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
+    <link href="~/Styles/ProgressBar.css" rel="stylesheet" />
     <style>
         .validation {
             color: red;
@@ -103,13 +103,13 @@
     </script>
 </head>
 <body>
+    <!--PROGRESO-->
     <div style="background-color:white">
-        <b>Seleccion de categoria</b> > Editar publicacion
-        <ol class="progress">
-            <li class="is-active" data-step="1">
+        <ol class="progress progress--medium">
+            <li class="is-complete" data-step="1">
                 Seleccion de categoria
             </li>
-            <li data-step="2">
+            <li data-step="2" class="is-active progress__last">
                 Editar publicacion
             </li>
         </ol>

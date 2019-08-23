@@ -5,6 +5,7 @@
 }
 
 <head>
+    <link href="~/Styles/ProgressBar.css" rel="stylesheet" />
     <script>
         function Hijas(cat, nom) {
             $.ajax({
@@ -56,12 +57,13 @@
 </head>
 
 <body style="margin-top: -30px">
+    <!--PROGRESO-->
     <div style="background-color:white">
-        <ol class="progress">
+        <ol class="progress progress--medium">
             <li class="is-active" data-step="1">
                 Seleccion de categoria
             </li>
-            <li data-step="2">
+            <li data-step="2" class=" progress__last">
                 Editar publicacion
             </li>
         </ol>
