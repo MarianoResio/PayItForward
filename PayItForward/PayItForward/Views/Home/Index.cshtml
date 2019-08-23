@@ -57,6 +57,24 @@
         .mySlides {
             display: none;
         }
+
+        .banner {
+            display: inline-block;
+        }
+
+        .banner-lg {
+            width: 75%;
+        }
+
+        .banner {
+            height: 257px;
+            padding: 0;
+            margin: 0;
+        }
+
+        .last {
+            margin-top: 200px;
+        }
     </style>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -65,9 +83,24 @@
                 $('#SlideshowImages > div:first').fadeOut(1000).next().fadeIn(1000).end().appendTo('#SlideshowImages');
             }, 3000);
         });
+
+        var myIndex = 0;
+        carousel();
+
+        function carousel() {
+            var i;
+            var x = document.getElementsByClassName("mySlides");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            myIndex++;
+            if (myIndex > x.length) { myIndex = 1 }
+            x[myIndex - 1].style.display = "block";
+            setTimeout(carousel, 5000); // Change image every 5 seconds
+        }
     </script>
 </head>
-<body>
+<body style="margin-top:500px">
     <div>
         <!-- Slider -->
         <div class="w3-content w3-section">
@@ -77,29 +110,57 @@
             }
         </div>
 
-        <script>
-            var myIndex = 0;
-            carousel();
-
-            function carousel() {
-                var i;
-                var x = document.getElementsByClassName("mySlides");
-                for (i = 0; i < x.length; i++) {
-                    x[i].style.display = "none";
-                }
-                myIndex++;
-                if (myIndex > x.length) { myIndex = 1 }
-                x[myIndex - 1].style.display = "block";
-                setTimeout(carousel, 5000); // Change image every 5 seconds
-            }
-        </script>
+        <div class="row">
+            <div class="banner banner-lg">
+                <a href="#" class="textWithBlurredBg">
+                    <div style="position:relative">
+                        <div style="position:absolute">
+                            <img class="img-fluid" src="~/Content/BannersHome/infoUtil.png" style="width:100%">
+                        </div>
+                        <div class="contenedorTexto">
+                            <h2>Informacion</h2>
+                            <h3>Hace click aca para informarte</h3>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="banner banner-lg">
+                <a href="@Url.Action("Index","Crear_Publicacion")" class="textWithBlurredBg">
+                    <div style="position:relative">
+                        <div style="position:absolute">
+                            <img class="img-fluid" src="~/Content/BannersHome/CrearPublicacion.png" style="width:100%">
+                        </div>
+                        <div class="contenedorTexto">
+                            <h2>Crear publicacion</h2>
+                            <h3>Hacé click acá para contribuir</h3>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="banner banner-lg last">
+                <a href="#" class="textWithBlurredBg">
+                    <div style="position:relative">
+                        <div style="position:absolute">
+                            <img class="img-fluid" src="~/Content/BannersHome/VerPublicaciones.png" style="width:100%">
+                        </div>
+                        <div class="contenedorTexto">
+                            <h2>Ver publicaciones</h2>
+                            <h3>Hacé click acá para ver las publicaciones de otros usuarios</h3>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
 
         <!-- Banners -->
+        <!--
         <div style="text-align:center;width:100%">
             <div class="contenedorImagenes">
                 <div>
-
-
                     <a href="#" class="textWithBlurredBg">
                         <div style="position:relative">
                             <div style="position:absolute">
@@ -139,6 +200,6 @@
                     </a>
                 </div>
             </div>
-        </div>
+        </div>-->
     </div>
 </body>

@@ -195,13 +195,15 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Header\Logo.png" />
     <Content Include="Content\Header\LogoConTitle.png" />
-    <Content Include="Content\ImagenesCategoria\juguete.png" />
-    <Content Include="Content\ImagenesCategoria\mantenimiento.png" />
-    <Content Include="Content\ImagenesCategoria\medicina.png" />
     <Content Include="Content\ImagenesCategoria\productos.png" />
-    <Content Include="Content\ImagenesCategoria\ropa.png" />
     <Content Include="Content\ImagenesCategoria\servicios.png" />
-    <Content Include="Content\ImagenesCategoria\tecnologia.png" />
+    <Content Include="Content\ImagenesCategoria\Viejas\juguete.png" />
+    <Content Include="Content\ImagenesCategoria\Viejas\mantenimiento.png" />
+    <Content Include="Content\ImagenesCategoria\Viejas\medicina.png" />
+    <Content Include="Content\ImagenesCategoria\Viejas\productos.png" />
+    <Content Include="Content\ImagenesCategoria\Viejas\ropa.png" />
+    <Content Include="Content\ImagenesCategoria\Viejas\servicios.png" />
+    <Content Include="Content\ImagenesCategoria\Viejas\tecnologia.png" />
     <Content Include="Content\SliderHome\ActitudAnimal.png" />
     <Content Include="Content\SliderHome\aedin.png" />
     <Content Include="Content\SliderHome\apadea.png" />
@@ -342,6 +344,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Styles\ProgressBar.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -362,7 +365,7 @@
     <Content Include="Views\Crear_Publicacion\Index.cshtml" />
     <Content Include="Views\Crear_Publicacion\MostrarPublicacion.cshtml" />
     <Content Include="Views\Crear_Publicacion\CategoriasHijas.cshtml" />
-    <Content Include="Styles\ProgressBar.scss" />
+    <Content Include="Styles\ProgressBarscss.scss" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
