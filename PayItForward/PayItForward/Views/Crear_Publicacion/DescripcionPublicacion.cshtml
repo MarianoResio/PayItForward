@@ -90,6 +90,16 @@
         $("#file3").change(function () {
             readURL(this);
         });
+
+        /*$('#upload').bind("click", function () { //
+            var imgVal = $('#uploadImage').val();
+            if (imgVal == '') {
+                alert("empty input file");
+            }
+            else {
+                alert('file fill in');
+            }
+        });*/
     </script>
 </head>
 <body>
@@ -120,13 +130,13 @@
 
         <form method="post" action="@Url.Action("MostrarPublicacion", "Crear_Publicacion")" id="formulario">
             <div style="display:inline-block">
-                <img id="showimg1" src="#" alt="your image" />
+                <img id="showimg1" src="#" alt="your image" accept="image/jpg, image/png" />
                 @Html.TextBoxFor(x => x.Imagen1, new { type = "file", Name = "file1", id = "file1", Style = "float:left" })
 
-                <img id="showimg2" src="#" alt="your image" />
+                <img id="showimg2" src="#" alt="your image" accept="image/jpg, image/png" />
                 @Html.TextBoxFor(x => x.Imagen2, new { type = "file", Name = "file2", id = "file2", Style = "display:none;float:left" })
 
-                <img id="showimg3" src="#" alt="your image" />
+                <img id="showimg3" src="#" alt="your image" accept="image/jpg, image/png" />
                 @Html.TextBoxFor(x => x.Imagen3, new { type = "file", Name = "file3", id = "file3", Style = "display:none;float:left" })
             </div>
             <label for="file">Imagenes</label>
