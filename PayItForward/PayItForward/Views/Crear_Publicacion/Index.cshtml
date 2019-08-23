@@ -6,6 +6,8 @@
 
 <head>
     <link href="~/Styles/ProgressBar.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <style>
         .Categorias_Productos {
             border: 2px solid lightgrey;
@@ -44,6 +46,10 @@
             margin-right: auto;
             text-align: center;
         }
+
+        .botones {
+            padding: 25px 25px 25px 25px;
+        }
     </style>
 </head>
 
@@ -76,8 +82,7 @@
             @foreach (Categorias X in ViewBag.Lista)
             {
                 <form action="@Url.Action(X.Nombre, "Crear_Publicacion")" class="@X.Nombre">
-                    <input type="image" id="image" class="Categorias_@X.Nombre"
-                           src="~/Content/ImagenesCategoria/@X.Imagen">
+                    <input type="image" class="w3-btn botones" value="@X.Nombre" src="~/Content/ImagenesCategoria/@X.Imagen" id="@X.Nombre">
                 </form>
             }
         </div>
