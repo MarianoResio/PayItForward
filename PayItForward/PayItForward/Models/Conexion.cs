@@ -13,10 +13,10 @@ namespace PayItForward.Models
         public SqlConnection Conectar()
         {
             //ORT
-            //string SC = "Server=.;Database=PayItForward;Trusted_Connection=True;";
+            string SC = "Server=.;Database=PayItForward;Trusted_Connection=True;";
 
             //Marian
-            string SC = "Server=LAPTOP-BT997U35\\SQLEXPRESS;Database=PayItForward;Trusted_Connection=True;";
+            //string SC = "Server=LAPTOP-BT997U35\\SQLEXPRESS;Database=PayItForward;Trusted_Connection=True;";
             SqlConnection Conexion = new SqlConnection(SC);
             Conexion.Open();
             return Conexion;
@@ -51,6 +51,9 @@ namespace PayItForward.Models
             Comando.CommandType = System.Data.CommandType.StoredProcedure;
             Comando.Parameters.AddWithValue("@pIdCategoria", UnaPublicacion.IdCategoria);
             Comando.Parameters.AddWithValue("@pIdUsuario", UnaPublicacion.IdUsuario);
+            Comando.Parameters.AddWithValue("@pImagen1", UnaPublicacion.Imagen1);
+            Comando.Parameters.AddWithValue("@pImagen2", UnaPublicacion.Imagen2);
+            Comando.Parameters.AddWithValue("@pImagen3", UnaPublicacion.Imagen3);
             Comando.Parameters.AddWithValue("@pAprobada", UnaPublicacion.Aprobada);
             Comando.Parameters.AddWithValue("@pValor", UnaPublicacion.Valor);
             Comando.Parameters.AddWithValue("@pTitulo", UnaPublicacion.Titulo);
@@ -63,21 +66,6 @@ namespace PayItForward.Models
             Conexion.Close();
 
             return TraerUltimaPublicacion();
-        }
-
-        public void AltaImagenPorPublicacion(int IdPublicacion, string Imagen)
-        {
-            SqlConnection Conexion = Conectar();
-            SqlCommand Comando = Conexion.CreateCommand();
-
-            Comando.CommandText = "sp_AltaImagen";
-            Comando.CommandType = System.Data.CommandType.StoredProcedure;
-            Comando.Parameters.AddWithValue("@pImagen", Imagen);
-            Comando.Parameters.AddWithValue("@pId", IdPublicacion);
-
-            Comando.ExecuteNonQuery();
-
-            Conexion.Close();
         }
 
         public List<Categorias> TraerCategoriasPadres()
@@ -179,6 +167,9 @@ namespace PayItForward.Models
                 int IdPublicacion_Traido = Convert.ToInt32(DataReader["IdPublicacion"]);
                 int IdCategoria_Traido = Convert.ToInt32(DataReader["IdCategoria"]);
                 int IdUsuario_Traido = Convert.ToInt32(DataReader["IdUsuario"]);
+                string Imagen1_Traida = DataReader["Imagen1"].ToString();
+                string Imagen2_Traida = DataReader["Imagen2"].ToString();
+                string Imagen3_Traida = DataReader["Imagen3"].ToString();
                 bool Aprobado_Traido = Convert.ToBoolean(DataReader["Aprobada"]);
                 int Valor_Traido = Convert.ToInt32(DataReader["Valor"]);
                 string Titulo_Traido = DataReader["Titulo"].ToString();
@@ -186,7 +177,7 @@ namespace PayItForward.Models
                 int Likes_Traidos = Convert.ToInt32(DataReader["Likes"]);
                 string Ubicacion_Traida = DataReader["Ubicacion"].ToString();
 
-                Publicacion X = new Publicacion(IdPublicacion_Traido, IdCategoria_Traido, IdUsuario_Traido, Aprobado_Traido, Valor_Traido, Titulo_Traido, Descripcion_Traida, Likes_Traidos, Ubicacion_Traida);
+                Publicacion X = new Publicacion(IdPublicacion_Traido, IdCategoria_Traido, IdUsuario_Traido, Imagen1_Traida, Imagen2_Traida, Imagen3_Traida, Aprobado_Traido, Valor_Traido, Titulo_Traido, Descripcion_Traida, Likes_Traidos, Ubicacion_Traida);
                 Lista.Add(X);
             }
 
@@ -212,6 +203,9 @@ namespace PayItForward.Models
                 X.IdPublicacion = IdPublicacion;
                 X.IdCategoria = Convert.ToInt32(DataReader["IdCategoria"]);
                 X.IdUsuario = Convert.ToInt32(DataReader["IdUsuario"]);
+                X.Imagen1 = DataReader["Imagen1"].ToString();
+                X.Imagen2 = DataReader["Imagen2s"].ToString();
+                X.Imagen3 = DataReader["Imagen3"].ToString();
                 X.Aprobada = Convert.ToBoolean(DataReader["Aprobada"]);
                 X.Valor = Convert.ToInt32(DataReader["Valor"]);
                 X.Titulo = DataReader["Titulo"].ToString();
@@ -272,6 +266,9 @@ namespace PayItForward.Models
             Comando.CommandText = "sp_ModificarPublicacion";
             Comando.CommandType = System.Data.CommandType.StoredProcedure;
             Comando.Parameters.AddWithValue("@pIdPublicacion", X.IdPublicacion);
+            Comando.Parameters.AddWithValue("@pImagen1", X.Titulo);
+            Comando.Parameters.AddWithValue("@pImagen2", X.Titulo);
+            Comando.Parameters.AddWithValue("@pImagen3", X.Titulo);
             Comando.Parameters.AddWithValue("@pValor", X.Valor);
             Comando.Parameters.AddWithValue("@pTitulo", X.Titulo);
             Comando.Parameters.AddWithValue("@pDescripcion", X.Descripcion);

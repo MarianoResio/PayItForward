@@ -42,6 +42,23 @@
             border-color: grey;
         }
     </style>
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#showimage1').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#file1").change(function () {
+            readURL(this);
+        });
+    </script>
 </head>
 <body>
     <div style="background-color:white">
@@ -70,21 +87,33 @@
         </div>
 
         <form method="post" action="@Url.Action("MostrarPublicacion", "Crear_Publicacion")" id="formulario">
-            @Html.TextBoxFor(x => x.Valor, new { Type = "number", Class = "w3-input inputDetalles" }) <br />
-            <label class="labelDetalles">Valor @Html.ValidationMessageFor(x => x.Valor, null, new { @class = "validation" })</label>
+            <div style="display:inline-block">
+                <img id="showimg1" src="#" alt="your image" />
+                @Html.TextBoxFor(x => x.img1, new { type = "file", Name = "file1", id = "file1" })
 
-            @Html.TextBoxFor(x => x.Titulo, new { Class = "w3-input inputDetalles" }) <br />
-            <label class="labelDetalles">Titulo @Html.ValidationMessageFor(x => x.Titulo, null, new { @class = "validation" })</label>
+                <img id="showimg2" src="#" alt="your image" />
+                @Html.TextBoxFor(x => x.img2, new { type = "file", Name = "file2", id = "file2", Style = "display:none" })
 
-            @Html.TextBoxFor(x => x.Descripcion, new { Class = "w3-input inputDetalles" }) <br />
-            <label class="labelDetalles">Descripcion @Html.ValidationMessageFor(x => x.Descripcion, null, new { @class = "validation" })</label>
+                <img id="showimg3" src="#" alt="your image" />
+                @Html.TextBoxFor(x => x.img3, new { type = "file", Name = "file3", id = "file3", Style = "display:none" })
+            </div>
+            <label for="file">Imagenes</label>
 
-            @Html.TextBoxFor(x => x.Ubicacion, new { Class = "w3-input inputDetalles" }) <br />
-            <label class="labelDetalles">Ubicacion @Html.ValidationMessageFor(x => x.Ubicacion, null, new { @class = "validation" })</label>
+            @Html.TextBoxFor(x => x.Valor, new { Type = "number", Class = "w3-input inputDetalles", Name = "Valor" }) <br />
+            <label class="labelDetalles" for="Valor">Valor @Html.ValidationMessageFor(x => x.Valor, null, new { @class = "validation" })</label>
+
+            @Html.TextBoxFor(x => x.Titulo, new { Class = "w3-input inputDetalles", Name = "Titulo" }) <br />
+            <label class="labelDetalles" for="Titulo">Titulo @Html.ValidationMessageFor(x => x.Titulo, null, new { @class = "validation" })</label>
+
+            @Html.TextBoxFor(x => x.Descripcion, new { Class = "w3-input inputDetalles", Name = "Descripcion" }) <br />
+            <label class="labelDetalles" , for="Descripcion">Descripcion @Html.ValidationMessageFor(x => x.Descripcion, null, new { @class = "validation" })</label>
+
+            @Html.TextBoxFor(x => x.Ubicacion, new { Class = "w3-input inputDetalles", Name = "Ubicacion" }) <br />
+            <label class="labelDetalles" for="Ubicacion">Ubicacion @Html.ValidationMessageFor(x => x.Ubicacion, null, new { @class = "validation" })</label>
 
             <input type="hidden" value="@ViewBag.CategoriaActual" name="IdCategoria" />
-
             <br /><br /><br />
+
             <input type="submit" value="Continuar" />
         </form>
     </div>
