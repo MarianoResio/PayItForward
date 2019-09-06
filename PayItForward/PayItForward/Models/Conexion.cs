@@ -110,10 +110,9 @@ namespace PayItForward.Models
             {
                 int IdBanner_Traido = Convert.ToInt32(DataReader["IdBanner"].ToString());
                 string Imagen_Traida = DataReader["Imagen"].ToString();
-                DateTime Desde_Traido = Convert.ToDateTime(DataReader["Desde"]);
                 DateTime Hasta_Traido = Convert.ToDateTime(DataReader["Hasta"]);
 
-                Banners X = new Banners(IdBanner_Traido, Desde_Traido, Hasta_Traido, Imagen_Traida);
+                Banners X = new Banners(IdBanner_Traido, Hasta_Traido, Imagen_Traida);
                 Lista.Add(X);
             }
 

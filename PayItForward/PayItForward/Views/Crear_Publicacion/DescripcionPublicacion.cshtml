@@ -43,63 +43,15 @@
         }
     </style>
     <script>
-        function readURL1(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
+        $(function () {
+            $("input[type='submit']").click(function () {
 
-                reader.onload = function (e) {
-                    $('#showimg1').attr('src', e.target.result);
+                var $fileUpload = $("input[type='file']");
+                if (parseInt($fileUpload.get(0).files.length) > 3) {
+                    alert("Selecciona hasta un maximo de 3 imàgenes");
                 }
-
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        $("#file1").change(function () {
-            readURL(this);
+            });
         });
-
-        function readURL2(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function (e) {
-                    $('#showimg2').attr('src', e.target.result);
-                }
-
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        $("#file2").change(function () {
-            readURL(this);
-        });
-
-        function readURL3(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function (e) {
-                    $('#showimg3').attr('src', e.target.result);
-                }
-
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        $("#file3").change(function () {
-            readURL(this);
-        });
-
-        /*$('#upload').bind("click", function () { //
-            var imgVal = $('#uploadImage').val();
-            if (imgVal == '') {
-                alert("empty input file");
-            }
-            else {
-                alert('file fill in');
-            }
-        });*/
     </script>
 </head>
 <body>
@@ -130,14 +82,7 @@
 
         <form method="post" action="@Url.Action("MostrarPublicacion", "Crear_Publicacion")" id="formulario">
             <div style="display:inline-block">
-                <img id="showimg1" src="#" alt="your image" accept="image/jpg, image/png" />
-                @Html.TextBoxFor(x => x.Imagen1, new { type = "file", Name = "file1", id = "file1", Style = "float:left" })
-
-                <img id="showimg2" src="#" alt="your image" accept="image/jpg, image/png" />
-                @Html.TextBoxFor(x => x.Imagen2, new { type = "file", Name = "file2", id = "file2", Style = "display:none;float:left" })
-
-                <img id="showimg3" src="#" alt="your image" accept="image/jpg, image/png" />
-                @Html.TextBoxFor(x => x.Imagen3, new { type = "file", Name = "file3", id = "file3", Style = "display:none;float:left" })
+                @Html.TextBoxFor(x => x.Imagen1, new { type = "file", Name = "file", id = "file", Style = "float:left" })
             </div>
             <label for="file">Imagenes</label>
 
