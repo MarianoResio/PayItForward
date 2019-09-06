@@ -51,9 +51,9 @@ namespace PayItForward.Models
             Comando.CommandType = System.Data.CommandType.StoredProcedure;
             Comando.Parameters.AddWithValue("@pIdCategoria", UnaPublicacion.IdCategoria);
             Comando.Parameters.AddWithValue("@pIdUsuario", UnaPublicacion.IdUsuario);
-            Comando.Parameters.AddWithValue("@pImagen1", UnaPublicacion.Imagen1);
-            Comando.Parameters.AddWithValue("@pImagen2", UnaPublicacion.Imagen2);
-            Comando.Parameters.AddWithValue("@pImagen3", UnaPublicacion.Imagen3);
+            Comando.Parameters.AddWithValue("@pImagen1", UnaPublicacion.NombreImagen[0]);
+            Comando.Parameters.AddWithValue("@pImagen2", UnaPublicacion.NombreImagen[1]);
+            Comando.Parameters.AddWithValue("@pImagen3", UnaPublicacion.NombreImagen[2]);
             Comando.Parameters.AddWithValue("@pAprobada", UnaPublicacion.Aprobada);
             Comando.Parameters.AddWithValue("@pValor", UnaPublicacion.Valor);
             Comando.Parameters.AddWithValue("@pTitulo", UnaPublicacion.Titulo);
@@ -166,9 +166,10 @@ namespace PayItForward.Models
                 int IdPublicacion_Traido = Convert.ToInt32(DataReader["IdPublicacion"]);
                 int IdCategoria_Traido = Convert.ToInt32(DataReader["IdCategoria"]);
                 int IdUsuario_Traido = Convert.ToInt32(DataReader["IdUsuario"]);
-                string Imagen1_Traida = DataReader["Imagen1"].ToString();
-                string Imagen2_Traida = DataReader["Imagen2"].ToString();
-                string Imagen3_Traida = DataReader["Imagen3"].ToString();
+                List<string> ImgTraida = new List<string>();
+                ImgTraida.Add(DataReader["Imagen1"].ToString());
+                ImgTraida.Add(DataReader["Imagen2"].ToString());
+                ImgTraida.Add(DataReader["Imagen3"].ToString());
                 bool Aprobado_Traido = Convert.ToBoolean(DataReader["Aprobada"]);
                 int Valor_Traido = Convert.ToInt32(DataReader["Valor"]);
                 string Titulo_Traido = DataReader["Titulo"].ToString();
@@ -176,7 +177,7 @@ namespace PayItForward.Models
                 int Likes_Traidos = Convert.ToInt32(DataReader["Likes"]);
                 string Ubicacion_Traida = DataReader["Ubicacion"].ToString();
 
-                Publicacion X = new Publicacion(IdPublicacion_Traido, IdCategoria_Traido, IdUsuario_Traido, Imagen1_Traida, Imagen2_Traida, Imagen3_Traida, Aprobado_Traido, Valor_Traido, Titulo_Traido, Descripcion_Traida, Likes_Traidos, Ubicacion_Traida);
+                Publicacion X = new Publicacion(IdPublicacion_Traido, IdCategoria_Traido, IdUsuario_Traido, ImgTraida, Aprobado_Traido, Valor_Traido, Titulo_Traido, Descripcion_Traida, Likes_Traidos, Ubicacion_Traida);
                 Lista.Add(X);
             }
 
@@ -202,9 +203,9 @@ namespace PayItForward.Models
                 X.IdPublicacion = IdPublicacion;
                 X.IdCategoria = Convert.ToInt32(DataReader["IdCategoria"]);
                 X.IdUsuario = Convert.ToInt32(DataReader["IdUsuario"]);
-                X.Imagen1 = DataReader["Imagen1"].ToString();
-                X.Imagen2 = DataReader["Imagen2s"].ToString();
-                X.Imagen3 = DataReader["Imagen3"].ToString();
+                X.NombreImagen.Add(DataReader["Imagen1"].ToString());
+                X.NombreImagen.Add(DataReader["Imagen2"].ToString());
+                X.NombreImagen.Add(DataReader["Imagen3"].ToString());
                 X.Aprobada = Convert.ToBoolean(DataReader["Aprobada"]);
                 X.Valor = Convert.ToInt32(DataReader["Valor"]);
                 X.Titulo = DataReader["Titulo"].ToString();

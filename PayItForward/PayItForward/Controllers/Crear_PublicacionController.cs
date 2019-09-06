@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -62,6 +63,7 @@ namespace PayItForward.Controllers
         [HttpPost]
         public ActionResult MostrarPublicacion(Publicacion Publi, int IdCategoria)
         {
+            
             Publi.IdCategoria = Convert.ToInt32(IdCategoria);
             if (!ModelState.IsValid)
             {
@@ -70,6 +72,17 @@ namespace PayItForward.Controllers
             }
             else
             {
+                // guardar las imagenes en content
+                if (Publi.Imagenes!= null)
+                {
+                    foreach (HttpPostedFileBase img in Publi.Imagenes)
+                    {
+                        string NuevaUbicacion = Server.MapPath("~/Content/") + img.FileName;
+                        img.SaveAs(NuevaUbicacion);
+                        Publi.NombreImagen.Add(img.FileName);
+                    }
+                }
+
                 int UltimaPublicacion = miConexion.CrearPublicacion(Publi);
                 ViewBag.Publicacion = Publi;
                 return View();
