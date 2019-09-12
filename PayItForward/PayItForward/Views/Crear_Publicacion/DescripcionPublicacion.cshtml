@@ -55,53 +55,55 @@
     </script>
 </head>
 <body>
-    <!--PROGRESO-->
-    <div style="background-color:white">
-        <ol class="progress progress--medium">
-            <li class="is-complete" data-step="1">
-                Seleccionar categoria
-            </li>
-            <li data-step="2" class="is-active progress__last">
-                Editar publicacion
-            </li>
-        </ol>
-    </div>
-    <hr />
-    <div style="background-color:white">
-        <p>La categoria actual es @ViewBag.CategoriaActual</p> <!--CAMBIAR POR EL RECORRIDO DE LAS CATEGORIAS-->
-
-        <hr />
-
-        <div style="background-color: white">
-            <div style="margin-left: 10px; margin-top: 5px; padding-bottom: 10px">
-                <p style="font-size: 20px; margin-bottom: 5px">Publicacion</p>
-                <p style="font-size: 15px; margin-bottom: 0px; margin-top: 0px">Describi los detalles de tu producto/servicio</p>
-                <br />
-            </div>
+    <div style="background-color:white;margin-top:100px">
+        <!--PROGRESO-->
+        <div style="background-color:white;height:66px">
+            <ol class="progress progress--medium">
+                <li class="is-complete" data-step="1">
+                    Seleccionar categoria
+                </li>
+                <li data-step="2" class="is-active progress__last">
+                    Editar publicacion
+                </li>
+            </ol>
         </div>
+        <hr />
+        <div style="background-color:white">
+            <p style="text-align:center">La categoria actual es @ViewBag.CategoriaActual</p> <!--CAMBIAR POR EL RECORRIDO DE LAS CATEGORIAS-->
 
-        <form method="post" action="@Url.Action("MostrarPublicacion", "Crear_Publicacion")" id="formulario" enctype="multipart/form-data">
-            <div style="display:inline-block">
-                @Html.TextBoxFor(x => x.Imagenes, new { type = "file", Multiple = "Multiple", Name = "Imagenes", id = "file", Style = "float:left"})
+            <hr />
+
+            <div style="background-color: white">
+                <div style="margin-left: 10px; margin-top: 5px; padding-bottom: 10px">
+                    <p style="font-size: 20px; margin-bottom: 5px">Publicacion</p>
+                    <p style="font-size: 15px; margin-bottom: 0px; margin-top: 0px">Describi los detalles de tu producto/servicio</p>
+                    <br />
+                </div>
             </div>
-            <label for="file">Imagenes</label>
 
-            @Html.TextBoxFor(x => x.Valor, new { Type = "number", Class = "w3-input inputDetalles", Name = "Valor" }) <br />
-            <label class="labelDetalles" for="Valor">Valor @Html.ValidationMessageFor(x => x.Valor, null, new { @class = "validation" })</label>
+            <form method="post" action="@Url.Action("MostrarPublicacion", "Crear_Publicacion")" id="formulario" enctype="multipart/form-data">
+                <div style="display:inline-block">
+                    @Html.TextBoxFor(x => x.Imagenes, new { type = "file", Multiple = "Multiple", Name = "Imagenes", id = "file", Style = "float:left", Class = "w3-input inputDetalles" })
+                </div> <br /> <br />
+                <label class="labelDetalles" for="file">Imagenes</label>
 
-            @Html.TextBoxFor(x => x.Titulo, new { Class = "w3-input inputDetalles", Name = "Titulo" }) <br />
-            <label class="labelDetalles" for="Titulo">Titulo @Html.ValidationMessageFor(x => x.Titulo, null, new { @class = "validation" })</label>
+                @Html.TextBoxFor(x => x.Valor, new { Type = "number", Class = "w3-input inputDetalles", Name = "Valor" }) <br />
+                <label class="labelDetalles" for="Valor">Valor @Html.ValidationMessageFor(x => x.Valor, null, new { @class = "validation" })</label>
 
-            @Html.TextBoxFor(x => x.Descripcion, new { Class = "w3-input inputDetalles", Name = "Descripcion" }) <br />
-            <label class="labelDetalles" , for="Descripcion">Descripcion @Html.ValidationMessageFor(x => x.Descripcion, null, new { @class = "validation" })</label>
+                @Html.TextBoxFor(x => x.Titulo, new { Class = "w3-input inputDetalles", Name = "Titulo" }) <br />
+                <label class="labelDetalles" for="Titulo">Titulo @Html.ValidationMessageFor(x => x.Titulo, null, new { @class = "validation" })</label>
 
-            @Html.TextBoxFor(x => x.Ubicacion, new { Class = "w3-input inputDetalles", Name = "Ubicacion" }) <br />
-            <label class="labelDetalles" for="Ubicacion">Ubicacion @Html.ValidationMessageFor(x => x.Ubicacion, null, new { @class = "validation" })</label>
+                @Html.TextBoxFor(x => x.Descripcion, new { Class = "w3-input inputDetalles", Name = "Descripcion" }) <br />
+                <label class="labelDetalles" , for="Descripcion">Descripcion @Html.ValidationMessageFor(x => x.Descripcion, null, new { @class = "validation" })</label>
 
-            <input type="hidden" value="@ViewBag.CategoriaActual" name="IdCategoria" />
-            <br /><br /><br />
+                @Html.TextBoxFor(x => x.Ubicacion, new { Class = "w3-input inputDetalles", Name = "Ubicacion" }) <br />
+                <label class="labelDetalles" for="Ubicacion">Ubicacion @Html.ValidationMessageFor(x => x.Ubicacion, null, new { @class = "validation" })</label>
 
-            <input type="submit" value="Continuar" />
-        </form>
+                <input type="hidden" value="@ViewBag.CategoriaActual" name="IdCategoria" />
+                <br /><br /><br />
+
+                <input type="submit" value="Continuar" />
+            </form>
+        </div>
     </div>
 </body>
