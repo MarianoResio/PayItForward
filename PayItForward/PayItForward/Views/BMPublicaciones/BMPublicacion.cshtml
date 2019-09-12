@@ -9,26 +9,82 @@
     <style>
         .validation {
             color: red;
-            font-size: 15px;
+            font-size: 18px;
+        }
+
+        .inputDetalles {
+            margin-right: 0px;
+            margin-left: 25px;
+            margin-bottom: -20px;
+            width: 100%;
+        }
+
+        .labelDetalles {
+            margin-left: 25px;
+        }
+
+        label {
+            font-weight: normal !important;
+        }
+
+        input[type=submit] {
+            margin-left: 25px;
+            margin-bottom: 25px;
+            background-color: white;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 40px;
+            padding-right: 40px;
+            border-radius: 5px;
+            border-color: grey;
         }
     </style>
+    <script>
+        $(function () {
+            $("input[type='submit']").click(function () {
+
+                var $fileUpload = $("input[type='file']");
+                if (parseInt($fileUpload.get(0).files.length) > 3) {
+                    alert("Selecciona hasta un maximo de 3 imàgenes");
+                }
+            });
+        });
+    </script>
 </head>
 <body>
     <h2>BMPublicacion</h2>
     @if (ViewBag.Accion == "Modificar")
     {
-        <form action="@Url.Action("editarPublicacion", "BMPublicaciones")">
-            @Html.HiddenFor(x => x.IdPublicacion)
-            <p>Titulo:@Html.ValidationMessageFor(x => x.Titulo, null, new { @class = "validation" })</p> @Html.TextBoxFor(x => x.Titulo) <br />
-            <p>Categoria:</p> @Html.TextBoxFor(x => x.IdCategoria, new { disabled = "true" }) <br />
-            <p>IdUsuario:</p> @Html.TextBoxFor(x => x.IdUsuario, new { disabled = "true" }) <br />
-            <p>Aprobada:</p> @Html.TextBoxFor(x => x.Aprobada, new { disabled = "true" }) <br />
-            <p>Valor:@Html.ValidationMessageFor(x => x.Valor, null, new { @class = "validation" })</p>@Html.TextBoxFor(x => x.Valor, new { Type = "number" }) <br />
-            <p>Desc: @Html.ValidationMessageFor(x => x.Descripcion, null, new { @class = "validation" })</p> @Html.TextBoxFor(x => x.Descripcion) <br />
-            <p>Likes:</p> @Html.TextBoxFor(x => x.Likes, new { disabled = "true" }) <br />
-            <p>Ubicacion: @Html.ValidationMessageFor(x => x.Ubicacion, null, new { @class = "validation" })</p> @Html.TextBoxFor(x => x.Ubicacion) <br />
+        <div style="background-color: white">
+            <div style="margin-left: 10px; margin-top: 5px; padding-bottom: 10px">
+                <p style="font-size: 20px; margin-bottom: 5px">Publicacion</p>
+                <p style="font-size: 15px; margin-bottom: 0px; margin-top: 0px">Describi los detalles de tu producto/servicio</p>
+                <br />
+            </div>
+        </div>
 
-            <input type="submit" value="Aceptar" />
+        <form method="post" action="@Url.Action("editarPublicacion", "BMPublicaciones")" id="formulario" enctype="multipart/form-data">
+            <div style="display:inline-block">
+                @Html.TextBoxFor(x => x.Imagenes, new { type = "file", Multiple = "Multiple", Name = "Imagenes", id = "file", Style = "float:left", Class = "w3-input inputDetalles" })
+            </div> <br /> <br />
+            <label class="labelDetalles" for="file">Imagenes</label>
+
+            @Html.TextBoxFor(x => x.Valor, new { Type = "number", Class = "w3-input inputDetalles", Name = "Valor" }) <br />
+            <label class="labelDetalles" for="Valor">Valor @Html.ValidationMessageFor(x => x.Valor, null, new { @class = "validation" })</label>
+
+            @Html.TextBoxFor(x => x.Titulo, new { Class = "w3-input inputDetalles", Name = "Titulo" }) <br />
+            <label class="labelDetalles" for="Titulo">Titulo @Html.ValidationMessageFor(x => x.Titulo, null, new { @class = "validation" })</label>
+
+            @Html.TextBoxFor(x => x.Descripcion, new { Class = "w3-input inputDetalles", Name = "Descripcion" }) <br />
+            <label class="labelDetalles" , for="Descripcion">Descripcion @Html.ValidationMessageFor(x => x.Descripcion, null, new { @class = "validation" })</label>
+
+            @Html.TextBoxFor(x => x.Ubicacion, new { Class = "w3-input inputDetalles", Name = "Ubicacion" }) <br />
+            <label class="labelDetalles" for="Ubicacion">Ubicacion @Html.ValidationMessageFor(x => x.Ubicacion, null, new { @class = "validation" })</label>
+
+            <input type="hidden" value="@ViewBag.CategoriaActual" name="IdCategoria" />
+            <br /><br /><br />
+
+            <input type="submit" value="Continuar" />
         </form>
     }
     else if (ViewBag.Accion == "Ver")
