@@ -100,8 +100,8 @@
         }
     </script>
 </head>
-<body style="margin-top:500px">
-    <div>
+<body>
+    <div style="margin-top: 400px">
         <!-- Slider -->
         <div class="w3-content w3-section">
             @foreach (Banners X in ViewBag.Banners)
@@ -140,7 +140,7 @@
                 </a>
             </div>
         </div>
-        <div class="row">
+        <div class="row" style="margin-top: 25px">
             <div class="banner banner-lg last">
                 <a href="#" class="textWithBlurredBg">
                     <div style="position:relative">
@@ -155,51 +155,5 @@
                 </a>
             </div>
         </div>
-
-        <!-- Banners -->
-        <!--
-        <div style="text-align:center;width:100%">
-            <div class="contenedorImagenes">
-                <div>
-                    <a href="#" class="textWithBlurredBg">
-                        <div style="position:relative">
-                            <div style="position:absolute">
-                                <img class="img-fluid" src="~/Content/BannersHome/infoUtil.png" style="width:100%">
-                            </div>
-                            <div class="contenedorTexto">
-                                <h2>Informacion</h2>
-                                <h3>Hace click aca para informarte</h3>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div>
-                    <a href="@Url.Action("Index","Crear_Publicacion")" class="textWithBlurredBg">
-                        <div style="position:relative">
-                            <div style="position:absolute">
-                                <img class="img-fluid" src="~/Content/BannersHome/CrearPublicacion.png" style="width:100%">
-                            </div>
-                            <div class="contenedorTexto">
-                                <h2>Crear publicacion</h2>
-                                <h3>Hacé click acá para contribuir</h3>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div>
-                    <a href="#" class="textWithBlurredBg">
-                        <div style="position:relative">
-                            <div style="position:absolute">
-                                <img class="img-fluid" src="~/Content/BannersHome/VerPublicaciones.png" style="width:100%">
-                            </div>
-                            <div class="contenedorTexto">
-                                <h2>Ver publicaciones</h2>
-                                <h3>Hacé click acá para ver las publicaciones de otros usuarios</h3>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>-->
     </div>
 </body>

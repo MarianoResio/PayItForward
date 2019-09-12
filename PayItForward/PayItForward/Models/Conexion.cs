@@ -13,10 +13,10 @@ namespace PayItForward.Models
         public SqlConnection Conectar()
         {
             //ORT
-            string SC = "Server=.;Database=PayItForward;Trusted_Connection=True;";
+            //string SC = "Server=.;Database=PayItForward;Trusted_Connection=True;";
 
             //Marian
-            //string SC = "Server=LAPTOP-BT997U35\\SQLEXPRESS;Database=PayItForward;Trusted_Connection=True;";
+            string SC = "Server=LAPTOP-BT997U35\\SQLEXPRESS;Database=PayItForward;Trusted_Connection=True;";
             SqlConnection Conexion = new SqlConnection(SC);
             Conexion.Open();
             return Conexion;
