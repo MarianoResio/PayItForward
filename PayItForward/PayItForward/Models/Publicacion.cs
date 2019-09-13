@@ -47,7 +47,6 @@ namespace PayItForward.Models
             _IdCategoria = idCategoria;
             _IdUsuario = idUsuario;
             _NombreImagen = nomImg;
-
             _Aprobada = aprobada;
             _Valor = valor;
             _Titulo = titulo;
@@ -62,7 +61,6 @@ namespace PayItForward.Models
             _IdCategoria = idCategoria;
             _IdUsuario = idUsuario;
             _NombreImagen = nomImg;
-
             _Aprobada = aprobada;
             _Valor = valor;
             _Titulo = titulo;

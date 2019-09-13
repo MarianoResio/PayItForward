@@ -194,10 +194,18 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\CrearPublicacion.png" />
     <Content Include="Content\Header\Logo.png" />
     <Content Include="Content\Header\LogoConTitle.png" />
     <Content Include="Content\ImagenesCategoria\productos.png" />
     <Content Include="Content\ImagenesCategoria\servicios.png" />
+    <Content Include="Content\ImagenesCategoria\unused\juguete.png" />
+    <Content Include="Content\ImagenesCategoria\unused\mantenimiento.png" />
+    <Content Include="Content\ImagenesCategoria\unused\medicina.png" />
+    <Content Include="Content\ImagenesCategoria\unused\productos.png" />
+    <Content Include="Content\ImagenesCategoria\unused\ropa.png" />
+    <Content Include="Content\ImagenesCategoria\unused\servicios.png" />
+    <Content Include="Content\ImagenesCategoria\unused\tecnologia.png" />
     <Content Include="Content\ImagenesCategoria\Viejas\juguete.png" />
     <Content Include="Content\ImagenesCategoria\Viejas\mantenimiento.png" />
     <Content Include="Content\ImagenesCategoria\Viejas\medicina.png" />
@@ -205,6 +213,7 @@
     <Content Include="Content\ImagenesCategoria\Viejas\ropa.png" />
     <Content Include="Content\ImagenesCategoria\Viejas\servicios.png" />
     <Content Include="Content\ImagenesCategoria\Viejas\tecnologia.png" />
+    <Content Include="Content\ImagenesPublicaciones\amarillo.png" />
     <Content Include="Content\SliderHome\ActitudAnimal.png" />
     <Content Include="Content\SliderHome\aedin.png" />
     <Content Include="Content\SliderHome\apadea.png" />
@@ -345,7 +354,17 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Styles\bootstrap.css" />
+    <Content Include="Styles\font-awesome.min.css" />
+    <Content Include="Styles\ion.rangeSlider.css" />
+    <Content Include="Styles\ion.rangeSlider.skinFlat.css" />
+    <Content Include="Styles\linearicons.css" />
+    <Content Include="Styles\main.css" />
+    <Content Include="Styles\nice-select.css" />
+    <Content Include="Styles\nouislider.min.css" />
+    <Content Include="Styles\owl.carousel.css" />
     <Content Include="Styles\ProgressBar.css" />
+    <Content Include="Styles\themify-icons.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

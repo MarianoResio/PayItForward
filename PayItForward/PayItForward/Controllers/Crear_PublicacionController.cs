@@ -79,7 +79,7 @@ namespace PayItForward.Controllers
                     {
                         string NuevaUbicacion = Server.MapPath("~/Content/ImagenesPublicaciones/") + img.FileName;
                         img.SaveAs(NuevaUbicacion);
-                        Publi.NombreImagen.Add(img.FileName);
+                        Publi.NombreImagen.Add(img.FileName.ToString());
                     }
                 }
 
