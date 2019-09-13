@@ -89,6 +89,8 @@
     }
     else if (ViewBag.Accion == "Ver")
     {
+        <!--HACER IGUAL QUE EN Crear_Publicacion/MostrarPublicacion-->
+
         <p>Titulo:</p> @Html.TextBoxFor(x => x.Titulo, new { disabled = "true" }) <br />
         <p>Categoria:</p> @Html.TextBoxFor(x => x.IdCategoria, new { disabled = "true" }) <br />
         <p>IdUsuario:</p> @Html.TextBoxFor(x => x.IdUsuario, new { disabled = "true" }) <br />
