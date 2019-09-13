@@ -52,8 +52,21 @@ namespace PayItForward.Models
             Comando.Parameters.AddWithValue("@pIdCategoria", UnaPublicacion.IdCategoria);
             Comando.Parameters.AddWithValue("@pIdUsuario", UnaPublicacion.IdUsuario);
             Comando.Parameters.AddWithValue("@pImagen1", UnaPublicacion.NombreImagen[0]);
-            Comando.Parameters.AddWithValue("@pImagen2", UnaPublicacion.NombreImagen[1]);
-            Comando.Parameters.AddWithValue("@pImagen3", UnaPublicacion.NombreImagen[2]);
+            switch (UnaPublicacion.NombreImagen.Count)
+            {
+                case 1:
+                    Comando.Parameters.AddWithValue("@pImagen2", DBNull.Value);
+                    Comando.Parameters.AddWithValue("@pImagen3", DBNull.Value);
+                    break;
+                case 2:
+                    Comando.Parameters.AddWithValue("@pImagen2", UnaPublicacion.NombreImagen[1]);
+                    Comando.Parameters.AddWithValue("@pImagen3", DBNull.Value);
+                    break;
+                case 3:
+                    Comando.Parameters.AddWithValue("@pImagen2", UnaPublicacion.NombreImagen[1]);
+                    Comando.Parameters.AddWithValue("@pImagen3", UnaPublicacion.NombreImagen[2]);
+                    break;
+            }
             Comando.Parameters.AddWithValue("@pAprobada", UnaPublicacion.Aprobada);
             Comando.Parameters.AddWithValue("@pValor", UnaPublicacion.Valor);
             Comando.Parameters.AddWithValue("@pTitulo", UnaPublicacion.Titulo);

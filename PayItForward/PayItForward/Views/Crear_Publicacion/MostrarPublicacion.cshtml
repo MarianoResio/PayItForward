@@ -102,17 +102,14 @@
             <ul class="cd-gallery">
                 <li>
                     <ul class="cd-item-wrapper">
+                        
+                    @foreach(String x in ViewBag.Publicacion.NombreImagen)
+                    {
                         <li class="selected">
-                            <img src="~/Content/ImagenesPublicaciones/@ViewBag.Publicacion.NombreImagen[0]" alt="Preview image">
+                            <img src="~/Content/ImagenesPublicaciones/@x" alt="Preview image">
                         </li>
+                    }
 
-                        <li class="move-right" data-sale="true" data-price="$22">
-                            <img src="~/Content/ImagenesPublicaciones/@ViewBag.Publicacion.NombreImagen[1]" alt="Preview image">
-                        </li>
-
-                        <li>
-                            <img src="~/Content/ImagenesPublicaciones/@ViewBag.Publicacion.NombreImagen[2]" alt="Preview image">
-                        </li>
                     </ul> <!-- cd-item-wrapper -->
                 </li>
             </ul> <!-- cd-gallery -->
