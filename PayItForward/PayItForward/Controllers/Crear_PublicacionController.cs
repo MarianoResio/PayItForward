@@ -77,7 +77,7 @@ namespace PayItForward.Controllers
                 {
                     foreach (HttpPostedFileBase img in Publi.Imagenes)
                     {
-                        string NuevaUbicacion = Server.MapPath("~/Content/") + img.FileName;
+                        string NuevaUbicacion = Server.MapPath("~/Content/ImagenesPublicaciones/") + img.FileName;
                         img.SaveAs(NuevaUbicacion);
                         Publi.NombreImagen.Add(img.FileName);
                     }
