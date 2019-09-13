@@ -202,7 +202,7 @@ namespace PayItForward.Models
         public Publicacion TraerPublicacionPorId(int IdPublicacion)
         {
             Publicacion X = new Publicacion();
-
+            X.NombreImagen = new List<string>();
             SqlConnection Conexion = Conectar();
             SqlCommand Comando = Conexion.CreateCommand();
 

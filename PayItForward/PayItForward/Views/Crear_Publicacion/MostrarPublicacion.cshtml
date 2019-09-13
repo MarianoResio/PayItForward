@@ -5,16 +5,16 @@
 }
 
 <head>
-    <link rel="stylesheet" href="css/linearicons.css">
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/themify-icons.css">
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/owl.carousel.css">
-    <link rel="stylesheet" href="css/nice-select.css">
-    <link rel="stylesheet" href="css/nouislider.min.css">
-    <link rel="stylesheet" href="css/ion.rangeSlider.css" />
-    <link rel="stylesheet" href="css/ion.rangeSlider.skinFlat.css" />
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="Styles/linearicons.css">
+    <link rel="stylesheet" href="Styles/font-awesome.min.css">
+    <link rel="stylesheet" href="Styles/themify-icons.css">
+    <link rel="stylesheet" href="Styles/bootstrap.css">
+    <link rel="stylesheet" href="Styles/owl.carousel.css">
+    <link rel="stylesheet" href="Styles/nice-select.css">
+    <link rel="stylesheet" href="Styles/nouislider.min.css">
+    <link rel="stylesheet" href="Styles/ion.rangeSlider.css" />
+    <link rel="stylesheet" href="Styles/ion.rangeSlider.skinFlat.css" />
+    <link rel="stylesheet" href="Styles/main.css">
 
     <style>
         .cd-item-wrapper li {
@@ -102,13 +102,13 @@
             <ul class="cd-gallery">
                 <li>
                     <ul class="cd-item-wrapper">
-                        
-                    @foreach(String x in ViewBag.Publicacion.NombreImagen)
-                    {
-                        <li class="selected">
-                            <img src="~/Content/ImagenesPublicaciones/@x" alt="Preview image">
-                        </li>
-                    }
+
+                        @foreach (String x in ViewBag.Publicacion.NombreImagen)
+                        {
+                            <li class="selected">
+                                <img src="~/Content/ImagenesPublicaciones/@x" alt="Preview image">
+                            </li>
+                        }
 
                     </ul> <!-- cd-item-wrapper -->
                 </li>
@@ -144,6 +144,7 @@
                         <a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
                         <a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
                     </div>
+                    <a href="@Url.Action("VerPublicaciones", "BMPublicaciones")">Ver Publicaciones</a>
                 </div>
             </div>
         </div>
@@ -152,7 +153,10 @@
             <!--QA?-->
 
         </div>
+        
     </div>
+    
+
 </body>
 
 
@@ -169,6 +173,4 @@ Valor: @ViewBag.Publicacion.Valor <br />
 Desc: @ViewBag.Publicacion.Descripcion <br />
 Likes: @ViewBag.Publicacion.Likes <br />
 Ubicacion: @ViewBag.Publicacion.Ubicacion <br />
-
-<a href="@Url.Action("VerPublicaciones", "BMPublicaciones")">Ver Publicaciones</a>
 -->
