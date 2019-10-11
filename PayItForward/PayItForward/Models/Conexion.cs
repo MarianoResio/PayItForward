@@ -282,9 +282,22 @@ namespace PayItForward.Models
             Comando.CommandText = "sp_ModificarPublicacion";
             Comando.CommandType = System.Data.CommandType.StoredProcedure;
             Comando.Parameters.AddWithValue("@pIdPublicacion", X.IdPublicacion);
-            Comando.Parameters.AddWithValue("@pImagen1", X.Titulo);
-            Comando.Parameters.AddWithValue("@pImagen2", X.Titulo);
-            Comando.Parameters.AddWithValue("@pImagen3", X.Titulo);
+            Comando.Parameters.AddWithValue("@pImagen1", X.Imagenes[0].FileName);
+            switch (X.Imagenes.Length)
+            {
+                case 1:
+                    Comando.Parameters.AddWithValue("@pImagen2", DBNull.Value);
+                    Comando.Parameters.AddWithValue("@pImagen3", DBNull.Value);
+                    break;
+                case 2:
+                    Comando.Parameters.AddWithValue("@pImagen2", X.Imagenes[1].FileName);
+                    Comando.Parameters.AddWithValue("@pImagen3", DBNull.Value);
+                    break;
+                case 3:
+                    Comando.Parameters.AddWithValue("@pImagen2", X.Imagenes[1].FileName);
+                    Comando.Parameters.AddWithValue("@pImagen3", X.Imagenes[2].FileName);
+                    break;
+            }
             Comando.Parameters.AddWithValue("@pValor", X.Valor);
             Comando.Parameters.AddWithValue("@pTitulo", X.Titulo);
             Comando.Parameters.AddWithValue("@pDescripcion", X.Descripcion);

@@ -73,6 +73,8 @@ namespace PayItForward.Controllers
             else
             {
                 // guardar las imagenes en content
+                int UltimaPublicacion = miConexion.CrearPublicacion(Publi);
+
                 if (Publi.Imagenes != null)
                 {
                     Publi.NombreImagen = new List<string>();
@@ -80,15 +82,28 @@ namespace PayItForward.Controllers
                     {
                         if (img != null)
                         {
-                            string NuevaUbicacion = Server.MapPath("~/Content/ImagenesPublicaciones/") + img.FileName;
+                            string NuevaUbicacion = Server.MapPath("~/Content/ImagenesPublicaciones/") + UltimaPublicacion + "_" + img.FileName;
                             img.SaveAs(NuevaUbicacion);
                             Publi.NombreImagen.Add(img.FileName.ToString());
                         }
                     }
                 }
 
-                int UltimaPublicacion = miConexion.CrearPublicacion(Publi);
                 ViewBag.Publicacion = Publi;
+                List<string> listaImagenes = new List<string>();
+                if (Publi.Imagenes[1] != null)
+                {
+                    listaImagenes.Add("~/Content/ImagenesPublicaciones/" + Publi.IdPublicacion + "_" + Publi.Imagenes[1].FileName);
+                }
+                if (Publi.Imagenes[2] != null)
+                {
+                    listaImagenes.Add("~/Content/ImagenesPublicaciones/" + Publi.IdPublicacion + "_" + Publi.Imagenes[2].FileName);
+                }
+                if (Publi.Imagenes[3] != null)
+                {
+                    listaImagenes.Add("~/Content/ImagenesPublicaciones/" + Publi.IdPublicacion + "_" + Publi.Imagenes[3].FileName);
+                }
+                ViewBag.imagenesPublicacion = listaImagenes;
                 return View();
             }
         }

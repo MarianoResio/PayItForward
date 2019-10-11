@@ -103,10 +103,10 @@
                 <li>
                     <ul class="cd-item-wrapper">
 
-                        @foreach (String x in ViewBag.Publicacion.NombreImagen)
+                        @foreach (String x in ViewBag.imagenesPublicacion)
                         {
                             <li class="selected">
-                                <img src="~/Content/ImagenesPublicaciones/@x" alt="Preview image">
+                                <img src="@x" alt="Preview image">
                             </li>
                         }
 
@@ -119,10 +119,10 @@
             <!--TITULO DESCRIPCION-->
             <div class="col-lg-5 offset-lg-1">
                 <div class="s_product_text">
-                    <h3>@ViewBag.Publicacion.Titulo</h3>
-                    <h2>@ViewBag.Publicacion.Valor</h2>
+                    <h3>Titulo: @ViewBag.Publicacion.Titulo</h3>
+                    <h2>Valor: @ViewBag.Publicacion.Valor</h2>
                     <ul class="list">
-                        <li><a class="active" href="#"><span>Categoria</span> : @ViewBag.Categoria</a></li> <!--HECER QUE EL LINK VAYA A BUSCAR PRODUCTOS DE ESA CATEGORIA-->
+                        <li><a class="active" href="#"><span>Categoria</span> : @ViewBag.Publicacion.IdCategoria</a></li> <!--HECER QUE EL LINK VAYA A BUSCAR PRODUCTOS DE ESA CATEGORIA-->
                         <li><a href="#"><span>Ubicacion</span> : @ViewBag.Publicacion.Ubicacion</a></li> <!--LINK?-->
                     </ul>
                     <p>
@@ -130,21 +130,9 @@
                     </p>
                     <div class="product_count">
                         <!--HECER BOTONES DE AGREGAR A CARRO Y LIKE-->
-                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-                                class="increase items-count" type="button">
-                            <i class="lnr lnr-chevron-up"></i>
-                        </button>
-                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-                                class="reduced items-count" type="button">
-                            <i class="lnr lnr-chevron-down"></i>
-                        </button>
+                        
                     </div>
-                    <div class="card_area d-flex align-items-center">
-                        <a class="primary-btn" href="#">Comprar</a>
-                        <a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
-                        <a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
-                    </div>
-                    <a href="@Url.Action("VerPublicaciones", "BMPublicaciones")">Ver Publicaciones</a>
+                    <b><a href="@Url.Action("VerPublicaciones", "BMPublicaciones")">Ver Publicaciones</a></b>
                 </div>
             </div>
         </div>

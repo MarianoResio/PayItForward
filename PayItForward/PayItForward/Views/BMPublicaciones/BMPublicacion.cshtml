@@ -2,7 +2,7 @@
 @model Publicacion
 
 @{
-    ViewBag.Title = "BMPulicacion";
+    ViewBag.Title = "BMPublicacion";
 }
 
 <head>
@@ -63,7 +63,7 @@
             </div>
         </div>
 
-        <form method="post" action="@Url.Action("editarPublicacion", "BMPublicaciones")" id="formulario" enctype="multipart/form-data">
+        <form method="post" action="@Url.Action("EditarPublicacion", "BMPublicaciones")" id="formulario" enctype="multipart/form-data">
             <div style="display:inline-block">
                 @Html.TextBoxFor(x => x.Imagenes, new { type = "file", Multiple = "Multiple", Name = "Imagenes", id = "file", Style = "float:left", Class = "w3-input inputDetalles" })
             </div> <br /> <br />
@@ -81,7 +81,8 @@
             @Html.TextBoxFor(x => x.Ubicacion, new { Class = "w3-input inputDetalles", Name = "Ubicacion" }) <br />
             <label class="labelDetalles" for="Ubicacion">Ubicacion @Html.ValidationMessageFor(x => x.Ubicacion, null, new { @class = "validation" })</label>
 
-            <input type="hidden" value="@ViewBag.CategoriaActual" name="IdCategoria" />
+            @Html.HiddenFor(x => x.IdCategoria)
+            @Html.HiddenFor(x => x.IdPublicacion)
             <br /><br /><br />
 
             <input type="submit" value="Continuar" />

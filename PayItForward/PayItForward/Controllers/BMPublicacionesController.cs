@@ -44,16 +44,24 @@ namespace PayItForward.Controllers
         {
             if (!ModelState.IsValid)
             {
+                ViewBag.CategoriaActual = x.IdCategoria;
                 ViewBag.Accion = "Modificar";
                 return View("BMPublicacion", x);
             }
             else
             {
-                //modifico la publicacion seleccionada en la View "VerPublicaciones" con los datos de la View "BMPublicaciones" (Modificar)
+
                 miConexion.ModificarPublicacion(x);
+                foreach (HttpPostedFileBase img in x.Imagenes)
+                {
+                    if (img != null)
+                    {
+                        string NuevaUbicacion = Server.MapPath("~/Content/ImagenesPublicaciones/") + x.IdPublicacion + "_" + img.FileName;
+                        img.SaveAs(NuevaUbicacion);
+                    }
+                }
                 return RedirectToAction("VerPublicaciones");
             }
-           
         }
     }
 }
