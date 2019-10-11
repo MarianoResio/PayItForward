@@ -1,0 +1,18 @@
+﻿[
+  {
+    "outputFile": "Styles/ventaHome/scss/_site-base.css",
+    "inputFile": "Styles/ventaHome/scss/_site-base.scss"
+  },
+  {
+    "outputFile": "Styles/ventaHome/scss/_site-blocks.css",
+    "inputFile": "Styles/ventaHome/scss/_site-blocks.scss"
+  },
+  {
+    "outputFile": "Styles/ventaHome/scss/style.css",
+    "inputFile": "Styles/ventaHome/scss/style.scss"
+  },
+  {
+    "outputFile": "Styles/ventaHome/scss/_site-navbar.css",
+    "inputFile": "Styles/ventaHome/scss/_site-navbar.scss"
+  }
+]

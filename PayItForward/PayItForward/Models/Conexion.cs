@@ -73,6 +73,7 @@ namespace PayItForward.Models
             Comando.Parameters.AddWithValue("@pDescripcion", UnaPublicacion.Descripcion);
             Comando.Parameters.AddWithValue("@pLikes", UnaPublicacion.Likes);
             Comando.Parameters.AddWithValue("@pUbicacion", UnaPublicacion.Ubicacion);
+            Comando.Parameters.AddWithValue("@pDestacada", UnaPublicacion.Destacada);
 
             Comando.ExecuteNonQuery();
 
@@ -189,8 +190,9 @@ namespace PayItForward.Models
                 string Descripcion_Traida = DataReader["Descripcion"].ToString();
                 int Likes_Traidos = Convert.ToInt32(DataReader["Likes"]);
                 string Ubicacion_Traida = DataReader["Ubicacion"].ToString();
+                bool Destacada_Traida = Convert.ToBoolean(DataReader["Destacada"]);
 
-                Publicacion X = new Publicacion(IdPublicacion_Traido, IdCategoria_Traido, IdUsuario_Traido, ImgTraida, Aprobado_Traido, Valor_Traido, Titulo_Traido, Descripcion_Traida, Likes_Traidos, Ubicacion_Traida);
+                Publicacion X = new Publicacion(IdPublicacion_Traido, IdCategoria_Traido, IdUsuario_Traido, ImgTraida, Aprobado_Traido, Valor_Traido, Titulo_Traido, Descripcion_Traida, Likes_Traidos, Ubicacion_Traida, Destacada_Traida);
                 Lista.Add(X);
             }
 
@@ -225,6 +227,7 @@ namespace PayItForward.Models
                 X.Descripcion = DataReader["Descripcion"].ToString();
                 X.Likes = Convert.ToInt32(DataReader["Likes"]);
                 X.Ubicacion = DataReader["Ubicacion"].ToString();
+                X.Destacada = Convert.ToBoolean(DataReader["Destacada"]);
             }
 
             Conexion.Close();
@@ -286,6 +289,7 @@ namespace PayItForward.Models
             Comando.Parameters.AddWithValue("@pTitulo", X.Titulo);
             Comando.Parameters.AddWithValue("@pDescripcion", X.Descripcion);
             Comando.Parameters.AddWithValue("@pUbicacion", X.Ubicacion);
+            Comando.Parameters.AddWithValue("@pDestacada", X.Destacada);
 
             Comando.ExecuteNonQuery();
 
@@ -306,5 +310,41 @@ namespace PayItForward.Models
 
             return X;
           }
+
+        public List<Publicacion> TraerTodxsLxsPublicacionos()
+        {
+            List<Publicacion> Lista = new List<Publicacion>();
+            SqlConnection Conexion = Conectar();
+            SqlCommand Comando = Conexion.CreateCommand();
+
+            Comando.CommandText = "sp_TraerTodasLasPublicaciones";
+            Comando.CommandType = System.Data.CommandType.StoredProcedure;
+            SqlDataReader DataReader = Comando.ExecuteReader();
+
+            while (DataReader.Read())
+            {
+                int IdPublicacion_Traido = Convert.ToInt32(DataReader["IdPublicacion"]);
+                int IdCategoria_Traido = Convert.ToInt32(DataReader["IdCategoria"]);
+                int IdUsuario_Traido = Convert.ToInt32(DataReader["IdUsuario"]);
+                List<string> ImgTraida = new List<string>();
+                ImgTraida.Add(DataReader["Imagen1"].ToString());
+                ImgTraida.Add(DataReader["Imagen2"].ToString());
+                ImgTraida.Add(DataReader["Imagen3"].ToString());
+                bool Aprobado_Traido = Convert.ToBoolean(DataReader["Aprobada"]);
+                int Valor_Traido = Convert.ToInt32(DataReader["Valor"]);
+                string Titulo_Traido = DataReader["Titulo"].ToString();
+                string Descripcion_Traida = DataReader["Descripcion"].ToString();
+                int Likes_Traidos = Convert.ToInt32(DataReader["Likes"]);
+                string Ubicacion_Traida = DataReader["Ubicacion"].ToString();
+                bool Destacada_Traida = Convert.ToBoolean(DataReader["Destacada"]);
+
+                Publicacion X = new Publicacion(IdPublicacion_Traido, IdCategoria_Traido, IdUsuario_Traido, ImgTraida, Aprobado_Traido, Valor_Traido, Titulo_Traido, Descripcion_Traida, Likes_Traidos, Ubicacion_Traida, Destacada_Traida);
+                Lista.Add(X);
+            }
+
+            Conexion.Close();
+
+            return Lista;
+        }
     }
 }

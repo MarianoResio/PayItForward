@@ -19,6 +19,7 @@ namespace PayItForward.Models
         private string _Ubicacion;
         private List<string> _NombreImagen;
         private HttpPostedFileBase[] _Imagenes;
+        private bool _Destacada;
 
         [Required(ErrorMessage = "*")]
         public int IdPublicacion { get => _IdPublicacion; set => _IdPublicacion = value; }
@@ -40,8 +41,9 @@ namespace PayItForward.Models
         public string Ubicacion { get => _Ubicacion; set => _Ubicacion = value; }
         public List<string> NombreImagen { get => _NombreImagen; set => _NombreImagen = value; }
         public HttpPostedFileBase[] Imagenes { get => _Imagenes; set => _Imagenes = value; }
+        public bool Destacada { get => _Destacada; set => _Destacada = value; }
 
-        public Publicacion(int idPublicacion, int idCategoria, int idUsuario, List<string> nomImg, bool aprobada, int valor, string titulo, string descripcion, int likes, string ubicacion)
+        public Publicacion(int idPublicacion, int idCategoria, int idUsuario, List<string> nomImg, bool aprobada, int valor, string titulo, string descripcion, int likes, string ubicacion, bool destacada)
         {
             _IdPublicacion = idPublicacion;
             _IdCategoria = idCategoria;
@@ -52,10 +54,11 @@ namespace PayItForward.Models
             _Titulo = titulo;
             _Descripcion = descripcion;
             _Likes = likes;
-            _Ubicacion = ubicacion;            
+            _Ubicacion = ubicacion;
+            _Destacada = destacada;
         }
 
-        public Publicacion(int idPublicacion, int idCategoria, int idUsuario, List<string> nomImg, bool aprobada, int valor, string titulo, string descripcion, int likes, string ubicacion, HttpPostedFileBase[] imagenes)
+        public Publicacion(int idPublicacion, int idCategoria, int idUsuario, List<string> nomImg, bool aprobada, int valor, string titulo, string descripcion, int likes, string ubicacion, HttpPostedFileBase[] imagenes, bool destacada)
         {
             _IdPublicacion = idPublicacion;
             _IdCategoria = idCategoria;
@@ -68,6 +71,7 @@ namespace PayItForward.Models
             _Likes = likes;
             _Ubicacion = ubicacion;
             _Imagenes = imagenes;
+            _Destacada = destacada;
         }
 
         public Publicacion()
