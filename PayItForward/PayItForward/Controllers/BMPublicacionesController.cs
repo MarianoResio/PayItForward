@@ -35,6 +35,13 @@ namespace PayItForward.Controllers
                 Publicacion X = miConexion.TraerPublicacionPorId(Id);
                 ViewBag.Accion = Accion;
 
+                List<string> listaImagenes = new List<string>();
+                foreach (HttpPostedFileBase x in X.Imagenes)
+                {
+                    listaImagenes.Add("~/Content/ImagenesPublicaciones/" + X.IdPublicacion + "_" + x.FileName);
+                }
+                ViewBag.imagenesPublicacion = listaImagenes;
+
                 return View(X);
             }
             return RedirectToAction("VerPublicaciones");

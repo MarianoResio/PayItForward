@@ -68,6 +68,10 @@
                 @Html.TextBoxFor(x => x.Imagenes, new { type = "file", Multiple = "Multiple", Name = "Imagenes", id = "file", Style = "float:left", Class = "w3-input inputDetalles" })
             </div> <br /> <br />
             <label class="labelDetalles" for="file">Imagenes</label>
+            @foreach (string x in ViewBag.imagenesPublicacion)
+            {
+                <img src="@x" alt="Preview image">
+            }
 
             @Html.TextBoxFor(x => x.Valor, new { Type = "number", Class = "w3-input inputDetalles", Name = "Valor" }) <br />
             <label class="labelDetalles" for="Valor">Valor @Html.ValidationMessageFor(x => x.Valor, null, new { @class = "validation" })</label>
@@ -92,6 +96,11 @@
     {
         <!--HACER IGUAL QUE EN Crear_Publicacion/MostrarPublicacion-->
 
+        <p>Imagenes: </p> <br />
+        @foreach (string x in ViewBag.imagenesPublicacion)
+        {
+            <img src="@x" alt="Preview image">
+        }
         <p>Titulo:</p> @Html.TextBoxFor(x => x.Titulo, new { disabled = "true" }) <br />
         <p>Categoria:</p> @Html.TextBoxFor(x => x.IdCategoria, new { disabled = "true" }) <br />
         <p>IdUsuario:</p> @Html.TextBoxFor(x => x.IdUsuario, new { disabled = "true" }) <br />

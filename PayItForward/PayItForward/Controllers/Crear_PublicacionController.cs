@@ -91,17 +91,9 @@ namespace PayItForward.Controllers
 
                 ViewBag.Publicacion = Publi;
                 List<string> listaImagenes = new List<string>();
-                if (Publi.Imagenes[1] != null)
+                foreach(HttpPostedFileBase x in Publi.Imagenes)
                 {
-                    listaImagenes.Add("~/Content/ImagenesPublicaciones/" + Publi.IdPublicacion + "_" + Publi.Imagenes[1].FileName);
-                }
-                if (Publi.Imagenes[2] != null)
-                {
-                    listaImagenes.Add("~/Content/ImagenesPublicaciones/" + Publi.IdPublicacion + "_" + Publi.Imagenes[2].FileName);
-                }
-                if (Publi.Imagenes[3] != null)
-                {
-                    listaImagenes.Add("~/Content/ImagenesPublicaciones/" + Publi.IdPublicacion + "_" + Publi.Imagenes[3].FileName);
+                    listaImagenes.Add("~/Content/ImagenesPublicaciones/" + Publi.IdPublicacion + "_" + x.FileName);
                 }
                 ViewBag.imagenesPublicacion = listaImagenes;
                 return View();

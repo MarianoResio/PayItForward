@@ -1,4 +1,0 @@
-descripcion publicacion imagenes
-layout
-home
-encriptacion de quienesquien
