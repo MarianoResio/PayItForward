@@ -16,6 +16,16 @@ namespace PayItForward.Controllers
             List<Publicacion> ListaPublicaciones = new List<Publicacion>();
             ListaPublicaciones = mIConexion.TraerTodxsLxsPublicacionos();
             ViewBag.Publicaciones = ListaPublicaciones;
+            List<string> listaImagenes = new List<string>();
+
+            foreach (Publicacion Publi in ListaPublicaciones)
+            {
+                foreach (String nombreImagen in Publi.NombreImagen)
+                {
+                    listaImagenes.Add("~/Content/ImagenesPublicaciones/" + Publi.IdPublicacion + "_" + nombreImagen);
+                }
+            }
+            ViewBag.imagenesPublicacion = listaImagenes;
             return View();
         }
     }

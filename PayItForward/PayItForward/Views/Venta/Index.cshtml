@@ -42,14 +42,14 @@
                     <p>Las publicaciones más populares entre los usuarios de Pay it Forward</p>
                 </div>
             </div>
+            @{ int cont = 0; }
             @foreach (Publicacion publicacion in ViewBag.Publicaciones)
             {
-
                 <div class="row">
                     <div class="col-lg-4 col-md-6 mb-5">
                         <div class="product-item">
                             <figure>
-                                <img src="~/Content/ImagenesPublicaciones/@publicacion.NombreImagen[1]" alt="Image" class="img-fluid"> <!--IMAGEN-->
+                                <img src="@ViewBag.imagenesPublicacion[cont]" alt="Image" class="img-fluid"> <!--IMAGEN-->
                             </figure>
                             <div class="px-4">
                                 <h3><a href="#">@publicacion.Titulo</a></h3> <!--NOMBRE-->
@@ -66,7 +66,7 @@
                     </div>
 
                 </div>
-
+                cont++;
             }
         </div>
     </div>

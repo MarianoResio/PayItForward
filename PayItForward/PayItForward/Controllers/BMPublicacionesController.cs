@@ -36,9 +36,12 @@ namespace PayItForward.Controllers
                 ViewBag.Accion = Accion;
 
                 List<string> listaImagenes = new List<string>();
-                foreach (HttpPostedFileBase x in X.Imagenes)
+                foreach (String x in X.NombreImagen)
                 {
-                    listaImagenes.Add("~/Content/ImagenesPublicaciones/" + X.IdPublicacion + "_" + x.FileName);
+                    if (x != "")
+                    {
+                        listaImagenes.Add("~/Content/ImagenesPublicaciones/" + X.IdPublicacion + "_" + x);
+                    }
                 }
                 ViewBag.imagenesPublicacion = listaImagenes;
 

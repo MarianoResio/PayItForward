@@ -51,20 +51,20 @@ namespace PayItForward.Models
             Comando.CommandType = System.Data.CommandType.StoredProcedure;
             Comando.Parameters.AddWithValue("@pIdCategoria", UnaPublicacion.IdCategoria);
             Comando.Parameters.AddWithValue("@pIdUsuario", UnaPublicacion.IdUsuario);
-            Comando.Parameters.AddWithValue("@pImagen1", UnaPublicacion.NombreImagen[0]);
-            switch (UnaPublicacion.NombreImagen.Count)
+            Comando.Parameters.AddWithValue("@pImagen1", UnaPublicacion.Imagenes[0].FileName);
+            switch (UnaPublicacion.Imagenes.Length)
             {
                 case 1:
                     Comando.Parameters.AddWithValue("@pImagen2", DBNull.Value);
                     Comando.Parameters.AddWithValue("@pImagen3", DBNull.Value);
                     break;
                 case 2:
-                    Comando.Parameters.AddWithValue("@pImagen2", UnaPublicacion.NombreImagen[1]);
+                    Comando.Parameters.AddWithValue("@pImagen2", UnaPublicacion.Imagenes[1].FileName);
                     Comando.Parameters.AddWithValue("@pImagen3", DBNull.Value);
                     break;
                 case 3:
-                    Comando.Parameters.AddWithValue("@pImagen2", UnaPublicacion.NombreImagen[1]);
-                    Comando.Parameters.AddWithValue("@pImagen3", UnaPublicacion.NombreImagen[2]);
+                    Comando.Parameters.AddWithValue("@pImagen2", UnaPublicacion.Imagenes[1].FileName);
+                    Comando.Parameters.AddWithValue("@pImagen3", UnaPublicacion.Imagenes[2].FileName);
                     break;
             }
             Comando.Parameters.AddWithValue("@pAprobada", UnaPublicacion.Aprobada);
