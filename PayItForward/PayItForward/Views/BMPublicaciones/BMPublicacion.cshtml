@@ -70,7 +70,7 @@
             <label class="labelDetalles" for="file">Imagenes</label>
             @foreach (string x in ViewBag.imagenesPublicacion)
             {
-                <img src="@Url.Content(x)" alt="Preview image">
+                <img src="@Url.Content(x)" alt="Preview image" style="width:100px;height:100px">
             }
 
             @Html.TextBoxFor(x => x.Valor, new { Type = "number", Class = "w3-input inputDetalles", Name = "Valor" }) <br />
@@ -99,7 +99,7 @@
         <p>Imagenes: </p> <br />
         foreach (string x in ViewBag.imagenesPublicacion)
         {
-            <img src="@Url.Content(x)" alt="Preview image">
+            <img src="@Url.Content(x)" alt="Preview image" style="width:100px;height:100px">
         }
         <p>Titulo:</p> @Html.TextBoxFor(x => x.Titulo, new { disabled = "true" }) <br />
         <p>Categoria:</p> @Html.TextBoxFor(x => x.IdCategoria, new { disabled = "true" }) <br />

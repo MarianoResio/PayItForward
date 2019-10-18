@@ -60,16 +60,23 @@ namespace PayItForward.Controllers
             }
             else
             {
-
-                miConexion.ModificarPublicacion(x);
-                foreach (HttpPostedFileBase img in x.Imagenes)
+                if (x.Imagenes[0] == null)
                 {
-                    if (img != null)
+                    return RedirectToAction("VerPublicaciones");
+                }
+                else
+                {
+                    miConexion.ModificarPublicacion(x);
+                    foreach (HttpPostedFileBase img in x.Imagenes)
                     {
-                        string NuevaUbicacion = Server.MapPath("~/Content/ImagenesPublicaciones/") + x.IdPublicacion + "_" + img.FileName;
-                        img.SaveAs(NuevaUbicacion);
+                        if (img != null)
+                        {
+                            string NuevaUbicacion = Server.MapPath("~/Content/ImagenesPublicaciones/") + x.IdPublicacion + "_" + img.FileName;
+                            img.SaveAs(NuevaUbicacion);
+                        }
                     }
                 }
+
                 return RedirectToAction("VerPublicaciones");
             }
         }
