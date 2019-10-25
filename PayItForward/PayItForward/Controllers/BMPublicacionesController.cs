@@ -44,7 +44,7 @@ namespace PayItForward.Controllers
                     }
                 }
                 ViewBag.imagenesPublicacion = listaImagenes;
-
+                
                 return View(X);
             }
             return RedirectToAction("VerPublicaciones");
@@ -62,11 +62,38 @@ namespace PayItForward.Controllers
             {
                 if (x.Imagenes[0] == null)
                 {
-                    return RedirectToAction("VerPublicaciones");
+                    Publicacion publi = new Publicacion();
+                    publi = miConexion.TraerPublicacionPorId(x.IdPublicacion);
+
+                    publi.Titulo = x.Titulo;
+                    publi.Valor = x.Valor;
+                    publi.Descripcion = x.Descripcion;
+                    publi.Ubicacion = x.Ubicacion;
+                    /*if (publi.NombreImagen[0] != "")
+                    {
+                        x.NombreImagen.Add
+                    }
+                    if (publi.NombreImagen[1] != "")
+                    {
+                        x.NombreImagen.Add(publi.NombreImagen[1]);
+                    }
+                    if (publi.NombreImagen[2] != "")
+                    {
+                        x.NombreImagen.Add(publi.NombreImagen[2]);
+                    }*/
+                    miConexion.ModificarPublicacionSinImagen(publi);
+                    foreach (HttpPostedFileBase img in x.Imagenes)
+                    {
+                        if (img != null)
+                        {
+                            string NuevaUbicacion = Server.MapPath("~/Content/ImagenesPublicaciones/") + x.IdPublicacion + "_" + img.FileName;
+                            img.SaveAs(NuevaUbicacion);
+                        }
+                    }
                 }
                 else
                 {
-                    miConexion.ModificarPublicacion(x);
+                    miConexion.ModificarPublicacionConImagen(x);
                     foreach (HttpPostedFileBase img in x.Imagenes)
                     {
                         if (img != null)

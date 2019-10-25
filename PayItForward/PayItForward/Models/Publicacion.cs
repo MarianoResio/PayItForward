@@ -40,7 +40,9 @@ namespace PayItForward.Models
         [Required(ErrorMessage = "*")]
         public string Ubicacion { get => _Ubicacion; set => _Ubicacion = value; }
         public List<string> NombreImagen { get => _NombreImagen; set => _NombreImagen = value; }
+        [Required(ErrorMessage = "*")]
         public HttpPostedFileBase[] Imagenes { get => _Imagenes; set => _Imagenes = value; }
+        
         public bool Destacada { get => _Destacada; set => _Destacada = value; }
 
         public Publicacion(int idPublicacion, int idCategoria, int idUsuario, List<string> nomImg, bool aprobada, int valor, string titulo, string descripcion, int likes, string ubicacion, bool destacada)

@@ -64,6 +64,7 @@ namespace PayItForward.Controllers
         public ActionResult MostrarPublicacion(Publicacion Publi, int IdCategoria)
         {
 
+
             Publi.IdCategoria = Convert.ToInt32(IdCategoria);
             if (!ModelState.IsValid)
             {
@@ -72,31 +73,38 @@ namespace PayItForward.Controllers
             }
             else
             {
-                // guardar las imagenes en content
-                int UltimaPublicacion = miConexion.CrearPublicacion(Publi);
-
-                if (Publi.Imagenes != null)
+                if (Publi.Imagenes.Length > 3)
                 {
-                    Publi.NombreImagen = new List<string>();
-                    foreach (HttpPostedFileBase img in Publi.Imagenes)
+                    return RedirectToAction("DescripcionPublicacion", Publi);
+                }
+                else
+                {
+                    // guardar las imagenes en content
+                    int UltimaPublicacion = miConexion.CrearPublicacion(Publi);
+
+                    if (Publi.Imagenes != null)
                     {
-                        if (img != null)
+                        Publi.NombreImagen = new List<string>();
+                        foreach (HttpPostedFileBase img in Publi.Imagenes)
                         {
-                            string NuevaUbicacion = Server.MapPath("~/Content/ImagenesPublicaciones/") + UltimaPublicacion + "_" + img.FileName;
-                            img.SaveAs(NuevaUbicacion);
-                            Publi.NombreImagen.Add(img.FileName.ToString());
+                            if (img != null)
+                            {
+                                string NuevaUbicacion = Server.MapPath("~/Content/ImagenesPublicaciones/") + UltimaPublicacion + "_" + img.FileName;
+                                img.SaveAs(NuevaUbicacion);
+                                Publi.NombreImagen.Add(img.FileName.ToString());
+                            }
                         }
                     }
-                }
 
-                ViewBag.Publicacion = Publi;
-                List<string> listaImagenes = new List<string>();
-                foreach(HttpPostedFileBase x in Publi.Imagenes)
-                {
-                    listaImagenes.Add("~/Content/ImagenesPublicaciones/" + Publi.IdPublicacion + "_" + x.FileName);
+                    ViewBag.Publicacion = Publi;
+                    List<string> listaImagenes = new List<string>();
+                    foreach (HttpPostedFileBase x in Publi.Imagenes)
+                    {
+                        listaImagenes.Add("~/Content/ImagenesPublicaciones/" + UltimaPublicacion + "_" + x.FileName);
+                    }
+                    ViewBag.imagenesPublicacion = listaImagenes;
+                    return View();
                 }
-                ViewBag.imagenesPublicacion = listaImagenes;
-                return View();
             }
         }
     }

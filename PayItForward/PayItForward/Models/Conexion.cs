@@ -274,7 +274,42 @@ namespace PayItForward.Models
             return X;
         }
 
-        public void ModificarPublicacion (Publicacion X)
+        public void ModificarPublicacionSinImagen(Publicacion X)
+        {
+            SqlConnection Conexion = Conectar();
+            SqlCommand Comando = Conexion.CreateCommand();
+
+            Comando.CommandText = "sp_ModificarPublicacion";
+            Comando.CommandType = System.Data.CommandType.StoredProcedure;
+            Comando.Parameters.AddWithValue("@pIdPublicacion", X.IdPublicacion);
+            Comando.Parameters.AddWithValue("@pImagen1", X.NombreImagen[0]);
+            switch (X.NombreImagen.Count)
+            {
+                case 1:
+                    Comando.Parameters.AddWithValue("@pImagen2", DBNull.Value);
+                    Comando.Parameters.AddWithValue("@pImagen3", DBNull.Value);
+                    break;
+                case 2:
+                    Comando.Parameters.AddWithValue("@pImagen2", X.NombreImagen[1]);
+                    Comando.Parameters.AddWithValue("@pImagen3", DBNull.Value);
+                    break;
+                case 3:
+                    Comando.Parameters.AddWithValue("@pImagen2", X.NombreImagen[1]);
+                    Comando.Parameters.AddWithValue("@pImagen3", X.NombreImagen[2]);
+                    break;
+            }
+            Comando.Parameters.AddWithValue("@pValor", X.Valor);
+            Comando.Parameters.AddWithValue("@pTitulo", X.Titulo);
+            Comando.Parameters.AddWithValue("@pDescripcion", X.Descripcion);
+            Comando.Parameters.AddWithValue("@pUbicacion", X.Ubicacion);
+            Comando.Parameters.AddWithValue("@pDestacada", X.Destacada);
+
+            Comando.ExecuteNonQuery();
+
+            Conexion.Close();
+        }
+
+        public void ModificarPublicacionConImagen (Publicacion X)
         {
             SqlConnection Conexion = Conectar();
             SqlCommand Comando = Conexion.CreateCommand();
