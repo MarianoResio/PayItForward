@@ -58,7 +58,8 @@ namespace PayItForward.Controllers
         public ActionResult DescripcionPublicacion(int IdCategoria)
         {
             //pongo en un ViewBag la categoria final seleccionada por el usuario
-            ViewBag.CategoriaActual = IdCategoria;
+            ViewBag.CategoriaActual = miConexion.TraerNombreCategoriaPorId(IdCategoria);
+
             Publicacion Publi = new Publicacion();
             return View("DescripcionPublicacion", Publi);
         }
