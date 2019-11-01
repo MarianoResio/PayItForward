@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<form action="@Url.Action("ValidarLogin", "Login")" method="post">
+    <input type="email" name="mail" />
+    <input type="password" name="pass" />
+    <input type="submit" value="Enviar" />
+</form>

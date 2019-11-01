@@ -80,12 +80,13 @@
                     <br />
                 </div>
             </div>
+           
 
             <form method="post" action="@Url.Action("MostrarPublicacion", "Crear_Publicacion")" id="formulario" enctype="multipart/form-data">
                 <div style="display:inline-block">
                     @Html.TextBoxFor(x => x.Imagenes, new { type = "file", Multiple = "Multiple", Name = "Imagenes", id = "file", Style = "float:left", Class = "w3-input inputDetalles" })
                 </div> <br /> <br />
-                <label class="labelDetalles" for="file">Imagenes</label>
+                <label class="labelDetalles" for="file">Imagenes @Html.ValidationMessageFor(x => x.Imagenes, null, new { @class = "validation" })</label>
 
                 @Html.TextBoxFor(x => x.Valor, new { Type = "number", Class = "w3-input inputDetalles", Name = "Valor" }) <br />
                 <label class="labelDetalles" for="Valor">Valor @Html.ValidationMessageFor(x => x.Valor, null, new { @class = "validation" })</label>

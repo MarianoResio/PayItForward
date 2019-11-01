@@ -27,9 +27,10 @@ namespace PayItForward.Controllers
         {
             //busco las categorias hijas de la categoria padre Productos (Id=1) y las meto en un ViewBag
             List<Categorias> ListaHijas = new List<Categorias>();
+            Publicacion Public = new Publicacion();
             ListaHijas = miConexion.TraerCategoriasHijas(1);
             ViewBag.CategoriasHijas = ListaHijas;
-
+            ViewBag.Pub = Public;
             return View("CategoriasHijas");
         }
 
@@ -37,8 +38,10 @@ namespace PayItForward.Controllers
         {
             //busco las categorias hijas de la categoria padre Servicios (Id=2) y las meto en un ViewBag
             List<Categorias> ListaHijas = new List<Categorias>();
+            Publicacion Public = new Publicacion();
             ListaHijas = miConexion.TraerCategoriasHijas(2);
             ViewBag.CategoriasHijas = ListaHijas;
+            ViewBag.Pub = Public;
 
             return View("CategoriasHijas");
         }
@@ -56,15 +59,13 @@ namespace PayItForward.Controllers
         {
             //pongo en un ViewBag la categoria final seleccionada por el usuario
             ViewBag.CategoriaActual = IdCategoria;
-
-            return View();
+            Publicacion Publi = new Publicacion();
+            return View("DescripcionPublicacion", Publi);
         }
 
         [HttpPost]
         public ActionResult MostrarPublicacion(Publicacion Publi, int IdCategoria)
         {
-
-
             Publi.IdCategoria = Convert.ToInt32(IdCategoria);
             if (!ModelState.IsValid)
             {
@@ -73,7 +74,7 @@ namespace PayItForward.Controllers
             }
             else
             {
-                if (Publi.Imagenes.Length > 3)
+                if (Publi.Imagenes.Length > 3 || Publi.Imagenes[0] == null)
                 {
                     return RedirectToAction("DescripcionPublicacion", Publi);
                 }

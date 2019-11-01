@@ -394,5 +394,53 @@ namespace PayItForward.Models
 
             return Lista;
         }
+
+        public Usuarios Login(string mail, string pass)
+        {
+            Usuarios X = new Usuarios();
+            SqlConnection Conexion = Conectar();
+            SqlCommand Comando = Conexion.CreateCommand();
+
+            Comando.CommandText = "sp_Login";
+            Comando.CommandType = System.Data.CommandType.StoredProcedure;
+            Comando.Parameters.AddWithValue("@pMail", mail);
+            Comando.Parameters.AddWithValue("@pPassword", pass);
+            SqlDataReader DataReader = Comando.ExecuteReader();
+
+            if (DataReader.Read())
+            {
+                int IdUsuario_Traido = Convert.ToInt32(DataReader["IdUsuario"]);
+                string Nombre_Traido = DataReader["Nombre"].ToString();
+                string Apellido_Traido = DataReader["Apellido"].ToString();
+                string Imagen_Traida = DataReader["Imagen"].ToString();
+                int Puntos_traidos = Convert.ToInt32(DataReader["Puntos"]);
+                X.IdUsuario = IdUsuario_Traido;
+                X.Nombre = Nombre_Traido;
+                X.Apellido = Apellido_Traido;
+                X.Contrasena = pass;
+                X.Mail = mail;
+                X.Imagen = Imagen_Traida;
+                X.Puntos = Puntos_traidos;
+            }
+            return X;
+        }
+
+        public void RegistroUsuario (Usuarios X)
+        {
+            SqlConnection Conexion = Conectar();
+            SqlCommand Comando = Conexion.CreateCommand();
+
+            Comando.CommandText = "sp_RegistroUsuario";
+            Comando.CommandType = System.Data.CommandType.StoredProcedure;
+            Comando.Parameters.AddWithValue("@pNombre", X.Nombre);
+            Comando.Parameters.AddWithValue("@pApellido", X.Apellido);
+            Comando.Parameters.AddWithValue("@pPassword", X.Contrasena);
+            Comando.Parameters.AddWithValue("@pMail", X.Mail);
+            Comando.Parameters.AddWithValue("@pPuntos", 0);
+            Comando.Parameters.AddWithValue("@pImagen", X.Imagen);
+
+            Comando.ExecuteNonQuery();
+            Conexion.Close();
+        }
     }
 }
