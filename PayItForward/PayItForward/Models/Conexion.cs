@@ -491,5 +491,28 @@ namespace PayItForward.Models
             Comando.Parameters.AddWithValue("@pCodigo", codigo);
             SqlDataReader DataReader = Comando.ExecuteReader();
         }
+        public string TraerNombreCategoriaPorId(string idCategoria)
+        {
+            string Cate = "";
+            /*CREATE PROCEDURE sp_TraerNombreCategoriaPorId
+            @pId
+            AS
+            SELECT Nombre FROM Categorias WHERE IdCategoria = @pId
+            */
+            SqlConnection Conexion = Conectar();
+            SqlCommand Comando = Conexion.CreateCommand();
+
+            Comando.CommandText = "sp_TraerNombreCategoriaPorId";
+            Comando.CommandType = System.Data.CommandType.StoredProcedure;
+            Comando.Parameters.AddWithValue("@pId", idCategoria);
+            SqlDataReader DataReader = Comando.ExecuteReader();
+
+            if (DataReader.Read())
+            {
+                string Nombre_Traido = DataReader["Nombre"].ToString();
+                Cate = Nombre_Traido;
+            }
+            return Cate;
+        }
     }
 }
