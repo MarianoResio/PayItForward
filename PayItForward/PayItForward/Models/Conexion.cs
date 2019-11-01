@@ -309,7 +309,7 @@ namespace PayItForward.Models
             Conexion.Close();
         }
 
-        public void ModificarPublicacionConImagen (Publicacion X)
+        public void ModificarPublicacionConImagen(Publicacion X)
         {
             SqlConnection Conexion = Conectar();
             SqlCommand Comando = Conexion.CreateCommand();
@@ -345,7 +345,7 @@ namespace PayItForward.Models
         }
 
         public List<Categorias> TraerCategoriaPadreDesdeCategoriaHija(int IDHija, int IdUsuario)
-          {
+        {
             List<Categorias> X = new List<Categorias>();
 
             Categorias cat = TraerCategoriaPorID(IDHija);
@@ -357,7 +357,7 @@ namespace PayItForward.Models
             X.Add(cat);
 
             return X;
-          }
+        }
 
         public List<Publicacion> TraerTodxsLxsPublicacionos()
         {
@@ -425,7 +425,7 @@ namespace PayItForward.Models
             return X;
         }
 
-        public void RegistroUsuario (Usuarios X)
+        public void RegistroUsuario(Usuarios X)
         {
             SqlConnection Conexion = Conectar();
             SqlCommand Comando = Conexion.CreateCommand();
@@ -441,6 +441,55 @@ namespace PayItForward.Models
 
             Comando.ExecuteNonQuery();
             Conexion.Close();
+        }
+
+        public bool ValidarUsuarioEspecialPorCodigo(string codigo)
+        {
+            bool respuesta = false;
+
+            SqlConnection Conexion = Conectar();
+            SqlCommand Comando = Conexion.CreateCommand();
+
+            Comando.CommandText = "sp_ValidarUsuarioEspecialPorCodigo";
+            Comando.CommandType = System.Data.CommandType.StoredProcedure;
+            Comando.Parameters.AddWithValue("@pCodigo", codigo);
+            SqlDataReader DataReader = Comando.ExecuteReader();
+
+            if (DataReader.Read())
+            {
+                respuesta = true;
+            }
+
+            return respuesta;
+        }
+
+        public void altaUsuario(Usuarios user)
+        {
+            SqlConnection Conexion = Conectar();
+            SqlCommand Comando = Conexion.CreateCommand();
+
+            Comando.CommandText = "sp_altaUsuario";
+            Comando.CommandType = System.Data.CommandType.StoredProcedure;
+            Comando.Parameters.AddWithValue("@pNombre", user.Nombre);
+            Comando.Parameters.AddWithValue("@pApellido", user.Apellido);
+            Comando.Parameters.AddWithValue("@pMail", user.Mail);
+            Comando.Parameters.AddWithValue("@pContrasena", user.Contrasena);
+            Comando.Parameters.AddWithValue("@pImagen", user.Imagen);
+            Comando.Parameters.AddWithValue("@pPuntos", user.Puntos);
+            Comando.Parameters.AddWithValue("@pIdimagen", user.IDimagen);
+            Comando.Parameters.AddWithValue("@pEspecial", user.Especial);
+            SqlDataReader DataReader = Comando.ExecuteReader();
+        }
+
+        public void borrarCodigoEspecial(string codigo)
+        {
+            SqlConnection Conexion = Conectar();
+            SqlCommand Comando = Conexion.CreateCommand();
+
+            Comando.CommandText = "sp_borrarCodigoEspecial";
+            Comando.CommandType = System.Data.CommandType.StoredProcedure;
+            Comando.Parameters.AddWithValue("@pCodigo", codigo);
+            SqlDataReader DataReader = Comando.ExecuteReader();
         }
     }
 }

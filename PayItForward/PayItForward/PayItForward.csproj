@@ -158,7 +158,9 @@
     </Compile>
     <Compile Include="Models\Banners.cs" />
     <Compile Include="Models\Categorias.cs" />
+    <Compile Include="Models\Codigo_especial.cs" />
     <Compile Include="Models\Conexion.cs" />
+    <Compile Include="Models\Encriptar.cs" />
     <Compile Include="Models\Publicacion.cs" />
     <Compile Include="Models\Usuarios.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
@@ -764,7 +766,8 @@
     <Content Include="Styles\ventaHome\selling\scss\bootstrap\utilities\.__text.scss" />
     <Content Include="Styles\ventaHome\selling\scss\bootstrap\utilities\.__visibility.scss" />
     <Content Include="Styles\ventaHome\.DS_Store" />
-    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Login\Registro.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

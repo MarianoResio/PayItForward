@@ -1,0 +1,20 @@
+﻿@using PayItForward.Models
+@model Usuarios
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@ViewBag.UserNotFound;
+<form action="@Url.Action("ValidarLogin", "Login")" method="post">
+    @Html.TextBoxFor(x => x.Mail, new { type = "email", Name = "Mail", id = "Mail" })
+    @Html.ValidationMessageFor(x => x.Mail, null, new { style = "color:red" })
+
+    @Html.TextBoxFor(x => x.Contrasena, new { type = "password", Name = "Contrasena", id = "Contrasena" })
+    @Html.ValidationMessageFor(x => x.Contrasena, null, new { style = "color:red" })
+
+    <input type="submit" value="Enviar" />
+</form>
+<a href="@Url.Action("Registro", "Login")">¿Todavía no sos parte de Pay It Forward? Registrate</a>
