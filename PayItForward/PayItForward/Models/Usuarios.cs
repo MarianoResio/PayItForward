@@ -32,8 +32,7 @@ namespace PayItForward.Models
         }
 
         public Usuarios() { }
-
-        [Required(ErrorMessage = "*")]
+        
         public int IdUsuario { get => _IdUsuario; set => _IdUsuario = value; }
         [Required(ErrorMessage = "*")]
         public string Nombre { get => _Nombre; set => _Nombre = value; }
@@ -43,13 +42,10 @@ namespace PayItForward.Models
         public string Mail { get => _Mail; set => _Mail = value; }
         [Required(ErrorMessage = "*")]
         public string Contrasena { get => _Contrasena; set => _Contrasena = value; }
-        [Required(ErrorMessage = "*")]
         public string Imagen { get => _Imagen; set => _Imagen = value; }
-        [Required(ErrorMessage = "*")]
         public int Puntos { get => _Puntos; set => _Puntos = value; }
         [Required(ErrorMessage = "*")]
         public int IDimagen { get => _IDimagen; set => _IDimagen = value; }
-        [Required(ErrorMessage = "*")]
         public bool Especial { get => _Especial; set => _Especial = value; }
     }
 }

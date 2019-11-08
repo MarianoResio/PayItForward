@@ -425,7 +425,7 @@ namespace PayItForward.Models
             return X;
         }
 
-        public void RegistroUsuario(Usuarios X)
+        /*public void RegistroUsuario(Usuarios X)
         {
             SqlConnection Conexion = Conectar();
             SqlCommand Comando = Conexion.CreateCommand();
@@ -441,7 +441,7 @@ namespace PayItForward.Models
 
             Comando.ExecuteNonQuery();
             Conexion.Close();
-        }
+        }*/
 
         public bool ValidarUsuarioEspecialPorCodigo(string codigo)
         {
@@ -459,7 +459,6 @@ namespace PayItForward.Models
             {
                 respuesta = true;
             }
-
             return respuesta;
         }
 
@@ -476,7 +475,6 @@ namespace PayItForward.Models
             Comando.Parameters.AddWithValue("@pContrasena", user.Contrasena);
             Comando.Parameters.AddWithValue("@pImagen", user.Imagen);
             Comando.Parameters.AddWithValue("@pPuntos", user.Puntos);
-            Comando.Parameters.AddWithValue("@pIdimagen", user.IDimagen);
             Comando.Parameters.AddWithValue("@pEspecial", user.Especial);
             SqlDataReader DataReader = Comando.ExecuteReader();
         }
@@ -491,7 +489,7 @@ namespace PayItForward.Models
             Comando.Parameters.AddWithValue("@pCodigo", codigo);
             SqlDataReader DataReader = Comando.ExecuteReader();
         }
-        public string TraerNombreCategoriaPorId(string idCategoria)
+        public string TraerNombreCategoriaPorId(int idCategoria)
         {
             string Cate = "";
             /*CREATE PROCEDURE sp_TraerNombreCategoriaPorId

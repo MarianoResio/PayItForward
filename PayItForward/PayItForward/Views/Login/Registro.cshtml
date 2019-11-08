@@ -8,27 +8,27 @@
 <h2>Registro</h2>
 
 @ViewBag.error;
-<form action="@Url.Action("ValidarLogin", "Login")" method="post">
-    @Html.TextBoxFor(x => x.Nombre, new { type = "text", Name = "Nombre", id = "Nombre" })
-    @Html.ValidationMessageFor(x => x.Nombre, null, new { style = "color:red" })
+<form action="@Url.Action("ValidarRegistro", "Login")" method="post">
+    Nombre: @Html.TextBoxFor(x => x.Nombre, new { type = "text", Name = "Nombre", id = "Nombre", placeholder = "Nombre" }) 
+    @Html.ValidationMessageFor(x => x.Nombre, null, new { style = "color:red" })<br />
 
-    @Html.TextBoxFor(x => x.Apellido, new { type = "text", Name = "Apellido", id = "Apellido" })
-    @Html.ValidationMessageFor(x => x.Apellido, null, new { style = "color:red" })
+    Apellido: @Html.TextBoxFor(x => x.Apellido, new { type = "text", Name = "Apellido", id = "Apellido", placeholder = "Apellido" })
+    @Html.ValidationMessageFor(x => x.Apellido, null, new { style = "color:red" })<br />
 
-    @Html.TextBoxFor(x => x.Mail, new { type = "email", Name = "Mail", id = "Mail" })
-    @Html.ValidationMessageFor(x => x.Mail, null, new { style = "color:red" })
+    Mail: @Html.TextBoxFor(x => x.Mail, new { type = "email", Name = "Mail", id = "Mail", placeholder = "Mail" }) 
+    @Html.ValidationMessageFor(x => x.Mail, null, new { style = "color:red" })<br />
 
-    @Html.TextBoxFor(x => x.Contrasena, new { type = "password", Name = "Contrasena", id = "Contrasena" })
-    @Html.ValidationMessageFor(x => x.Contrasena, null, new { style = "color:red" })
+    Contraseña: @Html.TextBoxFor(x => x.Contrasena, new { type = "password", Name = "Contrasena", id = "Contrasena", placeholder = "Contraseña" }) 
+    @Html.ValidationMessageFor(x => x.Contrasena, null, new { style = "color:red" })<br />
 
-    <img src="~/Content/ImagenesUser/azul">
-    @Html.TextBoxFor(x => x.IDimagen, new { type = "radio", Name = "IDimagen", id = "IDimagen", Value = "1" })
-    <img src="~/Content/ImagenesUser/verde">
+    <img src="~/Content/ImagenesUser/azul.png" style="height:30px">
+    @Html.TextBoxFor(x => x.IDimagen, new { type = "radio", Name = "IDimagen", id = "IDimagen", Value = "1", @checked = "checked"})
+    <img src="~/Content/ImagenesUser/verde.png" style="height:30px">
     @Html.TextBoxFor(x => x.IDimagen, new { type = "radio", Name = "IDimagen", id = "IDimagen", Value = "2" })
-    <img src="~/Content/ImagenesUser/rojo">
-    @Html.TextBoxFor(x => x.IDimagen, new { type = "radio", Name = "IDimagen", id = "IDimagen", Value = "3" })
+    <img src="~/Content/ImagenesUser/rojo.png" style="height:30px">
+    @Html.TextBoxFor(x => x.IDimagen, new { type = "radio", Name = "IDimagen", id = "IDimagen", Value = "3" }) <br /> <br />
+    
+    Codigo de usuario especial: <input type="text" name="codigo" id="codigo" placeholder="Codigo" /> <br /> <br />
     <input type="submit" value="Enviar" />
-
-    Codigo de usuario especial: <input type="text" name="codigo" id="codigo" placeholder="Codigo" />
 </form>
-<a href="@Url.Action("Login", "Login")">¿Ya tenes usuario? Hacete alto login</a>
+<a href="@Url.Action("Login", "Login")" style="color:black">¿Ya tenés usuario? Iniciá sesión</a>

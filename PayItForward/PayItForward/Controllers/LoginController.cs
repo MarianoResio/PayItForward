@@ -18,31 +18,21 @@ namespace PayItForward.Controllers
         }
 
         [HttpPost]
-        public ActionResult ValidarLogin(Usuarios user)
+        public ActionResult ValidarLogin(string mail, string pass)
         {
-            if (!ModelState.IsValid)
+            Usuarios user = new Usuarios();
+            string password = Encriptar.Crypto(pass);
+            user = miConexion.Login(mail, password);
+
+            if (user != null)
             {
-                return View("Login");
+                Session["UserNow"] = user;
+                return RedirectToAction("Index", "Home");
             }
             else
             {
-                user.Nombre = "";
-                user.Apellido = "";
-                user.IDimagen = 1;
-                user.Puntos = 0;
-                user.Imagen = "";
-                user.Contrasena = Encriptar.Crypto(user.Contrasena);
-                user = miConexion.Login(user.Mail, user.Contrasena);
-                if (user != null)
-                {
-                    Session["UserNow"] = user;
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    ViewBag.UserNotFound = "No existe ese usuario";
-                    return View("Login");
-                }
+                ViewBag.UserNotFound = "No existe ese usuario";
+                return View("Login");
             }
         }
 
@@ -57,27 +47,37 @@ namespace PayItForward.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.Error = "error";
-                return View("Registro");
+                return View("Registro", user);
             }
             else
             {
                 Session["UserNow"] = user;
                 user.Especial = miConexion.ValidarUsuarioEspecialPorCodigo(codigo);
-                switch (user.IDimagen) {
+                if (user.Especial == true)
+                {
+                    miConexion.borrarCodigoEspecial(codigo);
+                }
+                switch (user.IDimagen)
+                {
                     case 1:
-                        user.Imagen = "azul";
+                        user.Imagen = "azul.png";
                         break;
                     case 2:
-                        user.Imagen = "verde";
+                        user.Imagen = "verde.png";
                         break;
                     case 3:
-                        user.Imagen = "rojo";
+                        user.Imagen = "rojo.png";
                         break;
                 }
                 user.Contrasena = Encriptar.Crypto(user.Contrasena);
                 miConexion.altaUsuario(user);
-                miConexion.borrarCodigoEspecial(codigo);
             }
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult Logout()
+        {
+            Session["UserNow"] = null;
             return RedirectToAction("Index", "Home");
         }
     }

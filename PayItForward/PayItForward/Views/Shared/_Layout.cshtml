@@ -97,17 +97,26 @@
 </head>
 <body style="background-color:#0090ff">
     <!-- Navbar (sit on top) -->
-    <div class="w3-top">
-        <div class="w3-bar w3-white w3-wide w3-padding w3-card">
-            <a href="@Url.Action("Index", "Home")" class="w3-bar-item"><img src="~/Content/Header/LogoConTitle.png" style="height:60px" /></a>
-            <!-- Float links to the right. Hide them on small screens -->
-            <div class="w3-right w3-hide-small" style="cursor:default">
-                <br />
-                <a style="text-decoration:none;margin-right:10px" href="" class="w3-bar-item w3-button button type1">Crear una cuenta</a>
-                <a style="text-decoration:none" href="" class="w3-bar-item w3-button button type1">Ingresar</a>
+
+        <div class="w3-top">
+            <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+                <a href="@Url.Action("Index", "Home")" class="w3-bar-item"><img src="~/Content/Header/LogoConTitle.png" style="height:60px" /></a>
+                <!-- Float links to the right. Hide them on small screens -->
+                <div class="w3-right w3-hide-small" style="cursor:default">
+                    <br />
+                    @if (Session["UserNow"] == null)
+                    {
+                        <a style="text-decoration:none;margin-right:10px" href="@Url.Action("Registro", "Login")" class="w3-bar-item w3-button button type1">Crear una cuenta</a>
+                        <a style="text-decoration:none" href="@Url.Action("Login", "Login")" class="w3-bar-item w3-button button type1">Ingresar</a>
+                    }
+                    else
+                    {
+                        <a style="text-decoration:none;margin-right:10px" href="@Url.Action("Logout", "Login")" class="w3-bar-item w3-button button type1">Cerrar sesión</a>
+                    }
+                </div>
             </div>
         </div>
-    </div>
+
     <div class="container body-content">
         @RenderBody()
         @*

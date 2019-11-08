@@ -13,20 +13,27 @@ namespace PayItForward.Controllers
         // GET: Venta
         public ActionResult Index()
         {
-            List<Publicacion> ListaPublicaciones = new List<Publicacion>();
-            ListaPublicaciones = mIConexion.TraerTodxsLxsPublicacionos();
-            ViewBag.Publicaciones = ListaPublicaciones;
-            List<string> listaImagenes = new List<string>();
-
-            foreach (Publicacion Publi in ListaPublicaciones)
+            if (Session["UserNow"] == null)
             {
-                foreach (String nombreImagen in Publi.NombreImagen)
-                {
-                    listaImagenes.Add("~/Content/ImagenesPublicaciones/" + Publi.IdPublicacion + "_" + nombreImagen);
-                }
+                return RedirectToAction("Index", "Home");
             }
-            ViewBag.imagenesPublicacion = listaImagenes;
-            return View();
+            else
+            {
+                List<Publicacion> ListaPublicaciones = new List<Publicacion>();
+                ListaPublicaciones = mIConexion.TraerTodxsLxsPublicacionos();
+                ViewBag.Publicaciones = ListaPublicaciones;
+                List<string> listaImagenes = new List<string>();
+
+                foreach (Publicacion Publi in ListaPublicaciones)
+                {
+                    foreach (String nombreImagen in Publi.NombreImagen)
+                    {
+                        listaImagenes.Add("~/Content/ImagenesPublicaciones/" + Publi.IdPublicacion + "_" + nombreImagen);
+                    }
+                }
+                ViewBag.imagenesPublicacion = listaImagenes;
+                return View();
+            }
         }
     }
 }
