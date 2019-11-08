@@ -100,7 +100,7 @@
                 @Html.TextBoxFor(x => x.Ubicacion, new { Class = "w3-input inputDetalles", Name = "Ubicacion" }) <br />
                 <label class="labelDetalles" for="Ubicacion">Ubicacion @Html.ValidationMessageFor(x => x.Ubicacion, null, new { @class = "validation" })</label>
 
-                <input type="hidden" value="@ViewBag.CategoriaActual" name="IdCategoria" />
+                <input type="hidden" value="@ViewBag.IdCategoriaActual" name="IdCategoria" />
                 <br /><br /><br />
 
                 <input type="submit" value="Continuar" />

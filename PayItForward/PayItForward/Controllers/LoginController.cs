@@ -24,9 +24,10 @@ namespace PayItForward.Controllers
             string password = Encriptar.Crypto(pass);
             user = miConexion.Login(mail, password);
 
-            if (user != null)
+            if (user.Nombre != null)
             {
                 Session["UserNow"] = user;
+                Session["IdUsuario"] = user.IdUsuario;
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -52,11 +53,12 @@ namespace PayItForward.Controllers
             else
             {
                 Session["UserNow"] = user;
+                Session["IdUsuario"] = user.IdUsuario;
                 user.Especial = miConexion.ValidarUsuarioEspecialPorCodigo(codigo);
                 if (user.Especial == false)
                 {
                     ViewBag.Mensaje = "El codigo de superusuario es incorrecto";
-                    return View("Registro", "Login");
+                    return View("Registro");
                 }
                 else
                 {

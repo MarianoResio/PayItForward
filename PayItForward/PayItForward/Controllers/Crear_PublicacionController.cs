@@ -72,6 +72,7 @@ namespace PayItForward.Controllers
             {
                 //pongo en un ViewBag la categoria final seleccionada por el usuario
                 ViewBag.CategoriaActual = miConexion.TraerNombreCategoriaPorId(IdCategoria);
+                ViewBag.IdCategoriaActual = IdCategoria;
 
                 Publicacion Publi = new Publicacion();
                 return View("DescripcionPublicacion", Publi);
@@ -102,6 +103,7 @@ namespace PayItForward.Controllers
                     else
                     {
                         // guardar las imagenes en content
+                        Publi.IdUsuario = Convert.ToInt32(Session["IdUsuario"]);
                         int UltimaPublicacion = miConexion.CrearPublicacion(Publi);
 
                         if (Publi.Imagenes != null)

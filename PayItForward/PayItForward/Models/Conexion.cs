@@ -487,7 +487,9 @@ namespace PayItForward.Models
             Comando.CommandText = "sp_borrarCodigoEspecial";
             Comando.CommandType = System.Data.CommandType.StoredProcedure;
             Comando.Parameters.AddWithValue("@pCodigo", codigo);
-            SqlDataReader DataReader = Comando.ExecuteReader();
+            Comando.ExecuteNonQuery();
+            Conexion.Close();
+
         }
         public string TraerNombreCategoriaPorId(int idCategoria)
         {
