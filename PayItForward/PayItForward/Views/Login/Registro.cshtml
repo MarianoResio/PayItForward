@@ -8,6 +8,7 @@
 <h2>Registro</h2>
 
 @ViewBag.error;
+@ViewBag.Mensaje;
 <form action="@Url.Action("ValidarRegistro", "Login")" method="post">
     Nombre: @Html.TextBoxFor(x => x.Nombre, new { type = "text", Name = "Nombre", id = "Nombre", placeholder = "Nombre" }) 
     @Html.ValidationMessageFor(x => x.Nombre, null, new { style = "color:red" })<br />

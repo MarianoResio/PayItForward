@@ -53,7 +53,12 @@ namespace PayItForward.Controllers
             {
                 Session["UserNow"] = user;
                 user.Especial = miConexion.ValidarUsuarioEspecialPorCodigo(codigo);
-                if (user.Especial == true)
+                if (user.Especial == false)
+                {
+                    ViewBag.Mensaje = "El codigo de superusuario es incorrecto";
+                    return View("Registro", "Login");
+                }
+                else
                 {
                     miConexion.borrarCodigoEspecial(codigo);
                 }
