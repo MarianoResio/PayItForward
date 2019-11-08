@@ -425,24 +425,6 @@ namespace PayItForward.Models
             return X;
         }
 
-        /*public void RegistroUsuario(Usuarios X)
-        {
-            SqlConnection Conexion = Conectar();
-            SqlCommand Comando = Conexion.CreateCommand();
-
-            Comando.CommandText = "sp_RegistroUsuario";
-            Comando.CommandType = System.Data.CommandType.StoredProcedure;
-            Comando.Parameters.AddWithValue("@pNombre", X.Nombre);
-            Comando.Parameters.AddWithValue("@pApellido", X.Apellido);
-            Comando.Parameters.AddWithValue("@pPassword", X.Contrasena);
-            Comando.Parameters.AddWithValue("@pMail", X.Mail);
-            Comando.Parameters.AddWithValue("@pPuntos", 0);
-            Comando.Parameters.AddWithValue("@pImagen", X.Imagen);
-
-            Comando.ExecuteNonQuery();
-            Conexion.Close();
-        }*/
-
         public bool ValidarUsuarioEspecialPorCodigo(string codigo)
         {
             bool respuesta = false;
@@ -494,11 +476,6 @@ namespace PayItForward.Models
         public string TraerNombreCategoriaPorId(int idCategoria)
         {
             string Cate = "";
-            /*CREATE PROCEDURE sp_TraerNombreCategoriaPorId
-            @pId
-            AS
-            SELECT Nombre FROM Categorias WHERE IdCategoria = @pId
-            */
             SqlConnection Conexion = Conectar();
             SqlCommand Comando = Conexion.CreateCommand();
 
@@ -513,6 +490,102 @@ namespace PayItForward.Models
                 Cate = Nombre_Traido;
             }
             return Cate;
+        }
+
+        public List<Publicacion> BusquedaPublicacionesPorTexto(string texto)
+        {
+            List<Publicacion> publicaciones = new List<Publicacion>();
+            SqlConnection Conexion = Conectar();
+            SqlCommand Comando = Conexion.CreateCommand();
+
+            Comando.CommandText = "sp_busquedaPublicacionPorTexto";
+            Comando.CommandType = System.Data.CommandType.StoredProcedure;
+            Comando.Parameters.AddWithValue("@pBusqueda", texto);
+            SqlDataReader DataReader = Comando.ExecuteReader();
+
+            while (DataReader.Read())
+            {
+                int IdPublicacion_Traido = Convert.ToInt32(DataReader["IdPublicacion"]);
+                int IdCategoria_Traido = Convert.ToInt32(DataReader["IdCategoria"]);
+                int IdUsuario_Traido = Convert.ToInt32(DataReader["IdUsuario"]);
+                List<string> ImgTraida = new List<string>();
+                ImgTraida.Add(DataReader["Imagen1"].ToString());
+                ImgTraida.Add(DataReader["Imagen2"].ToString());
+                ImgTraida.Add(DataReader["Imagen3"].ToString());
+                bool Aprobado_Traido = Convert.ToBoolean(DataReader["Aprobada"]);
+                int Valor_Traido = Convert.ToInt32(DataReader["Valor"]);
+                string Titulo_Traido = DataReader["Titulo"].ToString();
+                string Descripcion_Traida = DataReader["Descripcion"].ToString();
+                int Likes_Traidos = Convert.ToInt32(DataReader["Likes"]);
+                string Ubicacion_Traida = DataReader["Ubicacion"].ToString();
+                bool Destacada_Traida = Convert.ToBoolean(DataReader["Destacada"]);
+
+                Publicacion X = new Publicacion(IdPublicacion_Traido, IdCategoria_Traido, IdUsuario_Traido, ImgTraida, Aprobado_Traido, Valor_Traido, Titulo_Traido, Descripcion_Traida, Likes_Traidos, Ubicacion_Traida, Destacada_Traida);
+                publicaciones.Add(X);
+            }
+            return publicaciones;
+        }
+
+        public Usuarios traerUsuarioPorId(int id)
+        {
+            Usuarios user = new Usuarios();
+
+            SqlConnection Conexion = Conectar();
+            SqlCommand Comando = Conexion.CreateCommand();
+
+            Comando.CommandText = "sp_TraerUsuarioPorId";
+            Comando.CommandType = System.Data.CommandType.StoredProcedure;
+            Comando.Parameters.AddWithValue("@pId", id);
+            SqlDataReader DataReader = Comando.ExecuteReader();
+
+            if (DataReader.Read())
+            {
+                user.Apellido = DataReader["Apellido"].ToString();
+                user.Nombre = DataReader["Nombre"].ToString();
+                user.Puntos = Convert.ToInt32(DataReader["Puntos"]);
+                user.Imagen = DataReader["Imagen"].ToString();
+                user.Mail = DataReader["Mail"].ToString();
+                user.Contrasena = DataReader["Contrasena"].ToString();
+                user.Especial = Convert.ToBoolean(DataReader["Especial"]);
+                user.IdUsuario = id;
+            }
+
+            Conexion.Close();
+
+            return user;
+        }
+
+        public void ObtenerPublicacionNoEspecial (int idPublicacion, int idComprador, int idVendedor)
+        {
+            Publicacion publicacion = TraerPublicacionPorId(idPublicacion);
+
+            SqlConnection Conexion = Conectar();
+            SqlCommand Comando = Conexion.CreateCommand();
+
+            Comando.CommandText = "sp_ObtenerPublicacionNoEspecial";
+            Comando.CommandType = System.Data.CommandType.StoredProcedure;
+            Comando.Parameters.AddWithValue("@pIdComprador", idComprador);
+            Comando.Parameters.AddWithValue("@pIdVendedor", idVendedor);
+            Comando.Parameters.AddWithValue("@pValor", publicacion.Valor);
+
+            Comando.ExecuteNonQuery();
+            Conexion.Close();
+        }
+
+        public void ObtenerPublicacionEspecial(int idPublicacion, int idVendedor)
+        {
+            Publicacion publicacion = TraerPublicacionPorId(idPublicacion);
+
+            SqlConnection Conexion = Conectar();
+            SqlCommand Comando = Conexion.CreateCommand();
+
+            Comando.CommandText = "sp_ObtenerPublicacionEspecial";
+            Comando.CommandType = System.Data.CommandType.StoredProcedure;
+            Comando.Parameters.AddWithValue("@pIdVendedor", idVendedor);
+            Comando.Parameters.AddWithValue("@pValor", publicacion.Valor);
+
+            Comando.ExecuteNonQuery();
+            Conexion.Close();
         }
     }
 }
