@@ -7,41 +7,38 @@
     @{int cont = 0; }
 </head>
 <body>
+    
     <div id="categorias">
         <form id="form_@cont">
             <select id="Categoria_@cont">
-                <option value="1">Productos</option>
-                <option value="2">Servicios</option>
+                <option value="Productos">Productos</option>
+                <option value="Servicios">Servicios</option>
             </select>
-            <input type="button" value="Siguiente" name="Buscar" id="button_@cont" onclick="Hijas();" />
+            <input type="button" value="Siguiente" name="Buscar" id="button_@cont" onclick="Hijas(@cont);" />
         </form>
     </div>
     <script>
-        function Hijas() {
-            var cate = $("#Categoria_@cont").val();
-
-            @{cont++;
-              int idpadre = cont-1;
-            }
+        function Hijas(cont) {
+            var cate = $("#Categoria_" + cont).val();
             $.ajax({
                 url: '@Url.Action("TraerHijas", "Venta")',
                 type: "post",
                 dataType: "html",
                 contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify({ idPadre: cate }),
+                data: JSON.stringify({ nombrePadre : cate }),
                 success: function (cates) {
                         var thtml = '';
                         var obj = JSON.parse(cates);
                         if (obj.length != 0) {
-                            thtml += "<form id='form_@cont'> <select id='Categoria_@cont'>"
+                            thtml += "<form id='form_"+ (++cont) +"'> <select id='Categoria_" + cont + "'>"
                             for (var i = 0; i < obj.length; i++) {
                                 var cate = obj[i];
-                                thtml += "<option value='" + cate.IdCategoria + "'>" + cate.Nombre + "</option>";
+                                thtml += "<option value='" + cate.Nombre + "'>" + cate.Nombre + "</option>";
                             }
-                            thtml += " </select> <input type='button' value='Siguiente' name='Buscar' id='button_@cont' onclick='Hijas();' /> </form>"
-                            $("#form_@idpadre").after(thtml);
-                            $("#button_@idpadre").attr("disabled", true);
-                        }
+                            thtml += " </select> <input type='button' value='Siguiente' name='Buscar' id='button_" + cont +"' onclick='Hijas(" + cont +");' /> </form>"
+                            $("#form_"+(cont-1)).after(thtml);
+                            $("#button_"+(cont-1)).attr("disabled", true);
+                    }
                     },
                 error: function () {
                         alert("Ha ocurrido un error");

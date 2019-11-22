@@ -121,11 +121,11 @@ namespace PayItForward.Controllers
             return View();
         }
 
-        public JsonResult TraerHijas(int idPadre)
+        public JsonResult TraerHijas(string nombrePadre)
         {
             //funcion llamada por ajax
             //devuelvo un array con objetos (categorias) en forma de JSON con las categorias hijas de la categoria padre seleccionada por el usuario
-            List<Categorias> cates = mIConexion.TraerCategoriasHijas(idPadre);
+            List<Categorias> cates = mIConexion.TraerCategoriasHijasPorNombre(nombrePadre);
             var jsonData = Json(cates, JsonRequestBehavior.AllowGet);
             return jsonData;
         }

@@ -164,6 +164,36 @@ namespace PayItForward.Models
             return Lista;
         }
 
+        public List<Categorias> TraerCategoriasHijasPorNombre(string NombreCategoriaPadre)
+        {
+            int id = 0;
+            List<Categorias> Lista = new List<Categorias>();
+
+            SqlConnection Conexion = Conectar();
+            SqlCommand Comando = Conexion.CreateCommand();
+
+            Comando.CommandText = "sp_TraerCategoriasPorNombrePadre";
+            Comando.CommandType = System.Data.CommandType.StoredProcedure;
+            Comando.Parameters.AddWithValue("@pNombrePadre", NombreCategoriaPadre);
+            SqlDataReader DataReader = Comando.ExecuteReader();
+
+            while (DataReader.Read())
+            {
+                int IdCategoria_Traida = Convert.ToInt32(DataReader["IdCategoria"].ToString());
+                int IdCategoriaPadre_Traida = Convert.ToInt32(DataReader["IdCategoriaPadre"].ToString());
+                string Nombre_Traido = DataReader["Nombre"].ToString();
+                string Imagen_Traida = DataReader["Imagen"].ToString();
+
+                Categorias X = new Categorias(IdCategoria_Traida, IdCategoriaPadre_Traida, Nombre_Traido, Imagen_Traida);
+                id = X.IdCategoria;
+            }
+
+            Conexion.Close();
+
+            return TraerCategoriasHijas(id);
+        }
+
+
         public List<Publicacion> TraerPublicacionesPorUsuario(int IdUsuario)
         {
             List<Publicacion> Lista = new List<Publicacion>();
