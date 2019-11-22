@@ -5,9 +5,33 @@
 
 <head>
     @{int cont = 0; }
+
+    <title>Selling &mdash; Website by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="Styles/ventaHome/fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="Styles/ventaHome/css/bootstrap.min.css">
+    <link rel="stylesheet" href="Styles/ventaHome/css/jquery-ui.css">
+    <link rel="stylesheet" href="Styles/ventaHome/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="Styles/ventaHome/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="Styles/ventaHome/css/owl.theme.default.min.css">
+
+    <link rel="stylesheet" href="Styles/ventaHome/css/jquery.fancybox.min.css">
+
+    <link rel="stylesheet" href="Styles/ventaHome/css/bootstrap-datepicker.css">
+
+    <link rel="stylesheet" href="Styles/ventaHome/fonts/flaticon/font/flaticon.css">
+
+    <link rel="stylesheet" href="Styles/ventaHome/css/aos.css">
+
+    <link rel="stylesheet" href="Styles/ventaHome/css/style.css">
 </head>
 <body>
-    
+
     <div id="categorias">
         <form id="form_@cont">
             <select id="Categoria_@cont">
@@ -17,6 +41,7 @@
             <input type="button" value="Siguiente" name="Buscar" id="button_@cont" onclick="Hijas(@cont);" />
         </form>
     </div>
+    <div id="publicaciones"></div>
     <script>
         function Hijas(cont) {
             var cate = $("#Categoria_" + cont).val();
@@ -37,13 +62,36 @@
                             }
                             thtml += " </select> <input type='button' value='Siguiente' name='Buscar' id='button_" + cont +"' onclick='Hijas(" + cont +");' /> </form>"
                             $("#form_"+(cont-1)).after(thtml);
-                            $("#button_"+(cont-1)).attr("disabled", true);
+                            $("#button_" + (cont - 1)).attr("disabled", true);
+                            $("#Categoria_" + (cont - 1)).attr("disabled", true);
                     }
                     },
                 error: function () {
                         alert("Ha ocurrido un error");
                     }
-                });
+            });
+            $.ajax({
+                url: '@Url.Action("TraerPublicacionesBusquedaCategoria", "Venta")',
+                type: "post",
+                dataType: "html",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({ nombrePadre : cate }),
+                success: function (cates) {
+                        var thtml = '';
+                    var obj = JSON.parse(cates);
+                    alert(cates);
+                        if (obj.length != 0) {
+                            for (var i = 0; i < obj.length; i++) {
+                                var cate = obj[i];
+                                thtml += "<div class='row'> <div class='col-lg-4 col-md-6 mb-5'> <div class='product-item'> <figure> <img src='~/Content/ImagenesPublicaciones/" + cate[i].IdPublicacion + "_" + cate[i].NombreImagen[0] + "' alt='Image' class='img-fluid' style='width:100px;height:100px'></figure><div class='px-4'> <h3><a href='#' style='color:white'>" + cate[i].Titulo + "</a></h3> <div class='mb-3'> <span class='meta-icons wishlist' style='color:white'><a href='#' class='mr-2'><span class='icon-heart'></span></a>" + cate[i].Likes + "</span> <span class='meta-icons wishlist' style='color:white'><a href='#' class='mr-2'></a> - $" + cate[i].Valor + "</span> </div> <p class='mb-4' style='color:white'>" + cate[i].Descripcion + "</p><div> <a href='/Comprar?id=" + cate[i].IdPublicacion @*Url.Action("Comprar", "Venta", new { id = publicacion.IdPublicacion })*@+ "' class='btn btn-black mr-1 rounded-0'>Obtener</a> </div></div></div></div>";
+                            }
+                            $("#publicaciones").html(thtml);
+                    }
+                    },
+                error: function () {
+                        alert("Ha ocurrido un error");
+                    }
+            });
         }
     </script>
 </body>

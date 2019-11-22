@@ -129,5 +129,14 @@ namespace PayItForward.Controllers
             var jsonData = Json(cates, JsonRequestBehavior.AllowGet);
             return jsonData;
         }
+
+        public JsonResult TraerPublicacionesBusquedaCategoria(string nombrePadre)
+        {
+            //funcion llamada por ajax
+            //devuelvo un array con objetos (publicaciones) en forma de JSON de la categorias hija seleccionada por el usuario
+            List<Publicacion> cates = mIConexion.TraerPublicacionesBusquedaCategoria(nombrePadre);
+            var jsonData = Json(cates, JsonRequestBehavior.AllowGet);
+            return jsonData;
+        }
     }
 }

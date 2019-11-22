@@ -618,5 +618,67 @@ namespace PayItForward.Models
             Comando.ExecuteNonQuery();
             Conexion.Close();
         }
+
+        public int traerIDCategoriaPorNombre(string nombreCate)
+        {
+            int id = -10;
+
+            SqlConnection Conexion = Conectar();
+            SqlCommand Comando = Conexion.CreateCommand();
+
+            Comando.CommandText = "sp_traerIDCategoriaPorNombre";
+            Comando.CommandType = System.Data.CommandType.StoredProcedure;
+            Comando.Parameters.AddWithValue("@pNombreCate", nombreCate);
+            SqlDataReader DataReader = Comando.ExecuteReader();
+
+            while (DataReader.Read())
+            {
+                id = Convert.ToInt32(DataReader["IdCategoria"]);
+            }
+
+            Conexion.Close();
+
+            return id;
+        }
+
+        public List<Publicacion> TraerPublicacionesBusquedaCategoria(string nombrePadre)
+        {
+            int IdCate = traerIDCategoriaPorNombre(nombrePadre);
+            
+            List<Publicacion> Lista = new List<Publicacion>();
+
+            SqlConnection Conexion = Conectar();
+            SqlCommand Comando = Conexion.CreateCommand();
+
+            Comando.CommandText = "sp_TraerPublicacionesBusquedaCategoria";
+            Comando.CommandType = System.Data.CommandType.StoredProcedure;
+            Comando.Parameters.AddWithValue("@pIdCate", IdCate);
+            SqlDataReader DataReader = Comando.ExecuteReader();
+
+            while (DataReader.Read())
+            {
+                int IdPublicacion_Traido = Convert.ToInt32(DataReader["IdPublicacion"]);
+                int IdCategoria_Traido = Convert.ToInt32(DataReader["IdCategoria"]);
+                int IdUsuario_Traido = Convert.ToInt32(DataReader["IdUsuario"]);
+                List<string> ImgTraida = new List<string>();
+                ImgTraida.Add(DataReader["Imagen1"].ToString());
+                ImgTraida.Add(DataReader["Imagen2"].ToString());
+                ImgTraida.Add(DataReader["Imagen3"].ToString());
+                bool Aprobado_Traido = Convert.ToBoolean(DataReader["Aprobada"]);
+                int Valor_Traido = Convert.ToInt32(DataReader["Valor"]);
+                string Titulo_Traido = DataReader["Titulo"].ToString();
+                string Descripcion_Traida = DataReader["Descripcion"].ToString();
+                int Likes_Traidos = Convert.ToInt32(DataReader["Likes"]);
+                string Ubicacion_Traida = DataReader["Ubicacion"].ToString();
+                bool Destacada_Traida = Convert.ToBoolean(DataReader["Destacada"]);
+
+                Publicacion X = new Publicacion(IdPublicacion_Traido, IdCategoria_Traido, IdUsuario_Traido, ImgTraida, Aprobado_Traido, Valor_Traido, Titulo_Traido, Descripcion_Traida, Likes_Traidos, Ubicacion_Traida, Destacada_Traida);
+                Lista.Add(X);
+            }
+
+            Conexion.Close();
+
+            return Lista;
+        }
     }
 }
