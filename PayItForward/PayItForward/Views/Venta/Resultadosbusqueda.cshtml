@@ -55,12 +55,12 @@
                                 <img src="@Url.Content(ViewBag.imagenesPublicacion[cont])" alt="Image" class="img-fluid" style="width:100px;height:100px"> <!--IMAGEN-->
                             </figure>
                             <div class="px-4">
-                                <h3>@publicacion.Titulo</h3> <!--NOMBRE-->
+                                <h3 style="color:white">@publicacion.Titulo</h3> <!--NOMBRE-->
                                 <div class="mb-3">
-                                    <span class="meta-icons wishlist"><a href="#" class="mr-2"><span class="icon-heart"></span></a>♥ @publicacion.Likes</span> <!--LIKES-->
-                                    <span class="meta-icons wishlist"><a href="#" class="mr-2"><span class="icon-heart"></span></a> - $@publicacion.Valor</span> <!--PRECIO-->
+                                    <span class="meta-icons wishlist" style="color:white"><a href="#" class="mr-2"></a>♥ @publicacion.Likes</span> <!--LIKES-->
+                                    <span class="meta-icons wishlist" style="color:white"><a href="#" class="mr-2"></a> - $@publicacion.Valor</span> <!--PRECIO-->
                                 </div>
-                                <p class="mb-4">@publicacion.Descripcion</p> <!--DESCRIPCION-->
+                                <p class="mb-4" style="color:white">@publicacion.Descripcion</p> <!--DESCRIPCION-->
                                 <div>
                                     <a href="@Url.Action("Comprar", "Venta", new { id = publicacion.IdPublicacion })" class="btn btn-black mr-1 rounded-0">Obtener</a>
                                     <!--<a href="#" class="btn btn-black btn-outline-black ml-1 rounded-0">Ver</a>-->

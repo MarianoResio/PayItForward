@@ -21,15 +21,34 @@ namespace PayItForward.Controllers
             {
                 List<Publicacion> ListaPublicaciones = new List<Publicacion>();
                 ListaPublicaciones = mIConexion.TraerTodxsLxsPublicacionos();
+                int z = 0;
+                do
+                {
+                    int IdUser = Convert.ToInt32(Session["IdUsuario"]);
+                    if (ListaPublicaciones[z].IdUsuario == IdUser)
+                    {
+                        ListaPublicaciones.Remove(ListaPublicaciones[z]);
+                        z--;
+                    }
+                    z++;
+                } while (ListaPublicaciones.Count() > z);
+
                 ViewBag.Publicaciones = ListaPublicaciones;
                 List<string> listaImagenes = new List<string>();
+
+                int contImg = 1;
 
                 foreach (Publicacion Publi in ListaPublicaciones)
                 {
                     foreach (String nombreImagen in Publi.NombreImagen)
                     {
-                        listaImagenes.Add("~/Content/ImagenesPublicaciones/" + Publi.IdPublicacion + "_" + nombreImagen);
+                        if(contImg==1)
+                        {
+                            listaImagenes.Add("~/Content/ImagenesPublicaciones/" + Publi.IdPublicacion + "_" + nombreImagen);
+                        }
+                        contImg++;
                     }
+                    contImg = 1;
                 }
                 ViewBag.imagenesPublicacion = listaImagenes;
                 return View();
@@ -80,7 +99,7 @@ namespace PayItForward.Controllers
             user = mIConexion.traerUsuarioPorId(Convert.ToInt32(Session["IdUsuario"]));
             if (user.Especial == true)
             {
-                mIConexion.ObtenerPublicacionEspecial(id, user.IdUsuario);
+                mIConexion.ObtenerPublicacionEspecial(id, publicacion.IdUsuario);
                 return RedirectToAction("Index", "Home");
             }
             else

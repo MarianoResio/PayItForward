@@ -34,10 +34,6 @@
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300" style="margin-top:500px">
 
     <div class="site-section" id="products-section">
-        <form action="@Url.Action("BusquedaTexto", "Venta")" method="get">
-            <input type="text" style="width:150px" name="texto" id="texto"/>
-            <input type="submit" value="Buscar" name="Buscar"/>
-        </form>
         <div class="container">
             <div class="row mb-5 justify-content-center">
                 <div class="col-md-6 text-center">
@@ -56,11 +52,12 @@
                                 <img src="@Url.Content(ViewBag.imagenesPublicacion[cont])" alt="Image" class="img-fluid" style="width:100px;height:100px"> <!--IMAGEN-->
                             </figure>
                             <div class="px-4">
-                                <h3><a href="#">@publicacion.Titulo</a></h3> <!--NOMBRE-->
+                                <h3><a href="#"  style="color:white">@publicacion.Titulo</a></h3> <!--NOMBRE-->
                                 <div class="mb-3">
-                                    <span class="meta-icons wishlist"><a href="#" class="mr-2"><span class="icon-heart"></span></a>♥ @publicacion.Likes</span> <!--LIKES-->
+                                    <span class="meta-icons wishlist" style="color:white"><a href="#" class="mr-2"><span class="icon-heart"></span></a>@publicacion.Likes</span> <!--LIKES-->
+                                    <span class="meta-icons wishlist" style="color:white"><a href="#" class="mr-2"></a> - $@publicacion.Valor</span> <!--PRECIO-->
                                 </div>
-                                <p class="mb-4">@publicacion.Descripcion</p> <!--DESCRIPCION-->
+                                <p class="mb-4" style="color:white">@publicacion.Descripcion</p> <!--DESCRIPCION-->
                                 <div>
                                     <a href="@Url.Action("Comprar", "Venta", new { id = publicacion.IdPublicacion })" class="btn btn-black mr-1 rounded-0">Obtener</a>
                                     <!--<a href="#" class="btn btn-black btn-outline-black ml-1 rounded-0">Ver</a>-->
@@ -74,6 +71,10 @@
             }
         </div>
     </div>
+    <form action="@Url.Action("BusquedaTexto", "Venta")" method="get">
+        <input type="text" style="width:150px" name="texto" id="texto" />
+        <input type="submit" value="Buscar" name="Buscar" />
+    </form>
 
     <div class="site-section bg-light">
         <div class="container">
