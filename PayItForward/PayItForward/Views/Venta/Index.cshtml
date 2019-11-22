@@ -52,7 +52,7 @@
                                 <img src="@Url.Content(ViewBag.imagenesPublicacion[cont])" alt="Image" class="img-fluid" style="width:100px;height:100px"> <!--IMAGEN-->
                             </figure>
                             <div class="px-4">
-                                <h3><a href="#"  style="color:white">@publicacion.Titulo</a></h3> <!--NOMBRE-->
+                                <h3><a href="#" style="color:white">@publicacion.Titulo</a></h3> <!--NOMBRE-->
                                 <div class="mb-3">
                                     <span class="meta-icons wishlist" style="color:white"><a href="#" class="mr-2"><span class="icon-heart"></span></a>@publicacion.Likes</span> <!--LIKES-->
                                     <span class="meta-icons wishlist" style="color:white"><a href="#" class="mr-2"></a> - $@publicacion.Valor</span> <!--PRECIO-->
@@ -74,6 +74,9 @@
     <form action="@Url.Action("BusquedaTexto", "Venta")" method="get">
         <input type="text" style="width:150px" name="texto" id="texto" />
         <input type="submit" value="Buscar" name="Buscar" />
+    </form>
+    <form action="@Url.Action("BusquedaCategorias", "Venta")" method="get">
+        <input type="submit" value="Buscar por categoria" name="Buscar" />
     </form>
 
     <div class="site-section bg-light">

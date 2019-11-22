@@ -115,5 +115,19 @@ namespace PayItForward.Controllers
                 }
             }
         }
+
+        public ActionResult BusquedaCategorias()
+        {
+            return View();
+        }
+
+        public JsonResult TraerHijas(int idPadre)
+        {
+            //funcion llamada por ajax
+            //devuelvo un array con objetos (categorias) en forma de JSON con las categorias hijas de la categoria padre seleccionada por el usuario
+            List<Categorias> cates = mIConexion.TraerCategoriasHijas(idPadre);
+            var jsonData = Json(cates, JsonRequestBehavior.AllowGet);
+            return jsonData;
+        }
     }
 }

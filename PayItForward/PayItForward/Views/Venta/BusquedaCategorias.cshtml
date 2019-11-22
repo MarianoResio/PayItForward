@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "BusquedaCategorias";
+}
+
+<head>
+    @{int cont = 0; }
+</head>
+<body>
+    <div id="categorias">
+        <form id="form_@cont">
+            <select id="Categoria_@cont">
+                <option value="1">Productos</option>
+                <option value="2">Servicios</option>
+            </select>
+            <input type="button" value="Siguiente" name="Buscar" onclick="Hijas();" />
+        </form>
+    </div>
+    <script>
+        function Hijas() {
+            var cate = $("#Categoria_@cont").val();
+            @{cont++;
+              int idpadre = cont-1;
+            }
+            $.ajax({
+                url: '@Url.Action("TraerHijas", "Venta")',
+                type: "post",
+                dataType: "html",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({ idPadre: cate }),
+                success: function (cates) {
+                        var thtml = '';
+                        var obj = JSON.parse(cates);
+                        if (obj.length != 0) {
+                            thtml += "<form id='form_@cont'> <select id='Categoria_@cont'>"
+                            for (var i = 0; i < obj.length; i++) {
+                                var cate = obj[i];
+                                thtml += "<option value='" + cate.IdCategoria + "'>" + cate.Nombre + "</option>";
+                            }
+                            thtml += " </select> </form>"
+                            $("#form_@idpadre").after(thtml);
+                            alert($("#categorias").html());
+                        }
+                    },
+                error: function () {
+                        alert("Ha ocurrido un error");
+                    }
+                });
+        }
+    </script>
+</body>
