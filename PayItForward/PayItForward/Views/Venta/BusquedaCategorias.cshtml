@@ -13,12 +13,13 @@
                 <option value="1">Productos</option>
                 <option value="2">Servicios</option>
             </select>
-            <input type="button" value="Siguiente" name="Buscar" onclick="Hijas();" />
+            <input type="button" value="Siguiente" name="Buscar" id="button_@cont" onclick="Hijas();" />
         </form>
     </div>
     <script>
         function Hijas() {
             var cate = $("#Categoria_@cont").val();
+
             @{cont++;
               int idpadre = cont-1;
             }
@@ -37,9 +38,9 @@
                                 var cate = obj[i];
                                 thtml += "<option value='" + cate.IdCategoria + "'>" + cate.Nombre + "</option>";
                             }
-                            thtml += " </select> </form>"
+                            thtml += " </select> <input type='button' value='Siguiente' name='Buscar' id='button_@cont' onclick='Hijas();' /> </form>"
                             $("#form_@idpadre").after(thtml);
-                            alert($("#categorias").html());
+                            $("#button_@idpadre").attr("disabled", true);
                         }
                     },
                 error: function () {
