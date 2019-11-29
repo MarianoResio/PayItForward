@@ -34,43 +34,53 @@
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
     <div class="site-section" id="products-section">
-        <form action="@Url.Action("BusquedaTexto", "Venta")" method="get">
-            <input type="text" style="width:150px" name="texto" id="texto" />
-            <input type="submit" value="Buscar" name="Buscar" />
-        </form>
         <div class="container">
-            <div class="row mb-5 justify-content-center">
-                <div class="col-md-6 text-center">
-                    <h3 class="section-sub-title">Pay it Forward</h3>
-                    <h2 class="section-title mb-3">Productos encontrados</h2>
-                </div>
-            </div>
-            @{ int cont = 0; }
-            @foreach (Publicacion publicacion in ViewBag.publicaciones)
+            @if (ViewBag.HuboPublis == false)
             {
-                <div class="row">
-                    <div class="col-lg-4 col-md-6 mb-5">
-                        <div class="product-item">
-                            <figure>
-                                <img src="@Url.Content(ViewBag.imagenesPublicacion[cont])" alt="Image" class="img-fluid" style="width:100px;height:100px"> <!--IMAGEN-->
-                            </figure>
-                            <div class="px-4">
-                                <h3 style="color:white">@publicacion.Titulo</h3> <!--NOMBRE-->
-                                <div class="mb-3">
-                                    <span class="meta-icons wishlist" style="color:white"><a href="#" class="mr-2"></a>♥ @publicacion.Likes</span> <!--LIKES-->
-                                    <span class="meta-icons wishlist" style="color:white"><a href="#" class="mr-2"></a> - $@publicacion.Valor</span> <!--PRECIO-->
-                                </div>
-                                <p class="mb-4" style="color:white">@publicacion.Descripcion</p> <!--DESCRIPCION-->
-                                <div>
-                                    <a href="@Url.Action("Comprar", "Venta", new { id = publicacion.IdPublicacion })" class="btn btn-black mr-1 rounded-0">Obtener</a>
-                                    <!--<a href="#" class="btn btn-black btn-outline-black ml-1 rounded-0">Ver</a>-->
+                <div class="row mb-5 justify-content-center">
+                    <div class="col-md-6 text-center">
+                        <h3 class="section-sub-title">Pay it Forward</h3>
+                        <h2 class="section-title mb-3">No se encontraron productos</h2>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row mb-5 justify-content-center">
+                    <div class="col-md-6 text-center">
+                        <h3 class="section-sub-title">Pay it Forward</h3>
+                        <h2 class="section-title mb-3">Productos encontrados</h2>
+                    </div>
+                </div>
+                int cont = 0;
+                foreach (Publicacion publicacion in ViewBag.publicaciones)
+                {
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 mb-5">
+                            <div class="product-item">
+                                <figure>
+                                    <img src="@Url.Content(ViewBag.imagenesPublicacion[cont])" alt="Image" class="img-fluid" style="width:100px;height:100px"> <!--IMAGEN-->
+                                </figure>
+                                <div class="px-4">
+                                    <h3 style="color:white">@publicacion.Titulo</h3> <!--NOMBRE-->
+                                    <div class="mb-3">
+                                        <span class="meta-icons wishlist" style="color:white"><a href="#" class="mr-2"></a>♥ @publicacion.Likes</span> <!--LIKES-->
+                                        <span class="meta-icons wishlist" style="color:white"><a href="#" class="mr-2"></a> - $@publicacion.Valor</span> <!--PRECIO-->
+                                    </div>
+                                    <p class="mb-4" style="color:white">@publicacion.Descripcion</p> <!--DESCRIPCION-->
+                                    <div>
+                                        <a href="@Url.Action("Comprar", "Venta", new { id = publicacion.IdPublicacion })" class="btn btn-black mr-1 rounded-0">Obtener</a>
+                                        <!--<a href="#" class="btn btn-black btn-outline-black ml-1 rounded-0">Ver</a>-->
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                cont++;
+                    cont++;
+                }
             }
+
+
         </div>
     </div>
 

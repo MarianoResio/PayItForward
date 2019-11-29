@@ -23,7 +23,7 @@ namespace PayItForward.Models
             return Conexion;
         }
 
-        private int TraerUltimaPublicacion()
+        public int TraerUltimaPublicacion()
         {
             int Id_Traido = -1;
 
@@ -45,6 +45,7 @@ namespace PayItForward.Models
 
         public int CrearPublicacion(Publicacion UnaPublicacion)
         {
+            string pub2 = "";
             SqlConnection Conexion = Conectar();
             SqlCommand Comando = Conexion.CreateCommand();
 
@@ -52,7 +53,9 @@ namespace PayItForward.Models
             Comando.CommandType = System.Data.CommandType.StoredProcedure;
             Comando.Parameters.AddWithValue("@pIdCategoria", UnaPublicacion.IdCategoria);
             Comando.Parameters.AddWithValue("@pIdUsuario", UnaPublicacion.IdUsuario);
-            Comando.Parameters.AddWithValue("@pImagen1", UnaPublicacion.Imagenes[0].FileName);
+            string pub1 = UnaPublicacion.IdPublicacion + "_" + UnaPublicacion.Imagenes[0].FileName.ToString();
+
+            Comando.Parameters.AddWithValue("@pImagen1", pub1);
             switch (UnaPublicacion.Imagenes.Length)
             {
                 case 1:
@@ -60,12 +63,15 @@ namespace PayItForward.Models
                     Comando.Parameters.AddWithValue("@pImagen3", DBNull.Value);
                     break;
                 case 2:
-                    Comando.Parameters.AddWithValue("@pImagen2", UnaPublicacion.Imagenes[1].FileName);
+                    pub2 = UnaPublicacion.IdPublicacion + "_" + UnaPublicacion.Imagenes[1].FileName.ToString();
+                    Comando.Parameters.AddWithValue("@pImagen2", pub2);
                     Comando.Parameters.AddWithValue("@pImagen3", DBNull.Value);
                     break;
                 case 3:
-                    Comando.Parameters.AddWithValue("@pImagen2", UnaPublicacion.Imagenes[1].FileName);
-                    Comando.Parameters.AddWithValue("@pImagen3", UnaPublicacion.Imagenes[2].FileName);
+                    pub2 = UnaPublicacion.IdPublicacion + "_" + UnaPublicacion.Imagenes[1].FileName.ToString();
+                    string pub3 = UnaPublicacion.IdPublicacion + "_" + UnaPublicacion.Imagenes[2].FileName.ToString();
+                    Comando.Parameters.AddWithValue("@pImagen2", pub2);
+                    Comando.Parameters.AddWithValue("@pImagen3", pub3);
                     break;
             }
             Comando.Parameters.AddWithValue("@pAprobada", UnaPublicacion.Aprobada);
@@ -346,11 +352,14 @@ namespace PayItForward.Models
         {
             SqlConnection Conexion = Conectar();
             SqlCommand Comando = Conexion.CreateCommand();
+            string pub2 = "";
 
             Comando.CommandText = "sp_ModificarPublicacion";
             Comando.CommandType = System.Data.CommandType.StoredProcedure;
             Comando.Parameters.AddWithValue("@pIdPublicacion", X.IdPublicacion);
-            Comando.Parameters.AddWithValue("@pImagen1", X.Imagenes[0].FileName);
+            string pub1 = X.IdPublicacion + "_" + X.Imagenes[0].FileName.ToString();
+            Comando.Parameters.AddWithValue("@pImagen1", pub1);
+            
             switch (X.Imagenes.Length)
             {
                 case 1:
@@ -358,12 +367,15 @@ namespace PayItForward.Models
                     Comando.Parameters.AddWithValue("@pImagen3", DBNull.Value);
                     break;
                 case 2:
-                    Comando.Parameters.AddWithValue("@pImagen2", X.Imagenes[1].FileName);
+                    pub2 = X.IdPublicacion + "_" + X.Imagenes[1].FileName.ToString();
+                    Comando.Parameters.AddWithValue("@pImagen2", pub2);
                     Comando.Parameters.AddWithValue("@pImagen3", DBNull.Value);
                     break;
                 case 3:
-                    Comando.Parameters.AddWithValue("@pImagen2", X.Imagenes[1].FileName);
-                    Comando.Parameters.AddWithValue("@pImagen3", X.Imagenes[2].FileName);
+                    pub2 = X.IdPublicacion + "_" + X.Imagenes[1].FileName.ToString();
+                    string pub3 = X.IdPublicacion + "_" + X.Imagenes[2].FileName.ToString();
+                    Comando.Parameters.AddWithValue("@pImagen2", pub2);
+                    Comando.Parameters.AddWithValue("@pImagen3", pub3);
                     break;
             }
             Comando.Parameters.AddWithValue("@pValor", X.Valor);
@@ -647,8 +659,7 @@ namespace PayItForward.Models
         public List<Publicacion> TraerPublicacionesPorIdCategoria (int id)
         {
             List<Publicacion> lista = new List<Publicacion>();
-            Publicacion X = new Publicacion(); 
-
+            Publicacion X = new Publicacion();
             SqlConnection Conexion = Conectar();
             SqlCommand Comando = Conexion.CreateCommand();
 
@@ -659,6 +670,7 @@ namespace PayItForward.Models
 
             while (DataReader.Read())
             {
+                X = new Publicacion();
                 X.NombreImagen = new List<string>();
                 X.IdPublicacion = Convert.ToInt32(DataReader["IdPublicacion"]);
                 X.IdCategoria = Convert.ToInt32(DataReader["IdCategoria"]);

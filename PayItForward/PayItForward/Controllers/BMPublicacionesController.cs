@@ -22,7 +22,7 @@ namespace PayItForward.Controllers
             {
                 List<Publicacion> ListaPublicaciones = new List<Publicacion>();
                 //traigo las publicaciones del usuario actual y las pongo en un ViewBag
-                ListaPublicaciones = miConexion.TraerPublicacionesPorUsuario(0); //0=Session["UserNow"]
+                ListaPublicaciones = miConexion.TraerPublicacionesPorUsuario(Convert.ToInt32(Session["IdUsuario"]));
                 ViewBag.Lista = ListaPublicaciones;
 
                 return View();
@@ -53,7 +53,7 @@ namespace PayItForward.Controllers
                     {
                         if (x != "")
                         {
-                            listaImagenes.Add("~/Content/ImagenesPublicaciones/" + X.IdPublicacion + "_" + x);
+                            listaImagenes.Add("~/Content/ImagenesPublicaciones/" + x);
                         }
                     }
                     ViewBag.imagenesPublicacion = listaImagenes;

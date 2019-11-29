@@ -104,6 +104,7 @@ namespace PayItForward.Controllers
                     {
                         // guardar las imagenes en content
                         Publi.IdUsuario = Convert.ToInt32(Session["IdUsuario"]);
+                        Publi.IdPublicacion = miConexion.TraerUltimaPublicacion()+1;
                         int UltimaPublicacion = miConexion.CrearPublicacion(Publi);
 
                         if (Publi.Imagenes != null)

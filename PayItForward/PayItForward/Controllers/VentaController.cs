@@ -44,7 +44,7 @@ namespace PayItForward.Controllers
                     {
                         if(contImg==1)
                         {
-                            listaImagenes.Add("~/Content/ImagenesPublicaciones/" + Publi.IdPublicacion + "_" + nombreImagen);
+                            listaImagenes.Add("~/Content/ImagenesPublicaciones/" + nombreImagen);
                         }
                         contImg++;
                     }
@@ -63,82 +63,117 @@ namespace PayItForward.Controllers
             }
             else
             {
+                ViewBag.HuboPublis = true;
+
                 List<Publicacion> publicaciones = new List<Publicacion>();
                 publicaciones = mIConexion.BusquedaPublicacionesPorTexto(texto);
                 if (publicaciones != null)
                 {
-                    if (publicaciones[0].Titulo == "")
+                    if (publicaciones.Count() == 0)
                     {
-                        return View("Index");
+                        ViewBag.HuboPublis = false;
                     }
                     else
                     {
                         List<string> listaImagenes = new List<string>();
                         foreach (Publicacion publi in publicaciones)
                         {
-                            listaImagenes.Add("~/Content/ImagenesPublicaciones/" + publi.IdPublicacion + "_" + publi.NombreImagen[0]);
+                            listaImagenes.Add("~/Content/ImagenesPublicaciones/" + publi.NombreImagen[0]);
+                        }
+
+                        int z = 0;
+                        do
+                        {
+                            int IdUser = Convert.ToInt32(Session["IdUsuario"]);
+                            if (publicaciones[z].IdUsuario == IdUser)
+                            {
+                                publicaciones.Remove(publicaciones[z]);
+                                z--;
+                            }
+                            z++;
+                        } while (publicaciones.Count() > z);
+
+                        if(publicaciones.Count() == 0)
+                        {
+                            ViewBag.HuboPublis = false;
                         }
 
                         ViewBag.imagenesPublicacion = listaImagenes;
                         ViewBag.publicaciones = publicaciones;
-                        return View("Resultadosbusqueda");
                     }
                 }
                 else
                 {
-                    return View("Index");
+                    ViewBag.HuboPublis = false;
                 }
+                return View("Resultadosbusqueda");
             }
         }
 
         public ActionResult Comprar(int id)
         {
-            Publicacion publicacion = new Publicacion();
-            publicacion = mIConexion.TraerPublicacionPorId(id);
-            Usuarios user = new Usuarios();
-            user = mIConexion.traerUsuarioPorId(Convert.ToInt32(Session["IdUsuario"]));
-            if (user.Especial == true)
+            if (Session["UserNow"] == null)
             {
-                mIConexion.ObtenerPublicacionEspecial(id, publicacion.IdUsuario);
                 return RedirectToAction("Index", "Home");
             }
             else
             {
-                if (user.Puntos >= publicacion.Valor)
+                Publicacion publicacion = new Publicacion();
+                publicacion = mIConexion.TraerPublicacionPorId(id);
+                Usuarios user = new Usuarios();
+                user = mIConexion.traerUsuarioPorId(Convert.ToInt32(Session["IdUsuario"]));
+                if (user.Especial == true)
                 {
-                    mIConexion.ObtenerPublicacionNoEspecial(id, user.IdUsuario, publicacion.IdUsuario);
+                    mIConexion.ObtenerPublicacionEspecial(id, publicacion.IdUsuario);
                     return RedirectToAction("Index", "Home");
-                } else
+                }
+                else
                 {
-                    ViewBag.Mensaje = "No contas con puntos suficientes para obtener esta publicacion";
-                    List<Publicacion> ListaPublicaciones = new List<Publicacion>();
-                    ListaPublicaciones = mIConexion.TraerTodxsLxsPublicacionos();
-                    ViewBag.Publicaciones = ListaPublicaciones;
-                    List<string> listaImagenes = new List<string>();
-
-                    int contImg = 1;
-
-                    foreach (Publicacion Publi in ListaPublicaciones)
+                    if (user.Puntos >= publicacion.Valor)
                     {
-                        foreach (String nombreImagen in Publi.NombreImagen)
-                        {
-                            if (contImg == 1)
-                            {
-                                listaImagenes.Add("~/Content/ImagenesPublicaciones/" + Publi.IdPublicacion + "_" + nombreImagen);
-                            }
-                            contImg++;
-                        }
-                        contImg = 1;
+                        mIConexion.ObtenerPublicacionNoEspecial(id, user.IdUsuario, publicacion.IdUsuario);
+                        return RedirectToAction("Index", "Home");
                     }
-                    ViewBag.imagenesPublicacion = listaImagenes;
-                    return View("Index");
+                    else
+                    {
+                        ViewBag.Mensaje = "No contas con puntos suficientes para obtener esta publicacion";
+                        List<Publicacion> ListaPublicaciones = new List<Publicacion>();
+                        ListaPublicaciones = mIConexion.TraerTodxsLxsPublicacionos();
+                        ViewBag.Publicaciones = ListaPublicaciones;
+                        List<string> listaImagenes = new List<string>();
+
+                        int contImg = 1;
+
+                        foreach (Publicacion Publi in ListaPublicaciones)
+                        {
+                            foreach (String nombreImagen in Publi.NombreImagen)
+                            {
+                                if (contImg == 1)
+                                {
+                                    listaImagenes.Add("~/Content/ImagenesPublicaciones/" + nombreImagen);
+                                }
+                                contImg++;
+                            }
+                            contImg = 1;
+                        }
+                        ViewBag.imagenesPublicacion = listaImagenes;
+                        return View("Index");
+                    }
                 }
             }
         }
 
         public ActionResult BusquedaCategorias()
         {
-            return View();
+
+            if (Session["UserNow"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         public JsonResult TraerHijas(string nombrePadre)
@@ -160,6 +195,19 @@ namespace PayItForward.Controllers
             {
                 pub.Add(X);
             }
+
+            int z = 0;
+            do
+            {
+                int IdUser = Convert.ToInt32(Session["IdUsuario"]);
+                if (pub[z].IdUsuario == IdUser)
+                {
+                    pub.Remove(pub[z]);
+                    z--;
+                }
+                z++;
+            } while (pub.Count() > z);
+
             var jsonData = Json(pub, JsonRequestBehavior.AllowGet);
             return jsonData;
         }

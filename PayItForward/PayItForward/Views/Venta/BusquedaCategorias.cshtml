@@ -80,14 +80,15 @@
                         var thtml = '';
                     var obj = JSON.parse(cates);
                     if (obj.length != 0) {
-                        alert(cates);
                         for (var i = 0; i < obj.length; i++) {
                             var cate = obj[i];
-                            thtml += "<div class='row'> <div class='col-lg-4 col-md-6 mb-5'> <div class='product-item'> <figure> <img src='~/Content/ImagenesPublicaciones/" + cate[i].IdPublicacion + "_" + cate[i].NombreImagen[0] + "' alt='Image' class='img-fluid' style='width:100px;height:100px'></figure><div class='px-4'> <h3><a href='#' style='color:white'>" + cate[i].Titulo + "</a></h3> <div class='mb-3'> <span class='meta-icons wishlist' style='color:white'><a href='#' class='mr-2'><span class='icon-heart'></span></a>" + cate[i].Likes + "</span> <span class='meta-icons wishlist' style='color:white'><a href='#' class='mr-2'></a> - $" + cate[i].Valor + "</span> </div> <p class='mb-4' style='color:white'>" + cate[i].Descripcion + "</p><div> <a href='/Comprar?id=" + cate[i].IdPublicacion @*Url.Action("Comprar", "Venta", new { id = publicacion.IdPublicacion })*@+ "' class='btn btn-black mr-1 rounded-0'>Obtener</a> </div></div></div></div>";
+                            thtml += "<div class='row'> <div class='col-lg-4 col-md-6 mb-5'> <div class='product-item'> <figure> <img src='/Content/ImagenesPublicaciones/"  + cate.NombreImagen[0] + "' alt='Image' class='img-fluid' style='width:100px;height:100px'></figure><div class='px-4'> <h3><a href='#' style='color:white'>" + cate.Titulo + "</a></h3> <div class='mb-3'> <span class='meta-icons wishlist' style='color:white'><a href='#' class='mr-2'><span class='icon-heart'></span></a>" + cate.Likes + "</span> <span class='meta-icons wishlist' style='color:white'><a href='#' class='mr-2'></a> - $" + cate.Valor + "</span> </div> <p class='mb-4' style='color:white'>" + cate.Descripcion + "</p><div> <a href='/Venta/Comprar/"+cate.IdPublicacion+"' class='btn btn-black mr-1 rounded-0'>Obtener</a> </div></div></div></div>";
                         }
                         $("#publicaciones").html(thtml);
                     } else {
                         alert("No hay publicaciones de la categoria seleccionada");
+                        thtml = "";
+                        $("#publicaciones").html(thtml);
                     }
                     },
                 error: function () {
