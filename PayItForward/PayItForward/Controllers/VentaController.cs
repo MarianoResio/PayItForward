@@ -132,6 +132,8 @@ namespace PayItForward.Controllers
                     if (user.Puntos >= publicacion.Valor)
                     {
                         mIConexion.ObtenerPublicacionNoEspecial(id, user.IdUsuario, publicacion.IdUsuario);
+                        user = mIConexion.traerUsuarioPorId(user.IdUsuario);
+                        Session["Puntos"] = user.Puntos;
                         return RedirectToAction("Index", "Home");
                     }
                     else
@@ -139,10 +141,21 @@ namespace PayItForward.Controllers
                         ViewBag.Mensaje = "No contas con puntos suficientes para obtener esta publicacion";
                         List<Publicacion> ListaPublicaciones = new List<Publicacion>();
                         ListaPublicaciones = mIConexion.TraerTodxsLxsPublicacionos();
-                        ViewBag.Publicaciones = ListaPublicaciones;
                         List<string> listaImagenes = new List<string>();
 
                         int contImg = 1;
+
+                        int z = 0;
+                        do
+                        {
+                            int IdUser = Convert.ToInt32(Session["IdUsuario"]);
+                            if (ListaPublicaciones[z].IdUsuario == IdUser)
+                            {
+                                ListaPublicaciones.Remove(ListaPublicaciones[z]);
+                                z--;
+                            }
+                            z++;
+                        } while (ListaPublicaciones.Count() > z);
 
                         foreach (Publicacion Publi in ListaPublicaciones)
                         {
@@ -156,6 +169,8 @@ namespace PayItForward.Controllers
                             }
                             contImg = 1;
                         }
+
+                        ViewBag.Publicaciones = ListaPublicaciones;
                         ViewBag.imagenesPublicacion = listaImagenes;
                         return View("Index");
                     }

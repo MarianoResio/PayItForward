@@ -42,7 +42,6 @@
                     <p>Las publicaciones más populares entre los usuarios de Pay it Forward</p>
                 </div>
             </div>
-            @ViewBag.Mensaje
             @{ int cont = 0; }
             @foreach (Publicacion publicacion in ViewBag.Publicaciones)
             {
@@ -72,6 +71,7 @@
             }
         </div>
     </div>
+    <p style="font-size:15">@ViewBag.Mensaje</p>
     <form action="@Url.Action("BusquedaTexto", "Venta")" method="get">
         <input type="text" style="width:150px" name="texto" id="texto" />
         <input type="submit" value="Buscar" name="Buscar" />

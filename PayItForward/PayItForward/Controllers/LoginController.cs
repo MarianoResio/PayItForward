@@ -28,6 +28,7 @@ namespace PayItForward.Controllers
             {
                 Session["UserNow"] = user;
                 Session["IdUsuario"] = user.IdUsuario;
+                Session["Puntos"] = user.Puntos;
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -54,6 +55,7 @@ namespace PayItForward.Controllers
             {
                 Session["UserNow"] = user;
                 Session["IdUsuario"] = user.IdUsuario;
+                Session["Puntos"] = user.Puntos;
                 if (codigo != "")
                 {
                     user.Especial = miConexion.ValidarUsuarioEspecialPorCodigo(codigo);
