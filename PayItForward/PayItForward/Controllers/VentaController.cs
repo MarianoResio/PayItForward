@@ -111,6 +111,26 @@ namespace PayItForward.Controllers
                 } else
                 {
                     ViewBag.Mensaje = "No contas con puntos suficientes para obtener esta publicacion";
+                    List<Publicacion> ListaPublicaciones = new List<Publicacion>();
+                    ListaPublicaciones = mIConexion.TraerTodxsLxsPublicacionos();
+                    ViewBag.Publicaciones = ListaPublicaciones;
+                    List<string> listaImagenes = new List<string>();
+
+                    int contImg = 1;
+
+                    foreach (Publicacion Publi in ListaPublicaciones)
+                    {
+                        foreach (String nombreImagen in Publi.NombreImagen)
+                        {
+                            if (contImg == 1)
+                            {
+                                listaImagenes.Add("~/Content/ImagenesPublicaciones/" + Publi.IdPublicacion + "_" + nombreImagen);
+                            }
+                            contImg++;
+                        }
+                        contImg = 1;
+                    }
+                    ViewBag.imagenesPublicacion = listaImagenes;
                     return View("Index");
                 }
             }
@@ -134,8 +154,13 @@ namespace PayItForward.Controllers
         {
             //funcion llamada por ajax
             //devuelvo un array con objetos (publicaciones) en forma de JSON de la categorias hija seleccionada por el usuario
-            List<Publicacion> cates = mIConexion.TraerPublicacionesBusquedaCategoria(nombrePadre);
-            var jsonData = Json(cates, JsonRequestBehavior.AllowGet);
+            List<Publicacion> pub = mIConexion.TraerPublicacionesBusquedaCategoria(nombrePadre);
+            List<Publicacion> pub2 = mIConexion.TraerPublicacionesPorIdCategoria(mIConexion.traerIDCategoriaPorNombre(nombrePadre));
+            foreach(Publicacion X in pub2)
+            {
+                pub.Add(X);
+            }
+            var jsonData = Json(pub, JsonRequestBehavior.AllowGet);
             return jsonData;
         }
     }

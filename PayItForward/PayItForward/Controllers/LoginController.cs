@@ -47,22 +47,29 @@ namespace PayItForward.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.Error = "error";
+                ViewBag.Error = "Complete todos los campos correctamente";
                 return View("Registro", user);
             }
             else
             {
                 Session["UserNow"] = user;
                 Session["IdUsuario"] = user.IdUsuario;
-                user.Especial = miConexion.ValidarUsuarioEspecialPorCodigo(codigo);
-                if (user.Especial == false)
+                if (codigo != "")
                 {
-                    ViewBag.Mensaje = "El codigo de superusuario es incorrecto";
-                    return View("Registro");
+                    user.Especial = miConexion.ValidarUsuarioEspecialPorCodigo(codigo);
+                    if (user.Especial == false)
+                    {
+                        ViewBag.Mensaje = "El codigo de superusuario es incorrecto";
+                        return View("Registro");
+                    }
+                    else
+                    {
+                        miConexion.borrarCodigoEspecial(codigo);
+                    }
                 }
                 else
                 {
-                    miConexion.borrarCodigoEspecial(codigo);
+                    user.Especial = false;
                 }
                 switch (user.IDimagen)
                 {

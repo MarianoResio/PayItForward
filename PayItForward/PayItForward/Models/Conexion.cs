@@ -166,15 +166,17 @@ namespace PayItForward.Models
 
         public List<Categorias> TraerCategoriasHijasPorNombre(string NombreCategoriaPadre)
         {
-            int id = 0;
+            int id =-5;
             List<Categorias> Lista = new List<Categorias>();
+
+            id = traerIDCategoriaPorNombre(NombreCategoriaPadre);
 
             SqlConnection Conexion = Conectar();
             SqlCommand Comando = Conexion.CreateCommand();
 
             Comando.CommandText = "sp_TraerCategoriasPorNombrePadre";
             Comando.CommandType = System.Data.CommandType.StoredProcedure;
-            Comando.Parameters.AddWithValue("@pNombrePadre", NombreCategoriaPadre);
+            Comando.Parameters.AddWithValue("@pId", id);
             SqlDataReader DataReader = Comando.ExecuteReader();
 
             while (DataReader.Read())
@@ -185,12 +187,12 @@ namespace PayItForward.Models
                 string Imagen_Traida = DataReader["Imagen"].ToString();
 
                 Categorias X = new Categorias(IdCategoria_Traida, IdCategoriaPadre_Traida, Nombre_Traido, Imagen_Traida);
-                id = X.IdCategoria;
+                Lista.Add(X);
             }
 
             Conexion.Close();
 
-            return TraerCategoriasHijas(id);
+            return Lista;
         }
 
 
@@ -554,6 +556,7 @@ namespace PayItForward.Models
                 Publicacion X = new Publicacion(IdPublicacion_Traido, IdCategoria_Traido, IdUsuario_Traido, ImgTraida, Aprobado_Traido, Valor_Traido, Titulo_Traido, Descripcion_Traida, Likes_Traidos, Ubicacion_Traida, Destacada_Traida);
                 publicaciones.Add(X);
             }
+            Conexion.Close();
             return publicaciones;
         }
 
@@ -641,42 +644,61 @@ namespace PayItForward.Models
             return id;
         }
 
+        public List<Publicacion> TraerPublicacionesPorIdCategoria (int id)
+        {
+            List<Publicacion> lista = new List<Publicacion>();
+            Publicacion X = new Publicacion(); 
+
+            SqlConnection Conexion = Conectar();
+            SqlCommand Comando = Conexion.CreateCommand();
+
+            Comando.CommandText = "sp_TraerPublicacionesPorCategoria";
+            Comando.CommandType = System.Data.CommandType.StoredProcedure;
+            Comando.Parameters.AddWithValue("@pId", id);
+            SqlDataReader DataReader = Comando.ExecuteReader();
+
+            while (DataReader.Read())
+            {
+                X.NombreImagen = new List<string>();
+                X.IdPublicacion = Convert.ToInt32(DataReader["IdPublicacion"]);
+                X.IdCategoria = Convert.ToInt32(DataReader["IdCategoria"]);
+                X.IdUsuario = Convert.ToInt32(DataReader["IdUsuario"]);
+                X.NombreImagen.Add(DataReader["Imagen1"].ToString());
+                X.NombreImagen.Add(DataReader["Imagen2"].ToString());
+                X.NombreImagen.Add(DataReader["Imagen3"].ToString());
+                X.Aprobada = Convert.ToBoolean(DataReader["Aprobada"]);
+                X.Valor = Convert.ToInt32(DataReader["Valor"]);
+                X.Titulo = DataReader["Titulo"].ToString();
+                X.Descripcion = DataReader["Descripcion"].ToString();
+                X.Likes = Convert.ToInt32(DataReader["Likes"]);
+                X.Ubicacion = DataReader["Ubicacion"].ToString();
+                X.Destacada = Convert.ToBoolean(DataReader["Destacada"]);
+
+                lista.Add(X);
+            }
+
+            Conexion.Close();
+
+            return lista;
+        }
+
         public List<Publicacion> TraerPublicacionesBusquedaCategoria(string nombrePadre)
         {
             int IdCate = traerIDCategoriaPorNombre(nombrePadre);
             
             List<Publicacion> Lista = new List<Publicacion>();
 
-            SqlConnection Conexion = Conectar();
-            SqlCommand Comando = Conexion.CreateCommand();
+            List<Categorias> catHijas = new List<Categorias>();
+            catHijas = TraerCategoriasHijas(IdCate);
 
-            Comando.CommandText = "sp_TraerPublicacionesBusquedaCategoria";
-            Comando.CommandType = System.Data.CommandType.StoredProcedure;
-            Comando.Parameters.AddWithValue("@pIdCate", IdCate);
-            SqlDataReader DataReader = Comando.ExecuteReader();
-
-            while (DataReader.Read())
+            foreach (Categorias cat in catHijas)
             {
-                int IdPublicacion_Traido = Convert.ToInt32(DataReader["IdPublicacion"]);
-                int IdCategoria_Traido = Convert.ToInt32(DataReader["IdCategoria"]);
-                int IdUsuario_Traido = Convert.ToInt32(DataReader["IdUsuario"]);
-                List<string> ImgTraida = new List<string>();
-                ImgTraida.Add(DataReader["Imagen1"].ToString());
-                ImgTraida.Add(DataReader["Imagen2"].ToString());
-                ImgTraida.Add(DataReader["Imagen3"].ToString());
-                bool Aprobado_Traido = Convert.ToBoolean(DataReader["Aprobada"]);
-                int Valor_Traido = Convert.ToInt32(DataReader["Valor"]);
-                string Titulo_Traido = DataReader["Titulo"].ToString();
-                string Descripcion_Traida = DataReader["Descripcion"].ToString();
-                int Likes_Traidos = Convert.ToInt32(DataReader["Likes"]);
-                string Ubicacion_Traida = DataReader["Ubicacion"].ToString();
-                bool Destacada_Traida = Convert.ToBoolean(DataReader["Destacada"]);
-
-                Publicacion X = new Publicacion(IdPublicacion_Traido, IdCategoria_Traido, IdUsuario_Traido, ImgTraida, Aprobado_Traido, Valor_Traido, Titulo_Traido, Descripcion_Traida, Likes_Traidos, Ubicacion_Traida, Destacada_Traida);
-                Lista.Add(X);
+                List<Publicacion> listaPubHijas = TraerPublicacionesPorIdCategoria(cat.IdCategoria);
+                foreach (Publicacion P in listaPubHijas)
+                {
+                    Lista.Add(P);
+                }
             }
-
-            Conexion.Close();
 
             return Lista;
         }
