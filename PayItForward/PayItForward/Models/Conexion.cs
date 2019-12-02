@@ -459,6 +459,7 @@ namespace PayItForward.Models
                 string Apellido_Traido = DataReader["Apellido"].ToString();
                 string Imagen_Traida = DataReader["Imagen"].ToString();
                 int Puntos_traidos = Convert.ToInt32(DataReader["Puntos"]);
+                bool Especial_traido = Convert.ToBoolean(DataReader["Especial"]);
                 X.IdUsuario = IdUsuario_Traido;
                 X.Nombre = Nombre_Traido;
                 X.Apellido = Apellido_Traido;
@@ -466,6 +467,7 @@ namespace PayItForward.Models
                 X.Mail = mail;
                 X.Imagen = Imagen_Traida;
                 X.Puntos = Puntos_traidos;
+                X.Especial = Especial_traido;
             }
             return X;
         }

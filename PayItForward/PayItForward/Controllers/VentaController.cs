@@ -125,7 +125,7 @@ namespace PayItForward.Controllers
                 if (user.Especial == true)
                 {
                     mIConexion.ObtenerPublicacionEspecial(id, publicacion.IdUsuario);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("FinalizarCompra", publicacion);
                 }
                 else
                 {
@@ -134,7 +134,8 @@ namespace PayItForward.Controllers
                         mIConexion.ObtenerPublicacionNoEspecial(id, user.IdUsuario, publicacion.IdUsuario);
                         user = mIConexion.traerUsuarioPorId(user.IdUsuario);
                         Session["Puntos"] = user.Puntos;
-                        return RedirectToAction("Index", "Home");
+
+                        return RedirectToAction("FinalizarCompra", publicacion);
                     }
                     else
                     {
@@ -175,6 +176,21 @@ namespace PayItForward.Controllers
                         return View("Index");
                     }
                 }
+            }
+        }
+
+        public ActionResult FinalizarCompra(Publicacion publicacion)
+        {
+            if (Session["UserNow"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                Usuarios user = mIConexion.traerUsuarioPorId(publicacion.IdUsuario);
+                ViewBag.Mail = user.Mail;
+                ViewBag.Nombre = user.Nombre;
+                return View();
             }
         }
 

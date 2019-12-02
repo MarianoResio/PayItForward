@@ -111,7 +111,10 @@
                     }
                     else
                     {
-                        <p style="text-decoration:none;margin-right:10px" class="w3-bar-item w3-button button type1">Tiene @Session["Puntos"] creditos</p>
+                        if (Convert.ToBoolean(Session["Tipo"]) == false)
+                        {
+                            <p style="text-decoration:none;margin-right:10px" class="w3-bar-item w3-button button type1">Tiene @Session["Puntos"] creditos</p>
+                        }
                         <a style="text-decoration:none;margin-right:10px" href="@Url.Action("VerPublicaciones", "BMPublicaciones")" class="w3-bar-item w3-button button type1">Ver publicaciones</a>
                         <a style="text-decoration:none;margin-right:10px" href="@Url.Action("Logout", "Login")" class="w3-bar-item w3-button button type1">Cerrar sesión</a>
                     }

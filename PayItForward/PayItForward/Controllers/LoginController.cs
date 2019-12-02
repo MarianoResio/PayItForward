@@ -28,6 +28,7 @@ namespace PayItForward.Controllers
             {
                 Session["UserNow"] = user;
                 Session["IdUsuario"] = user.IdUsuario;
+                Session["Tipo"] = user.Especial;
                 Session["Puntos"] = user.Puntos;
                 return RedirectToAction("Index", "Home");
             }
