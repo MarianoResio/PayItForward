@@ -128,6 +128,10 @@ namespace PayItForward.Controllers
                             listaImagenes.Add("~/Content/ImagenesPublicaciones/" + UltimaPublicacion + "_" + x.FileName);
                         }
                         ViewBag.imagenesPublicacion = listaImagenes;
+
+                        Usuarios user = miConexion.traerUsuarioPorId(Convert.ToInt32(Session["IdUsuario"]));
+                        Session["Puntos"] = user.Puntos;
+
                         return View();
                     }
                 }
