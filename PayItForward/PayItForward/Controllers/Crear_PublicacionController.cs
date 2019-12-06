@@ -98,6 +98,7 @@ namespace PayItForward.Controllers
                 {
                     if (Publi.Imagenes.Length > 3 || Publi.Imagenes[0] == null)
                     {
+                        ViewBag.CategoriaActual = IdCategoria;
                         return RedirectToAction("DescripcionPublicacion", Publi);
                     }
                     else

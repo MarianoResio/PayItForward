@@ -35,7 +35,7 @@
             });
         }
         function Final(cat) {
-            var url = '@Url.Action("DescripcionPublicacion", "Crear_Publicacion", new { IdCategoria = "__id__" })';
+            var url = '@Url.Action("DescripcionPublicacion", "Crear_Publicacion", new { IdCategoria = "__id__",  Publi = ViewBag.Pub })';
             window.location.href = url.replace('__id__', cat);
         }
     </script>
